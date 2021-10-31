@@ -2,11 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { BrowerRouter as Router, Route, Switch  } from 'react-dom-router'
+import { BrowserRouter as Router, Route, Switch  } from 'react-router-dom';
 
 //components
-import LoginBox from './components/Login/Login';
-import NewUser from './components/NewUser/NewUser';
+import LoginBox from './components/LoginBox/LoginBox';
+import NewUserForm from './components/NewUserForm/NewUserForm';
 
 function App() {
   return (
@@ -14,11 +14,13 @@ function App() {
       <Router>
         <Switch>
         <Route path="/new_user">
-          <NewUser />
+          <NewUserForm />
         </Route>
-        <h1>Task Manager</h1>
+        <Route path="/">
+        <h1>Task Manager</h1>  
         <LoginBox />
-        </Switch>
+        </Route>             
+        </Switch>       
       </Router>
     </div>
   );
