@@ -1,12 +1,12 @@
 import React from 'react';
-import  { Link  }  from 'react-router-dom';
-import './login.scss'
+import  { Link }  from 'react-router-dom';
+import './loginBox.scss'
 
 const LoginBox = () => {
     return(
         <div className="loginBox">
             <h2 className="title">Login</h2>
-            <p className="newSignup">New user? <Link to="'/new_user">Sign up here</Link></p>
+            <p className="newSignup">New user? <Link to="/new_user">Sign up here</Link></p>
             <form className="loginForm">
                 <label className="boxElement">Username:</label>
                 <input className=" boxElement" type="text boxElement"></input>
