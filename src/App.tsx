@@ -8,12 +8,15 @@ import { BrowserRouter as Router, Route, Switch  } from 'react-router-dom';
 //components
 import LoginBox from './components/LoginBox/LoginBox';
 import NewUserForm from './components/NewUserForm/NewUserForm';
+import Home from './pages/Home';
+import Tasks from './pages/Tasks'
 
 
 
 function App() {
 
 const [userToken, setToken] = useState<string>('')
+const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
 
 const handleTokens = (token: string) => {
   console.log('setting tokens')
@@ -29,8 +32,14 @@ const handleTokens = (token: string) => {
           <NewUserForm />
         </Route>
         <Route path="/">
-        <h1>Task Manager</h1>  
-        <LoginBox handleTokens={handleTokens}/>
+          <Home handleTokens={handleTokens} />
+        </Route>
+        <Route path="/tasks">
+          {isLoggedIn ?(
+            <Tasks />
+          ) : (
+
+          )}
         </Route>             
         </Switch>       
       </Router>
