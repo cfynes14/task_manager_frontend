@@ -1,12 +1,11 @@
 import React from 'react';
 
 export interface TaskParams {
-    title: string;
     description: string;
-    completed: boolean
+    completed?: boolean
 }
 
-const Task = ({title, description, completed} : TaskParams): JSX.Element => {
+const Task = ({ description, completed } : TaskParams): JSX.Element => {
     return(
         <div>
             <h3>Title</h3>
@@ -15,3 +14,5 @@ const Task = ({title, description, completed} : TaskParams): JSX.Element => {
         </div>
     )
 }
+
+export default Task

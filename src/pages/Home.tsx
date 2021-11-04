@@ -2,7 +2,11 @@ import React from 'react';
 
 import LoginBox from '../components/LoginBox/LoginBox'
 
-const Home = () => {
+interface HomeProps {
+    handleTokens: (token: string) => void;
+}
+
+const Home = ({ handleTokens }: HomeProps ) => {
     return(
         <div>
             <h1>Task Manager</h1>  

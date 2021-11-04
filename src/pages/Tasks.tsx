@@ -3,17 +3,24 @@ import React from 'react';
 import Task from '../components/Task/Task'
 import { TaskParams } from '../components/Task/Task'
 
+interface TasksProps {
+    tasks: any
+}
 
-
-const Tasks = (tasks: TaskParams[]) => {
+const Tasks = ({tasks}: any) => {
     return(
-        tasks.map((task) => (
-            <Task 
-            name={task.title}
-            description={task.description}
-            completed={task.completed}
-            />
-        )
+        <div>
+            {
+
+                tasks.map((task: any) => (
+                    <Task 
+                    description={task.description}
+                    completed={task.completed}
+                    />
+                ))
+            }
+        </div>
+        
 
     )
 }
