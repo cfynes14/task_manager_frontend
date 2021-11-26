@@ -29,28 +29,24 @@ const data: TaskParams[] = [
   },
 ];
 
+const setToken = (userToken: string) => {};
+
+const getToken = () => {};
+
 const App = () => {
-  const [userToken, setToken] = useState<string>("");
+  // const [userToken, setToken] = useState<string>("");
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Array<TaskParams>>([]);
 
-  const Greeting = () => {
-    console.log("greeing");
-    if (isLoggedIn) {
-      console.log("returning tasks");
-      return <Dashboard tasks={tasks} />;
-    } else {
-      return <NoLogin />;
-    }
-  };
+  const token = getToken;
 
-  const handleTokens = (token: string) => {
+  const handleTokens = () => {
     console.log("setting tokens");
     console.log(token);
-    setToken(token);
+    // setToken(token);
     console.log(isLoggedIn);
     setLoggedIn(true);
-    Greeting();
+    sessionStorage.setItem("token", JSON.stringify(token));
   };
 
   useEffect(() => {
@@ -66,13 +62,11 @@ const App = () => {
             <NewUserForm />
           </Route>
           <Route path="/">
-            <Home handleTokens={handleTokens} />
+            <Home handleTokens={handleTokens} token={token} tasks={tasks} />
           </Route>
           <Route path="/dashboard">
             <h1>GREEETINGS!!!</h1>
             <Dashboard />
-            {/* <Greeting />
-            {Greeting} */}
           </Route>
         </Switch>
       </Router>

@@ -6,7 +6,7 @@ import "./loginBox.scss";
 import { setTokenSourceMapRange } from "typescript";
 
 interface LoginParams {
-  userName: string;
+  email: string;
   password: string;
 }
 
@@ -29,46 +29,52 @@ interface LoginInterface {
 async function loginUser(credentials: LoginParams) {
   console.log("handling login");
 
-  var data = JSON.stringify({
-    credentials,
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    email: credentials.email,
+    password: credentials.password,
   });
 
-  var config: any = {
-    method: "post",
-    url: "https://fynes-task-manager.herokuapp.com/users/login",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: data,
+  var requestOptions: any = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
   };
 
-  console.log(config);
-  try {
-    return axios(config);
-  } catch (e) {
-    console.log("error");
-    console.log(e);
-  }
+  const response = await fetch(
+    "https://fynes-task-manager.herokuapp.com/users/login",
+    requestOptions
+  );
 
-  // console.log(JSON.stringify(response.data));
-  // handleTokens(response.data.token);
-  // props.history.push("/tasks");
+  return response;
 }
 
 const LoginBox = (props: LoginInterface) => {
   const { handleTokens } = props;
 
-  const [userName, setUserName] = useState<string>("");
+  const [email, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const response: any = await loginUser({
-      userName,
+      email,
       password,
     });
-    handleTokens(response.data.token);
+    console.log(response);
+
+    if (response.status === 200) {
+      const json = await response.json();
+      handleTokens(json.token);
+      console.log(json);
+      console.log("logged in");
+    } else {
+      console.log("no login");
+    }
   };
 
   return (
