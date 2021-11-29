@@ -34,19 +34,18 @@ const setToken = (userToken: string) => {};
 const getToken = () => {};
 
 const App = () => {
-  // const [userToken, setToken] = useState<string>("");
+  const [userToken, setToken] = useState<string>("");
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Array<TaskParams>>([]);
 
-  const token = getToken;
+  // const token = getToken;
 
-  const handleTokens = () => {
+  const handleTokens = (token: string) => {
     console.log("setting tokens");
     console.log(token);
-    // setToken(token);
-    console.log(isLoggedIn);
     setLoggedIn(true);
-    sessionStorage.setItem("token", JSON.stringify(token));
+    setToken(token);
+    window.sessionStorage.setItem("token", JSON.stringify(token));
   };
 
   useEffect(() => {
@@ -62,11 +61,7 @@ const App = () => {
             <NewUserForm />
           </Route>
           <Route path="/">
-            <Home handleTokens={handleTokens} token={token} tasks={tasks} />
-          </Route>
-          <Route path="/dashboard">
-            <h1>GREEETINGS!!!</h1>
-            <Dashboard />
+            <Home token={userToken} handleTokens={handleTokens} tasks={tasks} />
           </Route>
         </Switch>
       </Router>

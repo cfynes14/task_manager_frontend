@@ -1,6 +1,7 @@
-const logoutAll = async (token: string) => {
+const logoutAll = async (token: string | null) => {
   var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${token}`);
+  console.log(sessionStorage.getItem("token"));
+  myHeaders.append("Authorization", `Bearer ${token?.slice(1, -1)}`);
 
   var raw = "";
 
@@ -12,10 +13,12 @@ const logoutAll = async (token: string) => {
   };
 
   const res = await fetch(
-    "https://fynes-task-manager.herokuapp.com/users",
+    "https://fynes-task-manager.herokuapp.com/users/logoutAll",
     requestOptions
-  );
-
+  )
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log(error));
   return res;
 };
 

@@ -7,7 +7,7 @@ import { TaskParams } from "../components/Task/Task";
 
 interface HomeProps {
   handleTokens: (token: string) => void;
-  token: () => void;
+  token: string;
   tasks: TaskParams[];
 }
 
