@@ -7,11 +7,12 @@ import { TaskParams } from "../components/Task/Task";
 
 interface HomeProps {
   handleTokens: (token: string) => void;
+  setToken: any;
   token: string;
   tasks: TaskParams[];
 }
 
-const Home = ({ handleTokens, token, tasks }: HomeProps) => {
+const Home = ({ setToken, handleTokens, token, tasks }: HomeProps) => {
   if (!token) {
     console.log("no token");
     return (
@@ -23,7 +24,7 @@ const Home = ({ handleTokens, token, tasks }: HomeProps) => {
   } else {
     return (
       <div>
-        <Dashboard tasks={tasks} token={token} />
+        <Dashboard setToken={setToken} tasks={tasks} token={token} />
       </div>
     );
   }

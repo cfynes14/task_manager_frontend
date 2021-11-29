@@ -29,9 +29,9 @@ const data: TaskParams[] = [
   },
 ];
 
-const setToken = (userToken: string) => {};
+// const setToken = (userToken: string) => {};
 
-const getToken = () => {};
+// const getToken = () => {};
 
 const App = () => {
   const [userToken, setToken] = useState<string>("");
@@ -61,7 +61,12 @@ const App = () => {
             <NewUserForm />
           </Route>
           <Route path="/">
-            <Home token={userToken} handleTokens={handleTokens} tasks={tasks} />
+            <Home
+              setToken={setToken}
+              token={userToken}
+              handleTokens={handleTokens}
+              tasks={tasks}
+            />
           </Route>
         </Switch>
       </Router>

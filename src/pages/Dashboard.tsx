@@ -9,13 +9,13 @@ interface TasksProps {
   tasks: any;
 }
 
-const handleLogout = (token: string): any => {
+const handleLogout = (): any => {
   console.log("handlingLogout");
   console.log(sessionStorage.getItem("token"));
   logoutAll(sessionStorage.getItem("token"));
 };
 
-const Dashboard = ({ tasks, token }: any) => {
+const Dashboard = ({ setToken, tasks, token }: any) => {
   return (
     <div>
       <h2>Dashboard</h2>
@@ -24,7 +24,8 @@ const Dashboard = ({ tasks, token }: any) => {
       ))}
       <button
         onClick={() => {
-          handleLogout(token);
+          handleLogout();
+          setToken("");
         }}
       >
         Logout
