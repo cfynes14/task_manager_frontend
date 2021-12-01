@@ -71,7 +71,7 @@ const Dashboard = ({ setToken, tasks, token }: any) => {
         Logout
       </button>
       <Modal isOpen={isNewTaskModalOpen}>
-        <NewTaskModal closeAddModal={closeNewTaskModal} />
+        <NewTaskModal closeNewTaskModal={closeNewTaskModal} />
       </Modal>
       <Modal isOpen={isEditModalOpen}></Modal>
       <Modal isOpen={isDeleteModalOpen}></Modal>

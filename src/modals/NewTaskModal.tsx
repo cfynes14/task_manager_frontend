@@ -1,4 +1,4 @@
-const NewTaskModal = (closeAddModal: any) => {
+const NewTaskModal = ({ closeNewTaskModal }: any) => {
   return (
     <div>
       <h1>Create New Task</h1>
@@ -13,7 +13,7 @@ const NewTaskModal = (closeAddModal: any) => {
         <button type="submit">Create</button>
       </form>
       <button>Create</button>
-      <button onClick={closeAddModal}>Close</button>
+      <button onClick={closeNewTaskModal}>Close</button>
     </div>
   );
 };
