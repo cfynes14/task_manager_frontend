@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./loginBox.scss";
-import { setTokenSourceMapRange } from "typescript";
+import { isJSDocNamepathType, setTokenSourceMapRange } from "typescript";
 
 interface LoginParams {
   email: string;
@@ -69,6 +69,8 @@ const LoginBox = (props: LoginInterface) => {
 
     if (response.status === 200) {
       const json = await response.json();
+      console.log(json.user._id);
+      window.sessionStorage.setItem("_id", json.user._id);
       handleTokens(json.token);
       console.log(json);
       console.log("logged in");
