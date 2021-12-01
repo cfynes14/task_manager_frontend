@@ -3,7 +3,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-interface User {
+import createNewUser from "../../utils/api/createNewUser";
+
+export interface UserInterface {
   name: String;
   age?: Number;
   email: String;
@@ -18,34 +20,15 @@ const NewUserForm = () => {
 
   const handleClick = async () => {
     console.log("handling");
-    const userInfo: User = {
+
+    const userInfo: UserInterface = {
       name: newUserName,
       age: newUserAge,
       email: newUserEmail,
       password: newUserPassword,
     };
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      name: userInfo.name,
-      age: userInfo.age,
-      email: userInfo.email,
-      password: userInfo.password,
-    });
-
-    var requestOptions: any = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("https://fynes-task-manager.herokuapp.com/users", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+    createNewUser(userInfo);
   };
   return (
     <div className="loginBox">
