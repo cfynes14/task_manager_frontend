@@ -16,7 +16,7 @@ const createTask = (taskParams: TaskParams) => {
     completed: completed,
   });
 
-  var requestOptions = {
+  var requestOptions: any = {
     method: "POST",
     headers: myHeaders,
     body: raw,
