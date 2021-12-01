@@ -17,7 +17,6 @@ const NewUserForm = () => {
   const [newUserPassword, setNewUserPassword] = useState<string>("");
 
   const handleClick = async () => {
-    // e.preventDefault()
     console.log("handling");
     const userInfo: User = {
       name: newUserName,
