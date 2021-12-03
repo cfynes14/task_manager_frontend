@@ -11,7 +11,6 @@ const createTask = (taskParams: TaskParams) => {
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    _id: window.sessionStorage.getItem("_id"),
     description: description,
     completed: completed,
   });
