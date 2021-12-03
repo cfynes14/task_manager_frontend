@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+import getTasks from "../utils/api/getTasks";
 import createTask from "../../src/utils/api/createTask";
 
-const NewTaskModal = ({ closeNewTaskModal }: any) => {
+import { TaskParams } from "../components/Task/Task";
+
+interface NewTaskModalProps {
+  closeNewTaskModal: React.MouseEventHandler<HTMLButtonElement>;
+  setTasks: any;
+}
+
+const NewTaskModal = ({ closeNewTaskModal, setTasks }: NewTaskModalProps) => {
   const [description, setDescription] = useState<string>("");
   const [complete, setComplete] = useState<boolean>(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const taskParams = {
       description,
       complete,
     };
     createTask(taskParams);
+    const allTasks = await getTasks();
+    console.log(allTasks);
+    setTasks(allTasks);
+    console.log("set tasks");
   };
 
   return (

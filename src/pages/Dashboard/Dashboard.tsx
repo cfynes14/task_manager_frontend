@@ -3,19 +3,17 @@ import { useState } from "react";
 import Modal from "react-modal";
 import { ModifierFlags } from "typescript";
 
-import Task from "../components/Task/Task";
-import { TaskParams } from "../components/Task/Task";
+import Task from "../../components/Task/Task";
+import { TaskParams } from "../../components/Task/Task";
 
-import NewTaskModal from "../modals/NewTaskModal";
-import EditTaskModal from "../modals/EditTaskModal";
-import DeleteTaskModal from "../modals/DeleteTaskModal";
+import NewTaskModal from "../../modals/NewTaskModal";
+import EditTaskModal from "../../modals/EditTaskModal";
+import DeleteTaskModal from "../../modals/DeleteTaskModal";
 
-import logoutAll from "../utils/api/logoutAll";
-import getTasks from "../utils/api/getTasks";
+import logoutAll from "../../utils/api/logoutAll";
+import getTasks from "../../utils/api/getTasks";
 
-interface TasksProps {
-  tasks: any;
-}
+import "./dashboard.scss";
 
 const handleLogout = (): any => {
   console.log("handlingLogout");
@@ -23,7 +21,12 @@ const handleLogout = (): any => {
   logoutAll(sessionStorage.getItem("token"));
 };
 
-const Dashboard = ({ setToken, token }: any) => {
+const getAllTasks = async () => {
+  const res = await getTasks();
+  return res;
+};
+
+const Dashboard = () => {
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
@@ -41,7 +44,12 @@ const Dashboard = ({ setToken, token }: any) => {
     console.log("using effect");
     console.log(tasks);
     handleLogin();
-  }, []);
+  }, tasks);
+
+  // useEffect(() => {
+  //   const tasks = getAllTasks;
+  //   setTasks(tasks);
+  // });
 
   const openNewTaskModal = () => {
     setNewTaskModalOpen(true);
@@ -71,13 +79,12 @@ const Dashboard = ({ setToken, token }: any) => {
     <div>
       <h2>Dashboard</h2>
       <button onClick={openNewTaskModal}>New Task</button>
-      {tasks.map((task: any) => (
-        <div>
+      <div className="wrapper">
+        {tasks.map((task: any) => (
           <Task description={task.description} completed={task.completed} />
-          <button>Edit</button>
-          <button>Delete</button>
-        </div>
-      ))}
+        ))}
+      </div>
+
       <button
         onClick={() => {
           handleLogout();
@@ -86,7 +93,10 @@ const Dashboard = ({ setToken, token }: any) => {
         Logout
       </button>
       <Modal isOpen={isNewTaskModalOpen}>
-        <NewTaskModal closeNewTaskModal={closeNewTaskModal} />
+        <NewTaskModal
+          closeNewTaskModal={closeNewTaskModal}
+          setTasks={setTasks}
+        />
       </Modal>
       <Modal isOpen={isEditModalOpen}></Modal>
       <Modal isOpen={isDeleteModalOpen}></Modal>

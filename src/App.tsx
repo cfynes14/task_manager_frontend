@@ -8,11 +8,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //components
 import LoginBox from "./components/LoginBox/LoginBox";
 import NewUserForm from "./components/NewUserForm/NewUserForm";
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home/Home";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import NoLogin from "./pages/NoLogin";
-
-import { TaskParams } from "./components/Task/Task";
 
 const App = () => {
   const handleTokens = (token: string) => {

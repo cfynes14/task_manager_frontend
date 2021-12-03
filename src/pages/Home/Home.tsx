@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
-import LoginBox from "../components/LoginBox/LoginBox";
-import Dashboard from "../pages/Dashboard";
+import LoginBox from "../../components/LoginBox/LoginBox";
+import Dashboard from "../Dashboard/Dashboard";
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
