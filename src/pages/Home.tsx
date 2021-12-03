@@ -5,26 +5,20 @@ import Dashboard from "../pages/Dashboard";
 
 import { TaskParams } from "../components/Task/Task";
 
-interface HomeProps {
-  handleTokens: (token: string) => void;
-  setToken: any;
-  token: string;
-  tasks: TaskParams[];
-}
-
-const Home = ({ setToken, handleTokens, token, tasks }: HomeProps) => {
+const Home = () => {
+  const token = window.sessionStorage.getItem("token");
   if (!token) {
     console.log("no token");
     return (
       <div>
         <h1>Task Manager</h1>
-        <LoginBox handleTokens={handleTokens} />
+        <LoginBox />
       </div>
     );
   } else {
     return (
       <div>
-        <Dashboard setToken={setToken} tasks={tasks} token={token} />
+        <Dashboard />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
 import { ModifierFlags } from "typescript";
@@ -11,6 +11,7 @@ import EditTaskModal from "../modals/EditTaskModal";
 import DeleteTaskModal from "../modals/DeleteTaskModal";
 
 import logoutAll from "../utils/api/logoutAll";
+import getTasks from "../utils/api/getTasks";
 
 interface TasksProps {
   tasks: any;
@@ -22,10 +23,25 @@ const handleLogout = (): any => {
   logoutAll(sessionStorage.getItem("token"));
 };
 
-const Dashboard = ({ setToken, tasks, token }: any) => {
+const Dashboard = ({ setToken, token }: any) => {
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [tasks, setTasks] = useState<any>([]);
+
+  const handleLogin = async () => {
+    console.log("handling login");
+    const currentTasks = await getTasks();
+    console.log("got tasks");
+    console.log(currentTasks);
+    setTasks(currentTasks);
+  };
+
+  useEffect(() => {
+    console.log("using effect");
+    console.log(tasks);
+    handleLogin();
+  }, []);
 
   const openNewTaskModal = () => {
     setNewTaskModalOpen(true);

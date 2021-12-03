@@ -10,22 +10,6 @@ interface LoginParams {
   password: string;
 }
 
-interface LoginInterface {
-  handleTokens: (token: string) => void;
-  // history: string[];
-}
-
-// async function loginUser(credentials: LoginParams) {
-//   console.log(credentials);
-//   return fetch("https://fynes-task-manager.herokuapp.com/users/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(credentials),
-//   }).then((data) => data.json());
-// }
-
 async function loginUser(credentials: LoginParams) {
   console.log("handling login");
 
@@ -52,9 +36,7 @@ async function loginUser(credentials: LoginParams) {
   return response;
 }
 
-const LoginBox = (props: LoginInterface) => {
-  const { handleTokens } = props;
-
+const LoginBox = () => {
   const [email, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -69,10 +51,7 @@ const LoginBox = (props: LoginInterface) => {
 
     if (response.status === 200) {
       const json = await response.json();
-      console.log(json.user._id);
       window.sessionStorage.setItem("_id", json.user._id);
-      handleTokens(json.token);
-      console.log(json);
       console.log("logged in");
     } else {
       console.log("no login");
