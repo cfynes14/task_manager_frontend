@@ -3,13 +3,9 @@ const getTasks = async () => {
   var myHeaders = new Headers();
   myHeaders.append(
     "Authorization",
-    `Bearer ${window.sessionStorage.getItem("token")?.slice(1, -1)}`
+    `Bearer ${window.sessionStorage.getItem("token")}`
   );
   myHeaders.append("Content-Type", "application/json");
-
-  //   var raw = JSON.stringify({
-  //     user: window.sessionStorage.getItem("user"),
-  //   });
 
   var requestOptions: any = {
     method: "GET",

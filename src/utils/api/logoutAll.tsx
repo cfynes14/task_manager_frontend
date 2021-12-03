@@ -1,7 +1,7 @@
 const logoutAll = async (token: string | null) => {
   var myHeaders = new Headers();
   console.log(sessionStorage.getItem("token"));
-  myHeaders.append("Authorization", `Bearer ${token?.slice(1, -1)}`);
+  myHeaders.append("Authorization", `Bearer ${token}`);
 
   var raw = "";
 
