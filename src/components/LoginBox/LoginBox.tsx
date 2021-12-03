@@ -3,59 +3,29 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./loginBox.scss";
-import { isJSDocNamepathType, setTokenSourceMapRange } from "typescript";
 
-interface LoginParams {
-  email: string;
-  password: string;
+import loginUser from "../../utils/api/loginUser";
+
+interface LoginInterface {
+  setIsLoggedIn: (arg: boolean) => void;
 }
 
-async function loginUser(credentials: LoginParams) {
-  console.log("handling login");
+const LoginBox = (props: LoginInterface) => {
+  const { setIsLoggedIn } = props;
 
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({
-    email: credentials.email,
-    password: credentials.password,
-  });
-
-  var requestOptions: any = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
-
-  const response = await fetch(
-    "https://fynes-task-manager.herokuapp.com/users/login",
-    requestOptions
-  );
-
-  return response;
-}
-
-const LoginBox = () => {
   const [email, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const response: any = await loginUser({
       email,
       password,
     });
-    console.log(response);
-
     if (response.status === 200) {
-      const json = await response.json();
-      window.sessionStorage.setItem("_id", json.user._id);
-      console.log("logged in");
-    } else {
-      console.log("no login");
+      setIsLoggedIn(true);
     }
+    console.log(response);
   };
 
   return (

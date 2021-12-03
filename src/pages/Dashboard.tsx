@@ -81,7 +81,6 @@ const Dashboard = ({ setToken, token }: any) => {
       <button
         onClick={() => {
           handleLogout();
-          setToken("");
         }}
       >
         Logout
