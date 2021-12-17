@@ -69,12 +69,11 @@ const Dashboard = () => {
   };
 
   const openDeleteModal = () => {
-    console.log("trying to open delete modal...");
     setDeleteModalOpen(true);
   };
 
   const closeDeleteModal = () => {
-    setNewTaskModalOpen(false);
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -113,6 +112,7 @@ const Dashboard = () => {
         <DeleteTaskModal
           taskDescription={currentTask.description}
           taskId={currentTask._id}
+          closeDeleteModal={closeDeleteModal}
         />
       </Modal>
     </div>
