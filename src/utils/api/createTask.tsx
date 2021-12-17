@@ -1,6 +1,11 @@
 import { TaskParams } from "../../components/Task/Task";
 
-const createTask = (taskParams: TaskParams) => {
+interface NewTaskParams {
+  description: string;
+  completed: boolean;
+}
+
+const createTask = (taskParams: NewTaskParams) => {
   const { description, completed } = taskParams;
 
   var myHeaders = new Headers();

@@ -12,12 +12,12 @@ interface NewTaskModalProps {
 
 const NewTaskModal = ({ closeNewTaskModal, setTasks }: NewTaskModalProps) => {
   const [description, setDescription] = useState<string>("");
-  const [complete, setComplete] = useState<boolean>(false);
+  const [completed, setComplete] = useState<boolean>(false);
 
   const handleClick = async () => {
     const taskParams = {
       description,
-      complete,
+      completed,
     };
     createTask(taskParams);
     const allTasks = await getTasks();

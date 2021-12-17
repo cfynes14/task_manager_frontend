@@ -31,6 +31,7 @@ const Dashboard = () => {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<any>([]);
+  const [taskId, setTaskId] = useState<string>("");
 
   const handleLogin = async () => {
     console.log("handling login");
@@ -68,7 +69,7 @@ const Dashboard = () => {
   };
 
   const openDeleteModal = () => {
-    setNewTaskModalOpen(true);
+    setDeleteModalOpen(true);
   };
 
   const closeDeleteModal = () => {
@@ -81,7 +82,11 @@ const Dashboard = () => {
       <button onClick={openNewTaskModal}>New Task</button>
       <div className="wrapper">
         {tasks.map((task: any) => (
-          <Task description={task.description} completed={task.completed} />
+          <Task
+            description={task.description}
+            completed={task.completed}
+            openDeleteModal={openDeleteModal}
+          />
         ))}
       </div>
 
@@ -99,7 +104,9 @@ const Dashboard = () => {
         />
       </Modal>
       <Modal isOpen={isEditModalOpen}></Modal>
-      <Modal isOpen={isDeleteModalOpen}></Modal>
+      <Modal isOpen={isDeleteModalOpen}>
+        <DeleteTaskModal taskId="" />
+      </Modal>
     </div>
   );
 };
