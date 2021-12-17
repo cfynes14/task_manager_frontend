@@ -31,6 +31,7 @@ const Dashboard = () => {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<any>([]);
+  const [currentTask, setCurrentTask] = useState<any>("");
 
   const handleLogin = async () => {
     console.log("handling login");
@@ -68,6 +69,7 @@ const Dashboard = () => {
   };
 
   const openDeleteModal = () => {
+    console.log("trying to open delete modal...");
     setDeleteModalOpen(true);
   };
 
@@ -82,10 +84,13 @@ const Dashboard = () => {
       <div className="wrapper">
         {tasks.map((task: any) => (
           <Task
+            key={task._id}
             id={task._id}
             description={task.description}
             completed={task.completed}
             openDeleteModal={openDeleteModal}
+            openEditModal={openEditModal}
+            setCurrentTask={setCurrentTask}
           />
         ))}
       </div>
@@ -105,10 +110,15 @@ const Dashboard = () => {
       </Modal>
       <Modal isOpen={isEditModalOpen}></Modal>
       <Modal isOpen={isDeleteModalOpen}>
-        <DeleteTaskModal taskId="" />
+        <DeleteTaskModal
+          taskDescription={currentTask.description}
+          taskId={currentTask._id}
+        />
       </Modal>
     </div>
   );
 };
+
+//taskId={currentTaskId}
 
 export default Dashboard;
