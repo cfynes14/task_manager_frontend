@@ -31,7 +31,6 @@ const Dashboard = () => {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<any>([]);
-  const [taskId, setTaskId] = useState<string>("");
 
   const handleLogin = async () => {
     console.log("handling login");
@@ -45,7 +44,7 @@ const Dashboard = () => {
     console.log("using effect");
     console.log(tasks);
     handleLogin();
-  }, tasks);
+  }, []);
 
   // useEffect(() => {
   //   const tasks = getAllTasks;
@@ -83,6 +82,7 @@ const Dashboard = () => {
       <div className="wrapper">
         {tasks.map((task: any) => (
           <Task
+            id={task._id}
             description={task.description}
             completed={task.completed}
             openDeleteModal={openDeleteModal}

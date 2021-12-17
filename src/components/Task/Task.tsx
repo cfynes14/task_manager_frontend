@@ -2,6 +2,7 @@ import React from "react";
 import "./task.scss";
 
 export interface TaskParams {
+  id: string;
   description: string;
   completed?: boolean;
   openDeleteModal: () => void;
