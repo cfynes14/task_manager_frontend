@@ -5,7 +5,7 @@ interface NewTaskParams {
   completed: boolean;
 }
 
-const createTask = (taskParams: NewTaskParams) => {
+const createTask = async (taskParams: NewTaskParams) => {
   const { description, completed } = taskParams;
 
   var myHeaders = new Headers();
@@ -27,10 +27,12 @@ const createTask = (taskParams: NewTaskParams) => {
     redirect: "follow",
   };
 
-  fetch("https://fynes-task-manager.herokuapp.com/tasks", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  const res = await fetch(
+    "https://fynes-task-manager.herokuapp.com/tasks",
+    requestOptions
+  );
+
+  return res;
 };
 
 export default createTask;

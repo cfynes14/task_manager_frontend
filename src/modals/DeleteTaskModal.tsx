@@ -4,13 +4,24 @@ interface DeleteModalInterface {
   taskDescription: string;
   taskId: string;
   closeDeleteModal: () => void;
+  setTasks: any;
 }
 
 const DeleteTaskModal = (props: DeleteModalInterface) => {
-  const { taskId, taskDescription, closeDeleteModal } = props;
+  const { taskId, taskDescription, closeDeleteModal, setTasks } = props;
 
-  const handleDelete = () => {
-    deleteTask(taskId, window.sessionStorage.getItem("token"));
+  const handleDelete = async () => {
+    const res = await deleteTask(
+      taskId,
+      window.sessionStorage.getItem("token")
+    );
+
+    if (res && res.status === 200) {
+      closeDeleteModal();
+      setTasks();
+    }
+
+    console.log(res);
   };
 
   return (

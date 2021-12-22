@@ -34,9 +34,7 @@ const Dashboard = () => {
   const [currentTask, setCurrentTask] = useState<any>("");
 
   const handleLogin = async () => {
-    console.log("handling login");
     const currentTasks = await getTasks();
-    console.log("got tasks");
     console.log(currentTasks);
     setTasks(currentTasks);
   };
@@ -45,6 +43,7 @@ const Dashboard = () => {
     console.log("using effect");
     console.log(tasks);
     handleLogin();
+    setTasks;
   }, []);
 
   // useEffect(() => {
@@ -57,6 +56,7 @@ const Dashboard = () => {
   };
 
   const closeNewTaskModal = () => {
+    console.log("trying to close task modal...");
     setNewTaskModalOpen(false);
   };
 
@@ -113,6 +113,7 @@ const Dashboard = () => {
           taskDescription={currentTask.description}
           taskId={currentTask._id}
           closeDeleteModal={closeDeleteModal}
+          setTasks={setTasks}
         />
       </Modal>
     </div>
