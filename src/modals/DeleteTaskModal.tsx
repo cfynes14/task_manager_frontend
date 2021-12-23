@@ -4,11 +4,12 @@ interface DeleteModalInterface {
   taskDescription: string;
   taskId: string;
   closeDeleteModal: () => void;
-  setTasks: any;
+  handleTasksChange: any;
 }
 
 const DeleteTaskModal = (props: DeleteModalInterface) => {
-  const { taskId, taskDescription, closeDeleteModal, setTasks } = props;
+  const { taskId, taskDescription, closeDeleteModal, handleTasksChange } =
+    props;
 
   const handleDelete = async () => {
     const res = await deleteTask(
@@ -17,8 +18,8 @@ const DeleteTaskModal = (props: DeleteModalInterface) => {
     );
 
     if (res && res.status === 200) {
+      handleTasksChange();
       closeDeleteModal();
-      setTasks();
     }
 
     console.log(res);

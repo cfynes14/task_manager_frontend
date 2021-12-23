@@ -7,12 +7,15 @@ import { TaskParams } from "../components/Task/Task";
 
 interface NewTaskModalProps {
   closeNewTaskModal: any;
-  setTasks: any;
+  handleTasksChange: any;
 }
 
 //React.MouseEventHandler<HTMLButtonElement>
 
-const NewTaskModal = ({ closeNewTaskModal, setTasks }: NewTaskModalProps) => {
+const NewTaskModal = ({
+  closeNewTaskModal,
+  handleTasksChange,
+}: NewTaskModalProps) => {
   const [description, setDescription] = useState<string>("");
   const [completed, setComplete] = useState<boolean>(false);
 
@@ -23,11 +26,9 @@ const NewTaskModal = ({ closeNewTaskModal, setTasks }: NewTaskModalProps) => {
     };
     const res = await createTask(taskParams);
     if (res.status === 201) {
+      handleTasksChange();
       closeNewTaskModal();
-      console.log("created!");
     }
-    // const allTasks = await getTasks();
-    // setTasks(allTasks);
   };
 
   return (

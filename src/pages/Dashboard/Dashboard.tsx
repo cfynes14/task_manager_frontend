@@ -21,10 +21,11 @@ const handleLogout = (): any => {
   logoutAll(sessionStorage.getItem("token"));
 };
 
-const getAllTasks = async () => {
-  const res = await getTasks();
-  return res;
-};
+// const getAllTasks = async () => {
+//   console.log("getting all tasks");
+//   const res = await getTasks();
+//   return res;
+// };
 
 const Dashboard = () => {
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
@@ -39,24 +40,25 @@ const Dashboard = () => {
     setTasks(currentTasks);
   };
 
+  const handleTasksChange = async () => {
+    const currentTasks = await getTasks();
+    console.log(currentTasks);
+    setTasks(currentTasks);
+  };
+
   useEffect(() => {
     console.log("using effect");
-    console.log(tasks);
+    // console.log(tasks);
+    // getAllTasks;
     handleLogin();
     setTasks;
   }, []);
-
-  // useEffect(() => {
-  //   const tasks = getAllTasks;
-  //   setTasks(tasks);
-  // });
 
   const openNewTaskModal = () => {
     setNewTaskModalOpen(true);
   };
 
   const closeNewTaskModal = () => {
-    console.log("trying to close task modal...");
     setNewTaskModalOpen(false);
   };
 
@@ -104,7 +106,7 @@ const Dashboard = () => {
       <Modal isOpen={isNewTaskModalOpen}>
         <NewTaskModal
           closeNewTaskModal={closeNewTaskModal}
-          setTasks={setTasks}
+          handleTasksChange={handleTasksChange}
         />
       </Modal>
       <Modal isOpen={isEditModalOpen}></Modal>
@@ -113,7 +115,7 @@ const Dashboard = () => {
           taskDescription={currentTask.description}
           taskId={currentTask._id}
           closeDeleteModal={closeDeleteModal}
-          setTasks={setTasks}
+          handleTasksChange={handleTasksChange}
         />
       </Modal>
     </div>
