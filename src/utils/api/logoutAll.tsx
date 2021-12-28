@@ -12,14 +12,14 @@ const logoutAll = async (token: string | null) => {
     redirect: "follow",
   };
 
-  const res = await fetch(
-    "https://fynes-task-manager.herokuapp.com/users/logoutAll",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log(error));
-  return res;
+  try {
+    return await fetch(
+      "https://fynes-task-manager.herokuapp.com/users/logoutAll",
+      requestOptions
+    );
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default logoutAll;

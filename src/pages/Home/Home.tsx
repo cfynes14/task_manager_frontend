@@ -20,7 +20,7 @@ const Home = () => {
     console.log("logged in");
     return (
       <div>
-        <Dashboard />
+        <Dashboard setIsLoggedIn={setIsLoggedIn} />
       </div>
     );
   }

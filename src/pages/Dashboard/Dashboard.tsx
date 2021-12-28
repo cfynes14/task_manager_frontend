@@ -9,17 +9,12 @@ import { TaskParams } from "../../components/Task/Task";
 import NewTaskModal from "../../modals/NewTaskModal";
 import EditTaskModal from "../../modals/EditTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
+import LogoutModal from "../../modals/LogoutModal";
 
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
 import "./dashboard.scss";
-
-const handleLogout = (): any => {
-  console.log("handlingLogout");
-  console.log(sessionStorage.getItem("token"));
-  logoutAll(sessionStorage.getItem("token"));
-};
 
 // const getAllTasks = async () => {
 //   console.log("getting all tasks");
@@ -27,10 +22,17 @@ const handleLogout = (): any => {
 //   return res;
 // };
 
-const Dashboard = () => {
+interface DashboardInterface {
+  setIsLoggedIn: (arg: boolean) => void;
+}
+
+const Dashboard = (props: DashboardInterface) => {
+  const { setIsLoggedIn } = props;
+
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<any>([]);
   const [currentTask, setCurrentTask] = useState<any>("");
 
@@ -48,8 +50,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log("using effect");
-    // console.log(tasks);
-    // getAllTasks;
     handleLogin();
     setTasks;
   }, []);
@@ -78,6 +78,28 @@ const Dashboard = () => {
     setDeleteModalOpen(false);
   };
 
+  const openLogoutModal = () => {
+    setLogoutModalOpen(true);
+  };
+
+  const closeLogoutModal = () => {
+    console.log("closing logout modal");
+    setLogoutModalOpen(false);
+  };
+
+  const handleLogout = async () => {
+    console.log("handlingLogout");
+    console.log(sessionStorage.getItem("token"));
+    closeLogoutModal();
+    const res: Response | undefined = await logoutAll(
+      sessionStorage.getItem("token")
+    );
+    if (res && res.status === 200) {
+      setIsLoggedIn(false);
+    }
+    // return res;
+  };
+
   return (
     <div>
       <h2>Dashboard</h2>
@@ -98,7 +120,7 @@ const Dashboard = () => {
 
       <button
         onClick={() => {
-          handleLogout();
+          openLogoutModal();
         }}
       >
         Logout
@@ -116,6 +138,13 @@ const Dashboard = () => {
           taskId={currentTask._id}
           closeDeleteModal={closeDeleteModal}
           handleTasksChange={handleTasksChange}
+        />
+      </Modal>
+      <Modal isOpen={isLogoutModalOpen}>
+        <LogoutModal
+          closeLogoutModal={closeLogoutModal}
+          logoutAll={handleLogout}
+          setIsLoggedIn={setIsLoggedIn}
         />
       </Modal>
     </div>
