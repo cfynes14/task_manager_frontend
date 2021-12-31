@@ -97,7 +97,6 @@ const Dashboard = (props: DashboardInterface) => {
     if (res && res.status === 200) {
       setIsLoggedIn(false);
     }
-    // return res;
   };
 
   return (
@@ -150,7 +149,5 @@ const Dashboard = (props: DashboardInterface) => {
     </div>
   );
 };
-
-//taskId={currentTaskId}
 
 export default Dashboard;

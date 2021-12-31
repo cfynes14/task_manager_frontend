@@ -19,6 +19,14 @@ const NewTaskModal = ({
   const [description, setDescription] = useState<string>("");
   const [completed, setComplete] = useState<boolean>(false);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === "Yes") {
+      setComplete(true);
+    } else {
+      setComplete(false);
+    }
+  };
+
   const handleClick = async () => {
     const taskParams = {
       description,
@@ -42,12 +50,27 @@ const NewTaskModal = ({
             setDescription(e.target.value)
           }
         />
-        <label>Complete?</label>
-        <label>Yes</label>
-        <input type="radio" value="Yes" />
-        <label>No</label>
-        <input type="radio" value="No" />
-        <button type="submit">Create</button>
+        <div className="radio">
+          <label>Complete?</label>
+          <label>
+            <input
+              type="radio"
+              value="Yes"
+              checked={completed === true}
+              onChange={handleChange}
+            />
+            Yes
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="No"
+              checked={completed === false}
+              onChange={handleChange}
+            />
+            No
+          </label>
+        </div>
       </form>
       <button type="submit" onClick={handleClick}>
         Create

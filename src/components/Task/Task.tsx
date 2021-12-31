@@ -32,7 +32,7 @@ const Task = ({
   return (
     <div className="container">
       <h3>{description}</h3>
-      <p>{completed}</p>
+      <p>{completed ? "Complete" : "Incomplete"}</p>
       <button>Edit</button>
       <button onClick={handleDeleteClick}>Delete</button>
     </div>
