@@ -2,6 +2,7 @@ import React from "react";
 import "./task.scss";
 
 interface SetTaskInterface {
+  completed: boolean | undefined;
   _id: string;
   description: string;
 }
@@ -24,16 +25,20 @@ const Task = ({
   setCurrentTask,
 }: TaskParams): JSX.Element => {
   const handleDeleteClick = () => {
-    console.log("handling delete click...");
     openDeleteModal();
-    setCurrentTask({ description: description, _id: id });
+    setCurrentTask({ completed: completed, description: description, _id: id });
+  };
+
+  const handleEditClick = () => {
+    openEditModal();
+    setCurrentTask({ completed: completed, description: description, _id: id });
   };
 
   return (
     <div className="container">
       <h3>{description}</h3>
       <p>{completed ? "Complete" : "Incomplete"}</p>
-      <button>Edit</button>
+      <button onClick={handleEditClick}>Edit</button>
       <button onClick={handleDeleteClick}>Delete</button>
     </div>
   );

@@ -38,18 +38,15 @@ const Dashboard = (props: DashboardInterface) => {
 
   const handleLogin = async () => {
     const currentTasks = await getTasks();
-    console.log(currentTasks);
     setTasks(currentTasks);
   };
 
   const handleTasksChange = async () => {
     const currentTasks = await getTasks();
-    console.log(currentTasks);
     setTasks(currentTasks);
   };
 
   useEffect(() => {
-    console.log("using effect");
     handleLogin();
     setTasks;
   }, []);
@@ -63,11 +60,11 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const openEditModal = () => {
-    setNewTaskModalOpen(true);
+    setEditModalOpen(true);
   };
 
   const closeEditModal = () => {
-    setNewTaskModalOpen(false);
+    setEditModalOpen(false);
   };
 
   const openDeleteModal = () => {
@@ -83,13 +80,10 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const closeLogoutModal = () => {
-    console.log("closing logout modal");
     setLogoutModalOpen(false);
   };
 
   const handleLogout = async () => {
-    console.log("handlingLogout");
-    console.log(sessionStorage.getItem("token"));
     closeLogoutModal();
     const res: Response | undefined = await logoutAll(
       sessionStorage.getItem("token")
@@ -130,7 +124,13 @@ const Dashboard = (props: DashboardInterface) => {
           handleTasksChange={handleTasksChange}
         />
       </Modal>
-      <Modal isOpen={isEditModalOpen}></Modal>
+      <Modal isOpen={isEditModalOpen}>
+        <EditTaskModal
+          closeEditModal={closeEditModal}
+          handleTasksChange={handleTasksChange}
+          currentTask={currentTask}
+        />
+      </Modal>
       <Modal isOpen={isDeleteModalOpen}>
         <DeleteTaskModal
           taskDescription={currentTask.description}

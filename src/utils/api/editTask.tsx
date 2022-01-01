@@ -1,10 +1,11 @@
 interface EditTaskBody {
-  description: string;
+  _id: string;
+  description: React.MutableRefObject<null> | undefined;
   completed: boolean;
 }
 
 const editTask = (taskBody: EditTaskBody) => {
-  const { completed, description } = taskBody;
+  const { _id, completed, description } = taskBody;
 
   var myHeaders = new Headers();
   myHeaders.append(
@@ -14,7 +15,7 @@ const editTask = (taskBody: EditTaskBody) => {
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    completed: completed,
+    completed: completed.toString(),
     description: description,
   });
 
@@ -27,7 +28,7 @@ const editTask = (taskBody: EditTaskBody) => {
 
   try {
     return fetch(
-      "https://fynes-task-manager.herokuapp.com/tasks/61a9e20dda202700161bfcb9",
+      `https://fynes-task-manager.herokuapp.com/tasks/${_id}`,
       requestOptions
     );
   } catch (e) {
