@@ -103,6 +103,7 @@ const Dashboard = (props: DashboardInterface) => {
     <div>
       <h2>Dashboard</h2>
       <button onClick={openNewTaskModal}>New Task</button>
+      <button>Account</button>
       <div className="wrapper">
         {tasks.map((task: any) => (
           <Task
