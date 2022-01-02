@@ -9,13 +9,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginBox from "./components/LoginBox/LoginBox";
 import NewUserForm from "./components/NewUserForm/NewUserForm";
 import Home from "./pages/Home/Home";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import NoLogin from "./pages/NoLogin";
+import Account from "./pages/Account/Account";
 
 const App = () => {
-  const handleTokens = (token: string) => {
-    window.sessionStorage.setItem("token", JSON.stringify(token));
-  };
+  // const handleTokens = (token: string) => {
+  //   window.sessionStorage.setItem("token", JSON.stringify(token));
+  // };
 
   return (
     <div>
@@ -26,6 +25,9 @@ const App = () => {
           </Route>
           <Route path="/">
             <Home />
+          </Route>
+          <Route path="/account_settings">
+            <Account />
           </Route>
         </Switch>
       </Router>

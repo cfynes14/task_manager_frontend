@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
 import { ModifierFlags } from "typescript";
+import { Link } from "react-router-dom";
 
 import Task from "../../components/Task/Task";
 import { TaskParams } from "../../components/Task/Task";
@@ -103,7 +104,9 @@ const Dashboard = (props: DashboardInterface) => {
     <div>
       <h2>Dashboard</h2>
       <button onClick={openNewTaskModal}>New Task</button>
-      <button>Account</button>
+      <Link to="/account_settings">
+        <button onClick={(e) => e.preventDefault}>Account</button>
+      </Link>
       <div className="wrapper">
         {tasks.map((task: any) => (
           <Task
