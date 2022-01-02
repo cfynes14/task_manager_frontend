@@ -12,9 +12,7 @@ import Home from "./pages/Home/Home";
 import Account from "./pages/Account/Account";
 
 const App = () => {
-  // const handleTokens = (token: string) => {
-  //   window.sessionStorage.setItem("token", JSON.stringify(token));
-  // };
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   return (
     <div>
@@ -23,11 +21,11 @@ const App = () => {
           <Route path="/new_user">
             <NewUserForm />
           </Route>
-          <Route path="/">
-            <Home />
-          </Route>
           <Route path="/account_settings">
-            <Account />
+            <Account isLoggedIn={isLoggedIn} />
+          </Route>
+          <Route path="/">
+            <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Route>
         </Switch>
       </Router>

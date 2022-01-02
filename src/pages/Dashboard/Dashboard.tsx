@@ -107,6 +107,13 @@ const Dashboard = (props: DashboardInterface) => {
       <Link to="/account_settings">
         <button onClick={(e) => e.preventDefault}>Account</button>
       </Link>
+      <button
+        onClick={() => {
+          openLogoutModal();
+        }}
+      >
+        Logout
+      </button>
       <div className="wrapper">
         {tasks.map((task: any) => (
           <Task
@@ -120,14 +127,6 @@ const Dashboard = (props: DashboardInterface) => {
           />
         ))}
       </div>
-
-      <button
-        onClick={() => {
-          openLogoutModal();
-        }}
-      >
-        Logout
-      </button>
       <Modal isOpen={isNewTaskModalOpen}>
         <NewTaskModal
           closeNewTaskModal={closeNewTaskModal}

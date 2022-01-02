@@ -16,7 +16,7 @@ const getUser = async () => {
       "https://fynes-task-manager.herokuapp.com/users/me",
       requestOptions
     );
-    return res;
+    return res.json();
   } catch (e) {
     console.log(e);
   }

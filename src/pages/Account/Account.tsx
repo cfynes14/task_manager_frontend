@@ -5,7 +5,13 @@ import { UserInterface } from "../../components/NewUserForm/NewUserForm";
 
 import getUser from "../../utils/api/getUser";
 
-const Account = () => {
+interface AccountInterface {
+  isLoggedIn: boolean;
+}
+
+const Account = (props: AccountInterface) => {
+  const { isLoggedIn } = props;
+
   const [userName, setNewUserName] = useState<string>("");
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
@@ -14,26 +20,39 @@ const Account = () => {
   console.log("opening account page");
 
   const getUserDetails = async () => {
-    const res = getUser();
+    const res = await getUser();
     console.log(res);
+    setNewUserName(res.name);
+    setNewUserAge(res.age);
+    setNewUserEmail(res.email);
   };
 
   useEffect(() => {
+    console.log("using effect");
     getUserDetails();
   });
 
   const handleClick = async () => {
     console.log("handling");
   };
+
+  if (!isLoggedIn) {
+    return (
+      <h1>
+        Please <Link to="/">login</Link>
+      </h1>
+    );
+  }
   return (
     <div className="loginBox">
-      <h2 className="title">Enter your details</h2>
+      <h2 className="title">Edit your details</h2>
 
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input
           className=" boxElement"
           type="text"
+          value={userName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewUserName(e.target.value)
           }
@@ -42,6 +61,7 @@ const Account = () => {
         <input
           className=" boxElement"
           type="number"
+          value={userAge}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewUserAge(parseInt(e.target.value))
           }
@@ -50,6 +70,7 @@ const Account = () => {
         <input
           className=" boxElement"
           type="email"
+          value={userEmail}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewUserEmail(e.target.value)
           }
@@ -63,7 +84,7 @@ const Account = () => {
           }
         />
         <button className="boxElement loginButton" onClick={handleClick}>
-          Create
+          Update
         </button>
         <Link to="/">
           <button
