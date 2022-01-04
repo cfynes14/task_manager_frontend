@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 //components
 import LoginBox from "./components/LoginBox/LoginBox";
@@ -17,17 +17,19 @@ const App = () => {
   return (
     <div>
       <Router>
-        <Switch>
-          <Route path="/new_user">
-            <NewUserForm />
-          </Route>
-          <Route path="/account_settings">
-            <Account isLoggedIn={isLoggedIn} />
-          </Route>
-          <Route path="/">
-            <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/new_user" element={<NewUserForm />} />
+          <Route
+            path="/account_settings"
+            element={<Account isLoggedIn={isLoggedIn} />}
+          />
+          <Route
+            path="/"
+            element={
+              <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            }
+          />
+        </Routes>
       </Router>
     </div>
   );
