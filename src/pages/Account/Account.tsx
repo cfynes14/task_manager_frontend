@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { UserInterface } from "../../components/NewUserForm/NewUserForm";
 
 import getUser from "../../utils/api/getUser";
+import updateUser from "../../utils/api/updateUser";
 
 interface AccountInterface {
   isLoggedIn: boolean;
 }
 
 const Account = (props: AccountInterface) => {
+  const history = useHistory();
+
   const { isLoggedIn } = props;
 
   const [userName, setNewUserName] = useState<string>("");
@@ -18,8 +22,6 @@ const Account = (props: AccountInterface) => {
   const [userPassword, setNewUserPassword] = useState<string>("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-
-  console.log("opening account page");
 
   const getUserDetails = async () => {
     const res = await getUser();
@@ -32,7 +34,7 @@ const Account = (props: AccountInterface) => {
   useEffect(() => {
     console.log("using effect");
     getUserDetails();
-  });
+  }, []);
 
   const checkPasswords = (pw1: string, pw2: string) => {
     if (pw1 === pw2) {
@@ -41,9 +43,26 @@ const Account = (props: AccountInterface) => {
   };
 
   const handleClick = async () => {
+    console.log("handling click");
     if (!checkPasswords(userPassword, userPasswordConfirm)) {
       setErrorMessage("Passwords must match!");
       return;
+    }
+
+    console.log("passwords match");
+    const userDetails = {
+      name: userName,
+      age: userAge,
+      email: userEmail,
+      password: userPassword,
+    };
+
+    console.log(userDetails);
+
+    const res = await updateUser(userDetails);
+
+    if (res.status === 200) {
+      history.push("/");
     }
   };
 
