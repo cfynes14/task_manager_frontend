@@ -3,12 +3,9 @@ const logoutAll = async (token: string | null) => {
   console.log(sessionStorage.getItem("token"));
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  var raw = "";
-
-  var requestOptions: any = {
+  const requestOptions: any = {
     method: "POST",
     headers: myHeaders,
-    body: raw,
     redirect: "follow",
   };
 
