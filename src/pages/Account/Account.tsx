@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-import { UserInterface } from "../../components/NewUserForm/NewUserForm";
+import { UpdateUser } from "../../utils/api/updateUser";
 
 import getUser from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
@@ -12,8 +11,6 @@ interface AccountInterface {
 }
 
 const Account = (props: AccountInterface) => {
-  const history = useHistory();
-
   const { isLoggedIn } = props;
 
   const [userName, setNewUserName] = useState<string>("");
@@ -50,19 +47,37 @@ const Account = (props: AccountInterface) => {
     }
 
     console.log("passwords match");
-    const userDetails = {
-      name: userName,
-      age: userAge,
-      email: userEmail,
-      password: userPassword,
-    };
+    // const userDetails = {
+    //   name: userName,
+    //   age: userAge,
+    //   email: userEmail,
+    //   password: userPassword,
+    // };
+
+    let userDetails: UpdateUser = {};
+
+    if (userName) {
+      userDetails.name = userName;
+    }
+    if (userAge) {
+      userDetails.age = userAge;
+    }
+    if (userEmail) {
+      userDetails.email = userEmail;
+    }
+    if (userPassword) {
+      userDetails.password = userPassword;
+    }
 
     console.log(userDetails);
 
     const res = await updateUser(userDetails);
 
+    // let navigate = useNavigate();
+
     if (res.status === 200) {
-      history.push("/");
+      console.log("success!");
+      // navigate("/", { replace: true });
     }
   };
 

@@ -1,8 +1,8 @@
-interface UpdateUser {
-  age: number;
-  name: string;
-  email: string;
-  password: string;
+export interface UpdateUser {
+  age?: number | undefined;
+  name?: string | undefined;
+  email?: string | undefined;
+  password?: string | undefined;
 }
 
 const updateUser = async (userDetails: UpdateUser) => {
@@ -13,12 +13,9 @@ const updateUser = async (userDetails: UpdateUser) => {
   );
   myHeaders.append("Content-Type", "application/json");
 
-  const raw = JSON.stringify({
-    age: userDetails.age,
-    name: userDetails.name,
-    email: userDetails.email,
-    password: userDetails.password,
-  });
+  console.log(userDetails);
+
+  const raw = JSON.stringify(userDetails);
 
   const requestOptions: any = {
     method: "PATCH",
