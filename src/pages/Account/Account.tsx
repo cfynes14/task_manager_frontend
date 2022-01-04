@@ -16,6 +16,8 @@ const Account = (props: AccountInterface) => {
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
   const [userPassword, setNewUserPassword] = useState<string>("");
+  const [userPasswordConfirm, setUserPasswordConfirm] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   console.log("opening account page");
 
@@ -32,8 +34,17 @@ const Account = (props: AccountInterface) => {
     getUserDetails();
   });
 
+  const checkPasswords = (pw1: string, pw2: string) => {
+    if (pw1 === pw2) {
+      return true;
+    }
+  };
+
   const handleClick = async () => {
-    console.log("handling");
+    if (!checkPasswords(userPassword, userPasswordConfirm)) {
+      setErrorMessage("Passwords must match!");
+      return;
+    }
   };
 
   if (!isLoggedIn) {
@@ -75,7 +86,7 @@ const Account = (props: AccountInterface) => {
             setNewUserEmail(e.target.value)
           }
         ></input>
-        <label className="boxElement">Password:</label>
+        <label className="boxElement">Create new password:</label>
         <input
           className="boxElement"
           type="password"
@@ -83,18 +94,22 @@ const Account = (props: AccountInterface) => {
             setNewUserPassword(e.target.value)
           }
         />
+        <label className="boxElement">Confirm new password:</label>
+        <input
+          className="boxElement"
+          type="password"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUserPasswordConfirm(e.target.value)
+          }
+        />
         <button className="boxElement loginButton" onClick={handleClick}>
           Update
         </button>
         <Link to="/">
-          <button
-            className="boxElement loginButton"
-            onClick={(e) => e.preventDefault}
-          >
-            Cancel
-          </button>
+          <button className="boxElement loginButton">Cancel</button>
         </Link>
       </form>
+      <p>{errorMessage}</p>
     </div>
   );
 };
