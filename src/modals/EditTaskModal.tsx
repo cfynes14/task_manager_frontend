@@ -1,11 +1,11 @@
 import React, { MutableRefObject } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import editTask from "../utils/api/editTask";
 
 interface CurrentTask {
   completed: boolean;
-  description: React.MutableRefObject<null>;
+  description: string;
   _id: string;
 }
 
@@ -19,17 +19,18 @@ const EditTaskModal = (props: EditModalInterface) => {
   const { closeEditModal, handleTasksChange, currentTask } = props;
 
   const [_id, setId] = useState<string>("");
-  const [description, setDescription] = useState<MutableRefObject<null>>();
+  const [description, setDescription] = useState<string>();
   const [completed, setComplete] = useState<boolean>(false);
 
-  const taskDescription = useRef(null);
-
   useEffect(() => {
-    // console.log(inputText);
     setId(currentTask._id);
-    setDescription(taskDescription);
+    setDescription(currentTask.description);
     setComplete(currentTask.completed);
   }, []);
+
+  const handleDescriptionChange = (e: string) => {
+    setDescription(e);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "Yes") {
@@ -50,8 +51,6 @@ const EditTaskModal = (props: EditModalInterface) => {
       handleTasksChange();
       closeEditModal();
     }
-
-    console.log(res);
   };
 
   return (
@@ -61,11 +60,10 @@ const EditTaskModal = (props: EditModalInterface) => {
         <label>Description</label>
         <input
           type="text"
-          //
-          ref={description}
-          // onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          //   setDescription(e.target.value)
-          // }
+          value={description}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleDescriptionChange(e.target.value)
+          }
         />
         <div className="radio">
           <label>Complete?</label>

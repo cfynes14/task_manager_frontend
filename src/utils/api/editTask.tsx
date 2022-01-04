@@ -1,6 +1,6 @@
 interface EditTaskBody {
   _id: string;
-  description: React.MutableRefObject<null> | undefined;
+  description: string | undefined;
   completed: boolean;
 }
 
