@@ -4,8 +4,13 @@ import { useState } from "react";
 import LoginBox from "../../components/LoginBox/LoginBox";
 import Dashboard from "../Dashboard/Dashboard";
 
-const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+interface HomeProps {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (arg: boolean) => void;
+}
+
+const Home = (props: HomeProps) => {
+  const { isLoggedIn, setIsLoggedIn } = props;
 
   const token = window.sessionStorage.getItem("token");
   if (!isLoggedIn) {
