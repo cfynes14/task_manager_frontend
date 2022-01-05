@@ -14,10 +14,11 @@ import updateUser from "../../utils/api/updateUser";
 
 interface AccountInterface {
   isLoggedIn: boolean;
+  setIsLoggedIn: (arg: boolean) => void;
 }
 
 const Account = (props: AccountInterface) => {
-  const { isLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
   let navigate = useNavigate();
 
@@ -157,7 +158,10 @@ const Account = (props: AccountInterface) => {
       </form>
       <p>{errorMessage}</p>
       <Modal isOpen={isDeleteAccountModalOpen}>
-        <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal} />
+        <DeleteAccountModal
+          closeDeleteAccountModal={closeDeleteAccountModal}
+          setIsLoggedIn={setIsLoggedIn}
+        />
       </Modal>
     </div>
   );

@@ -3,18 +3,20 @@ import { useNavigate, Link } from "react-router-dom";
 
 interface DeleteAccountInterface {
   closeDeleteAccountModal: () => void;
+  setIsLoggedIn: (arg: boolean) => void;
 }
 
 const DeleteAccountModal = (props: DeleteAccountInterface) => {
   const navigate = useNavigate();
 
-  const { closeDeleteAccountModal } = props;
+  const { closeDeleteAccountModal, setIsLoggedIn } = props;
 
   const handleDeleteAccount = async () => {
     const res = await deleteAccount();
     if (res && res.status === 200) {
       navigate("/");
     }
+    setIsLoggedIn(false);
   };
 
   return (

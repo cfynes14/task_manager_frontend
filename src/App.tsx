@@ -21,7 +21,9 @@ const App = () => {
           <Route path="/new_user" element={<NewUserForm />} />
           <Route
             path="/account_settings"
-            element={<Account isLoggedIn={isLoggedIn} />}
+            element={
+              <Account isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            }
           />
           <Route
             path="/"
