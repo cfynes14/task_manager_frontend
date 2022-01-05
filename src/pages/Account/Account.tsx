@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { navigate } from "hookrouter";
 
 import { UpdateUser } from "../../utils/api/updateUser";
 
@@ -12,6 +13,8 @@ interface AccountInterface {
 
 const Account = (props: AccountInterface) => {
   const { isLoggedIn } = props;
+
+  let navigate = useNavigate();
 
   const [userName, setNewUserName] = useState<string>("");
   const [userAge, setNewUserAge] = useState<number>(0);
@@ -40,19 +43,10 @@ const Account = (props: AccountInterface) => {
   };
 
   const handleClick = async () => {
-    console.log("handling click");
     if (!checkPasswords(userPassword, userPasswordConfirm)) {
       setErrorMessage("Passwords must match!");
       return;
     }
-
-    console.log("passwords match");
-    // const userDetails = {
-    //   name: userName,
-    //   age: userAge,
-    //   email: userEmail,
-    //   password: userPassword,
-    // };
 
     let userDetails: UpdateUser = {};
 
@@ -69,15 +63,14 @@ const Account = (props: AccountInterface) => {
       userDetails.password = userPassword;
     }
 
-    console.log(userDetails);
-
-    const res = await updateUser(userDetails);
-
-    // let navigate = useNavigate();
-
-    if (res.status === 200) {
-      console.log("success!");
-      // navigate("/", { replace: true });
+    try {
+      const res = await updateUser(userDetails);
+      console.log(res);
+      if (res && res.status === 200) {
+        navigate("/");
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 

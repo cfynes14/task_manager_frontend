@@ -29,7 +29,7 @@ const updateUser = async (userDetails: UpdateUser) => {
       "https://fynes-task-manager.herokuapp.com/users/me",
       requestOptions
     );
-    return res.json();
+    return res;
   } catch (e) {
     console.log(e);
   }
