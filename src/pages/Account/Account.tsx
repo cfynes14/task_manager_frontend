@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+
+import Modal from "react-modal";
+
+import DeleteAccountModal from "../../modals/DeleteAccountModal";
+
 import { useNavigate, Link } from "react-router-dom";
 import { navigate } from "hookrouter";
 
@@ -22,6 +27,8 @@ const Account = (props: AccountInterface) => {
   const [userPassword, setNewUserPassword] = useState<string>("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
+    useState<boolean>(false);
 
   const getUserDetails = async () => {
     const res = await getUser();
@@ -74,6 +81,18 @@ const Account = (props: AccountInterface) => {
     }
   };
 
+  const openDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(true);
+  };
+
+  const closeDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    openDeleteAccountModal();
+  };
+
   if (!isLoggedIn) {
     return (
       <h1>
@@ -84,7 +103,7 @@ const Account = (props: AccountInterface) => {
   return (
     <div className="loginBox">
       <h2 className="title">Edit your details</h2>
-
+      <button onClick={handleDeleteAccount}>Delete account</button>
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input
@@ -137,6 +156,9 @@ const Account = (props: AccountInterface) => {
         </Link>
       </form>
       <p>{errorMessage}</p>
+      <Modal isOpen={isDeleteAccountModalOpen}>
+        <DeleteAccountModal closeDeleteAccountModal={closeDeleteAccountModal} />
+      </Modal>
     </div>
   );
 };
