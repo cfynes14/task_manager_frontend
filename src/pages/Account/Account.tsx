@@ -14,6 +14,10 @@ import getUser from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
 import addAvatar from "../../utils/api/addAvatar";
 
+import blank from '../../images/blank.png'
+
+// const blankAvatar = '../../../images/blank.png'
+
 interface AccountInterface {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
@@ -32,7 +36,7 @@ const Account = (props: AccountInterface) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
-  const [userAvatarFile, setUserAvatarFile] = useState<string>("");
+  const [userAvatarFile, setUserAvatarFile] = useState<string | undefined>(undefined);
   const [userAvatarPath, setUserAvatarPath] = useState<string>("");
 
   const getUserDetails = async () => {
@@ -137,7 +141,8 @@ const Account = (props: AccountInterface) => {
         onChange={handleAvatarInputChange}
       />
       <button onClick={uploadImage}>Upload</button>
-      <img className="avatar" src={userAvatarPath} />
+      <img className="avatar" src={
+        userAvatarPath ? userAvatarPath : blank} />
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input
