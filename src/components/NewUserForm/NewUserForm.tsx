@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import createNewUser from "../../utils/api/createNewUser";
 
@@ -19,8 +18,6 @@ const NewUserForm = () => {
   const [newUserPassword, setNewUserPassword] = useState<string>("");
 
   const handleClick = async () => {
-    console.log("handling");
-
     const userInfo: UserInterface = {
       name: newUserName,
       age: newUserAge,
