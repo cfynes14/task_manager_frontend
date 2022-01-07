@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
+import "./account.scss";
 
 import Modal from "react-modal";
 
 import DeleteAccountModal from "../../modals/DeleteAccountModal";
 
 import { useNavigate, Link } from "react-router-dom";
-import { navigate } from "hookrouter";
 
 import { UpdateUser } from "../../utils/api/updateUser";
 
 import getUser from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
+import addAvatar from "../../utils/api/addAvatar";
 
 interface AccountInterface {
   isLoggedIn: boolean;
@@ -30,6 +32,8 @@ const Account = (props: AccountInterface) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
+  const [userAvatarFile, setUserAvatarFile] = useState<string>("");
+  const [userAvatarPath, setUserAvatarPath] = useState<string>("");
 
   const getUserDetails = async () => {
     const res = await getUser();
@@ -58,6 +62,8 @@ const Account = (props: AccountInterface) => {
 
     let userDetails: UpdateUser = {};
 
+    //simpler way to do this?
+
     if (userName) {
       userDetails.name = userName;
     }
@@ -80,6 +86,22 @@ const Account = (props: AccountInterface) => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleAvatarInputChange = (e: any) => {
+    const avatarFile = e.target.files[0];
+
+    setUserAvatarPath(URL.createObjectURL(e.target.files[0]));
+
+    console.log(userAvatarPath);
+
+    setUserAvatarFile(avatarFile);
+  };
+
+  const uploadImage = async () => {
+    console.log("uploading image");
+    // const res = await addAvatar(userAvatar.files[0]);
+    // console.log(res);
   };
 
   const openDeleteAccountModal = () => {
@@ -105,6 +127,17 @@ const Account = (props: AccountInterface) => {
     <div className="loginBox">
       <h2 className="title">Edit your details</h2>
       <button onClick={handleDeleteAccount}>Delete account</button>
+      <label className="boxElement">Upload avatar</label>
+      <input
+        id="avatar"
+        name="avatar"
+        className="boxElement"
+        type="file"
+        accept=""
+        onChange={handleAvatarInputChange}
+      />
+      <button onClick={uploadImage}>Upload</button>
+      <img className="avatar" src={userAvatarPath} />
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input
@@ -119,7 +152,7 @@ const Account = (props: AccountInterface) => {
         <input
           className=" boxElement"
           type="number"
-          value={userAge}
+          value={userAvatarPath}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewUserAge(parseInt(e.target.value))
           }
