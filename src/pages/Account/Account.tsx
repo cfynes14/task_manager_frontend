@@ -10,13 +10,13 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { UpdateUser } from "../../utils/api/updateUser";
 
-import getUser from "../../utils/api/getUser";
+import getUser, { UserDataInterface } from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
 import addAvatar from "../../utils/api/addAvatar";
 
 import blank from '../../images/blank.png'
 
-// const blankAvatar = '../../../images/blank.png'
+import { UserData } from '../../utils/api/getUser'
 
 interface AccountInterface {
   isLoggedIn: boolean;
@@ -27,24 +27,30 @@ const Account = (props: AccountInterface) => {
   const { isLoggedIn, setIsLoggedIn } = props;
 
   let navigate = useNavigate();
-
+  const [userPassword, setNewUserPassword] = useState<string>("");
+  const [userPasswordConfirm, setUserPasswordConfirm] = useState<string>("");
+  const [userDetails, setUserDetails] = useState<UserDataInterface>({} as UserDataInterface)
   const [userName, setNewUserName] = useState<string>("");
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
-  const [userPassword, setNewUserPassword] = useState<string>("");
-  const [userPasswordConfirm, setUserPasswordConfirm] = useState<string>("");
+
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
-  const [userAvatarFile, setUserAvatarFile] = useState<string | undefined>(undefined);
+  const [userAvatarFile, setUserAvatarFile] = useState<string>("");
   const [userAvatarPath, setUserAvatarPath] = useState<string>("");
 
   const getUserDetails = async () => {
-    const res = await getUser();
+    
+    const res: UserData = await getUser() as UserData;
     console.log(res);
-    setNewUserName(res.name);
-    setNewUserAge(res.age);
-    setNewUserEmail(res.email);
+    
+    if (res.status === 200){
+      console.log('got user')
+     setNewUserName(res.userInfo.name)
+     setNewUserAge(res.userInfo.age)
+     setNewUserEmail(res.userInfo.email)
+    }
   };
 
   useEffect(() => {
@@ -64,25 +70,25 @@ const Account = (props: AccountInterface) => {
       return;
     }
 
-    let userDetails: UpdateUser = {};
+    let userResDetails: UpdateUser = {};
 
     //simpler way to do this?
 
     if (userName) {
-      userDetails.name = userName;
+      userResDetails.name = userName
     }
     if (userAge) {
-      userDetails.age = userAge;
+      userResDetails.age = userAge;
     }
     if (userEmail) {
-      userDetails.email = userEmail;
+      userResDetails.email = userEmail;
     }
     if (userPassword) {
-      userDetails.password = userPassword;
+      userResDetails.password = userPassword;
     }
 
     try {
-      const res = await updateUser(userDetails);
+      const res = await updateUser(userResDetails);
       console.log(res);
       if (res && res.status === 200) {
         navigate("/");
@@ -104,8 +110,8 @@ const Account = (props: AccountInterface) => {
 
   const uploadImage = async () => {
     console.log("uploading image");
-    // const res = await addAvatar(userAvatar.files[0]);
-    // console.log(res);
+    const res = await addAvatar(userAvatarFile);
+    console.log(res);
   };
 
   const openDeleteAccountModal = () => {
@@ -146,6 +152,7 @@ const Account = (props: AccountInterface) => {
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input
+          id="userName"
           className=" boxElement"
           type="text"
           value={userName}
@@ -155,15 +162,17 @@ const Account = (props: AccountInterface) => {
         ></input>
         <label className="boxElement">Age:</label>
         <input
+          id="userAge"
           className=" boxElement"
           type="number"
-          value={userAvatarPath}
+          value={userAge ? userAge : ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewUserAge(parseInt(e.target.value))
           }
         ></input>
         <label className="boxElement">Email:</label>
         <input
+          id="userEmail"
           className=" boxElement"
           type="email"
           value={userEmail}

@@ -1,6 +1,6 @@
 export interface UpdateUser {
   age?: number | undefined;
-  name?: string | undefined;
+  name?: string | null | undefined | HTMLElement;
   email?: string | undefined;
   password?: string | undefined;
 }

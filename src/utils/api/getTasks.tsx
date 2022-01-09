@@ -25,10 +25,6 @@ const getTasks = async () => {
     console.log(e);
   }
 
-  //   fetch("https://fynes-task-manager.herokuapp.com/tasks", requestOptions)
-  //     .then((response) => response.text())
-  //     .then((result) => console.log(result))
-  //     .catch((error) => console.log("error", error));
 };
 
 export default getTasks;
