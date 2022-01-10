@@ -42,8 +42,13 @@ const getUser = async (): Promise<UserData | string> => {
 
       const userAvatar = await getAvatar()
 
+
+      if (userAvatar) {
+        console.log(userAvatar)
+      }
+    
       res.userInfo = await userInfoJson
-      res.userAvatar = userAvatar
+      // res.userAvatar = userAvatar
       res.status = userInfoRes.status
 
       result = res
