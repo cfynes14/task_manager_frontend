@@ -14,9 +14,9 @@ import getUser, { UserDataInterface } from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
 import addAvatar from "../../utils/api/addAvatar";
 
-import blank from '../../images/blank.png'
+import blank from "../../images/blank.png";
 
-import { UserData } from '../../utils/api/getUser'
+import { UserData } from "../../utils/api/getUser";
 
 interface AccountInterface {
   isLoggedIn: boolean;
@@ -29,7 +29,9 @@ const Account = (props: AccountInterface) => {
   let navigate = useNavigate();
   const [userPassword, setNewUserPassword] = useState<string>("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState<string>("");
-  const [userDetails, setUserDetails] = useState<UserDataInterface>({} as UserDataInterface)
+  const [userDetails, setUserDetails] = useState<UserDataInterface>(
+    {} as UserDataInterface
+  );
   const [userName, setNewUserName] = useState<string>("");
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
@@ -38,18 +40,18 @@ const Account = (props: AccountInterface) => {
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
-  const [userAvatarPath, setUserAvatarPath] = useState<string>("");
+  const [userAvatarPath, setUserAvatarPath] = useState<string | undefined>("");
 
   const getUserDetails = async () => {
-    
-    const res: UserData = await getUser() as UserData;
+    const res: UserData = (await getUser()) as UserData;
     console.log(res);
-    
-    if (res.status === 200){
-      console.log('got user')
-     setNewUserName(res.userInfo.name)
-     setNewUserAge(res.userInfo.age)
-     setNewUserEmail(res.userInfo.email)
+
+    if (res.status === 200) {
+      console.log("got user");
+      setNewUserName(res.userInfo.name);
+      setNewUserAge(res.userInfo.age);
+      setNewUserEmail(res.userInfo.email);
+      setUserAvatarPath(res.userAvatar);
     }
   };
 
@@ -75,7 +77,7 @@ const Account = (props: AccountInterface) => {
     //simpler way to do this?
 
     if (userName) {
-      userResDetails.name = userName
+      userResDetails.name = userName;
     }
     if (userAge) {
       userResDetails.age = userAge;
@@ -147,8 +149,7 @@ const Account = (props: AccountInterface) => {
         onChange={handleAvatarInputChange}
       />
       <button onClick={uploadImage}>Upload</button>
-      <img className="avatar" src={
-        userAvatarPath ? userAvatarPath : blank} />
+      <img className="avatar" src={userAvatarPath ? userAvatarPath : blank} />
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input

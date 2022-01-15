@@ -12,8 +12,8 @@ export interface UserDataInterface {
 
 export interface UserData {
   userInfo: UserDataInterface;
-  userAvatar: string | void;
-  status: number
+  userAvatar: string | undefined;
+  status: number;
 }
 
 const getUser = async (): Promise<UserData | string> => {
@@ -32,38 +32,34 @@ const getUser = async (): Promise<UserData | string> => {
   let result: UserData | string;
 
   try {
-    let res: UserData = {} as UserData
+    let res: UserData = {} as UserData;
     const userInfoRes = await fetch(
       "https://fynes-task-manager.herokuapp.com/users/me",
       requestOptions
     );
 
-    const userInfoJson = await userInfoRes.json()
+    const userInfoJson = await userInfoRes.json();
 
-      const userAvatar = await getAvatar()
+    const userAvatar = await getAvatar();
 
+    const userAvatarUrl = userAvatar?.url;
 
-      if (userAvatar) {
-        console.log(userAvatar)
-      }
-    
-      res.userInfo = await userInfoJson
-      // res.userAvatar = userAvatar
-      res.status = userInfoRes.status
+    console.log(userAvatar);
 
-      result = res
+    res.userInfo = await userInfoJson;
+    // res.userAvatar = userAvatar
+    res.status = userInfoRes.status;
 
-      return res
+    res.userAvatar = userAvatarUrl;
 
+    result = res;
+
+    return result;
   } catch (e) {
-    result = e as string
+    result = e as string;
     console.log(e);
-    return "Error " + result
+    return "Error " + result;
   }
-
-  return result
 };
-
-
 
 export default getUser;

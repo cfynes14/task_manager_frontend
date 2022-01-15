@@ -2,7 +2,7 @@
 //   file: string;
 // }
 
-const addAvatar = (file: string) => {
+const addAvatar = async (file: string) => {
   const myHeaders = new Headers();
   myHeaders.append(
     "Authorization",
@@ -20,13 +20,12 @@ const addAvatar = (file: string) => {
   };
 
   try {
-    return fetch(
-      "https://fynes-task-manager.herokuapp.com/users/me/avatar",
-      requestOptions
-    );
+    return await fetch("http://localhost:3001/users/me/avatar", requestOptions);
   } catch (e) {
     console.log(e);
   }
 };
 
 export default addAvatar;
+
+//"https://fynes-task-manager.herokuapp.com/users/me/avatar"

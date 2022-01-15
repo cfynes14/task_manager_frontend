@@ -1,26 +1,28 @@
-const getAvatar = () => {
-  let myHeaders = new Headers();
-  myHeaders.append(
-    "Authorization",
-    `Bearer ${window.sessionStorage.getItem("token")}`
-  );
+const getAvatar = async () => {
+  // let myHeaders = new Headers();
+  // myHeaders.append(
+  //   "Authorization",
+  //   `Bearer ${window.sessionStorage.getItem("token")}`
+  // );
 
-  const id = window.sessionStorage.getItem("_id")
+  const id = window.sessionStorage.getItem("_id");
 
   const requestOptions: any = {
     method: "GET",
-    headers: myHeaders,
+    // headers: myHeaders,
     redirect: "follow",
   };
 
   try {
-    return fetch(
-      `https://fynes-task-manager.herokuapp.com/users/${id}/avatar`,
+    const res = await fetch(
+      `http://localhost:3001/users/${id}/avatar`,
       requestOptions
     );
+
+    return res;
   } catch (e) {
     console.log(e);
   }
-}
+};
 
 export default getAvatar;
