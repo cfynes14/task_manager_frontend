@@ -6,7 +6,7 @@ export interface UpdateUser {
 }
 
 const updateUser = async (userDetails: UpdateUser) => {
-  const myHeaders = new Headers();
+  let myHeaders = new Headers();
   myHeaders.append(
     "Authorization",
     `Bearer ${window.sessionStorage.getItem("token")}`

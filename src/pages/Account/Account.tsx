@@ -9,10 +9,11 @@ import DeleteAccountModal from "../../modals/DeleteAccountModal";
 import { useNavigate, Link } from "react-router-dom";
 
 import { UpdateUser } from "../../utils/api/updateUser";
-
+//API functions
 import getUser, { UserDataInterface } from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
 import addAvatar from "../../utils/api/addAvatar";
+import deleteAvatar from "../../utils/api/deleteAvatar";
 
 import blank from "../../images/blank.png";
 
@@ -110,11 +111,17 @@ const Account = (props: AccountInterface) => {
     setUserAvatarFile(avatarFile);
   };
 
-  const uploadImage = async () => {
-    console.log("uploading image");
+  const uploadAvatar = async () => {
+    console.log("uploading avatar");
     const res = await addAvatar(userAvatarFile);
     console.log(res);
   };
+
+  const deleteImage = async () => {
+    console.log('deleting avatar')
+    const res = await deleteAvatar()
+    console.log(res)
+  }
 
   const openDeleteAccountModal = () => {
     setDeleteAccountModalOpen(true);
@@ -148,7 +155,8 @@ const Account = (props: AccountInterface) => {
         accept=""
         onChange={handleAvatarInputChange}
       />
-      <button onClick={uploadImage}>Upload</button>
+      <button onClick={uploadAvatar}>Upload</button>
+      <button onClick={deleteImage}>Delete Avatar</button>
       <img className="avatar" src={userAvatarPath ? userAvatarPath : blank} />
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
