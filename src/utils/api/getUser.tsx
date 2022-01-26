@@ -12,7 +12,7 @@ export interface UserDataInterface {
 
 export interface UserData {
   userInfo: UserDataInterface;
-  userAvatar: string | undefined;
+  userAvatar: string;
   status: number;
 }
 
@@ -38,19 +38,23 @@ const getUser = async (): Promise<UserData | string> => {
       requestOptions
     );
 
-    const userInfoJson = await userInfoRes.json();
+    const userAvatarRes = await getAvatar();
 
-    const userAvatar = await getAvatar();
+    if (userInfoRes.status === 200) {
+      const userInfoJson = await userInfoRes.json();
 
-    const userAvatarUrl = userAvatar?.url;
+      res.userInfo = await userInfoJson;
+    }
 
-    console.log(userAvatar);
+    if (userAvatarRes.status === 200) {
+      const userId = window.sessionStorage.getItem("_id");
 
-    res.userInfo = await userInfoJson;
-    // res.userAvatar = userAvatar
+      res.userAvatar = `http://localhost:3001/users/${userId}/avatar`;
+    }
+
     res.status = userInfoRes.status;
 
-    res.userAvatar = userAvatarUrl;
+    // res.userAvatar = userAvatarRes;
 
     result = res;
 

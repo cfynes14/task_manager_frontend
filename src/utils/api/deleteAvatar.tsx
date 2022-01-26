@@ -1,5 +1,8 @@
+import { request } from "http";
+
 const deleteAvatar = () => {
-    let myHeaders = new Headers();
+  console.log("DELETEING AVATAR METHOD");
+  let myHeaders = new Headers();
   myHeaders.append(
     "Authorization",
     `Bearer ${window.sessionStorage.getItem("token")}`
@@ -12,11 +15,11 @@ const deleteAvatar = () => {
     redirect: "follow",
   };
 
+  const id = window.sessionStorage.getItem("_id");
+
   try {
-   return fetch('http://localhost:3001/users/me/avatar')
-  } catch(e){
+    return fetch(`http://localhost:3001/users/${id}/avatar`, requestOptions);
+  } catch (e) {}
+};
 
-  }
-}
-
-export default deleteAvatar
+export default deleteAvatar;

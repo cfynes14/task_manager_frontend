@@ -1,4 +1,4 @@
-const getAvatar = async () => {
+const getAvatar = async (): Promise<Response> => {
   // let myHeaders = new Headers();
   // myHeaders.append(
   //   "Authorization",
@@ -13,16 +13,15 @@ const getAvatar = async () => {
     redirect: "follow",
   };
 
-  try {
-    const res = await fetch(
-      `http://localhost:3001/users/${id}/avatar`,
-      requestOptions
-    );
+  const res = await fetch(
+    `http://localhost:3001/users/${id}/avatar`,
+    requestOptions
+  );
 
-    return res;
-  } catch (e) {
-    console.log(e);
-  }
+  // console.log("USER AVATAR");
+  // console.log(json);
+
+  return res;
 };
 
 export default getAvatar;

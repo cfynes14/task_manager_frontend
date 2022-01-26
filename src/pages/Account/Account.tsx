@@ -41,7 +41,7 @@ const Account = (props: AccountInterface) => {
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
-  const [userAvatarPath, setUserAvatarPath] = useState<string | undefined>("");
+  const [userAvatarPath, setUserAvatarPath] = useState<string>("");
 
   const getUserDetails = async () => {
     const res: UserData = (await getUser()) as UserData;
@@ -118,10 +118,10 @@ const Account = (props: AccountInterface) => {
   };
 
   const deleteImage = async () => {
-    console.log('deleting avatar')
-    const res = await deleteAvatar()
-    console.log(res)
-  }
+    console.log("deleting avatar");
+    const res = await deleteAvatar();
+    console.log(res);
+  };
 
   const openDeleteAccountModal = () => {
     setDeleteAccountModalOpen(true);
