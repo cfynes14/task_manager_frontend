@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, FormEventHandler } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
 import { ModifierFlags } from "typescript";
 import { Link } from "react-router-dom";
+// import { useStateWithCallback } from "use-state-with-callback";
 
 import Task from "../../components/Task/Task";
 import { TaskParams } from "../../components/Task/Task";
+import { UrlParams } from "../../utils/api/getTasks";
 
 import NewTaskModal from "../../modals/NewTaskModal";
 import EditTaskModal from "../../modals/EditTaskModal";
@@ -41,7 +43,7 @@ const Dashboard = (props: DashboardInterface) => {
   );
   const [taskLimit, setTaskLimit] = useState<number>(0);
   const [skipCounter, setSkipCounter] = useState<number>(0);
-  const [sortBy, setSortBy] = useState<string>("asc");
+  const [sortBy, setSortBy] = useState<string | undefined>("");
 
   const paramBuilder = () => {
     let params: UrlParams = {};
@@ -75,42 +77,49 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const handleTasksChange = async () => {
-    console.log("handling task change");
     let optionalParams: UrlParams = paramBuilder();
 
     console.log(optionalParams);
 
     const currentTasks = await getTasks(optionalParams);
-    console.log("COMPLETED FILTER");
-    console.log(completedFilter);
     setTasks(currentTasks);
   };
 
   // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
   const handleClick = (e: any) => {
-    console.log("handling click");
     e.preventDefault();
     console.log(e.target.textContent);
 
     switch (e.target.textContent) {
       case "Show completed":
-        console.log("showing completed");
         setCompletedFilter(true);
         break;
       case "Show incomplete":
-        console.log("showing incomplete");
         setCompletedFilter(false);
         break;
       case "Show all":
-        console.log("showing all");
         setCompletedFilter(undefined);
         break;
     }
   };
 
-  const handleChange = (
-    e:
-  ) => {};
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log("changing");
+    console.log(typeof e.target.value);
+    console.log(e.target.name);
+    if (e.target.name === "limitSelect") {
+      setTaskLimit(parseInt(e.target.value));
+    } else {
+      console.log(e.target.value);
+      switch (e.target.value) {
+        case "newest":
+          setSortBy("asc");
+          break;
+        case "oldest":
+          setSortBy("desc");
+      }
+    }
+  };
 
   useEffect(() => {
     handleLogin();
@@ -121,6 +130,14 @@ const Dashboard = (props: DashboardInterface) => {
   // useEffect(() => {
   //   handleTasksChange();
   // }, [completedFilter]);
+
+  useEffect(() => {
+    handleTasksChange();
+  }, [taskLimit]);
+
+  useEffect(() => {
+    handleTasksChange();
+  }, [sortBy]);
 
   const openNewTaskModal = () => {
     setNewTaskModalOpen(true);
@@ -178,6 +195,30 @@ const Dashboard = (props: DashboardInterface) => {
       >
         Logout
       </button>
+      <button onClick={(e) => handleClick(e)}>Show all</button>
+      <button onClick={(e) => handleClick(e)}>Show completed</button>
+      <button onClick={(e) => handleClick(e)}>Show incomplete</button>
+      <p>Limit page to:</p>
+      <select
+        name="limitSelect"
+        id=""
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
+      >
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+      <p>Sort by</p>
+      <select
+        name="filterSelect"
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
+      >
+        {/* <option value="completedFirst">Completed first</option>
+        <option value="incompleteFirst">Incomplete first</option> */}
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option>A-Z</option>
+      </select>
       <div className="wrapper">
         {tasks.map((task: any) => (
           <Task

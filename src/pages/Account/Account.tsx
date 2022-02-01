@@ -57,7 +57,7 @@ const Account = (props: AccountInterface) => {
   };
 
   useEffect(() => {
-    console.log("using effect");
+    console.log("account using effect");
     getUserDetails();
   }, []);
 
