@@ -8,17 +8,17 @@ const createNewUser = async ({ name, age, email, password }: UserInterface) => {
     password: password,
   };
 
-  var myHeaders = new Headers();
+  const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
+  const raw = JSON.stringify({
     name: userInfo.name,
     age: userInfo.age,
     email: userInfo.email,
     password: userInfo.password,
   });
 
-  var requestOptions: any = {
+  const requestOptions: any = {
     method: "POST",
     headers: myHeaders,
     body: raw,
