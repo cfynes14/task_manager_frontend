@@ -36,21 +36,91 @@ const Dashboard = (props: DashboardInterface) => {
   const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<any>([]);
   const [currentTask, setCurrentTask] = useState<any>("");
+  const [completedFilter, setCompletedFilter] = useState<boolean | undefined>(
+    undefined
+  );
+  const [taskLimit, setTaskLimit] = useState<number>(0);
+  const [skipCounter, setSkipCounter] = useState<number>(0);
+  const [sortBy, setSortBy] = useState<string>("asc");
+
+  const paramBuilder = () => {
+    let params: UrlParams = {};
+    params.completedParam = completedFilter
+      ? `completed=${completedFilter}`
+      : "";
+
+    if (completedFilter === false) {
+      params.completedParam = "completed=false";
+    }
+
+    console.log(params);
+    let skip: string | undefined = undefined;
+    if (skipCounter !== 0) {
+      skip = `skip=${skipCounter}`;
+    }
+    params.paginationParam = `limit=${taskLimit}${
+      skip ? `skip=${skipCounter}` : ""
+    }`;
+    //sortBy=createdAt:acs or createdAt:desc
+    params.sortParam = `sortBy=createdAt:${sortBy}`;
+
+    return params;
+  };
 
   const handleLogin = async () => {
-    const currentTasks = await getTasks();
+    let optionalParams: UrlParams = paramBuilder();
+
+    const currentTasks = await getTasks(optionalParams);
     setTasks(currentTasks);
   };
 
   const handleTasksChange = async () => {
-    const currentTasks = await getTasks();
+    console.log("handling task change");
+    let optionalParams: UrlParams = paramBuilder();
+
+    console.log(optionalParams);
+
+    const currentTasks = await getTasks(optionalParams);
+    console.log("COMPLETED FILTER");
+    console.log(completedFilter);
     setTasks(currentTasks);
   };
 
+  // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
+  const handleClick = (e: any) => {
+    console.log("handling click");
+    e.preventDefault();
+    console.log(e.target.textContent);
+
+    switch (e.target.textContent) {
+      case "Show completed":
+        console.log("showing completed");
+        setCompletedFilter(true);
+        break;
+      case "Show incomplete":
+        console.log("showing incomplete");
+        setCompletedFilter(false);
+        break;
+      case "Show all":
+        console.log("showing all");
+        setCompletedFilter(undefined);
+        break;
+    }
+  };
+
+  const handleChange = (
+    e:
+  ) => {};
+
   useEffect(() => {
     handleLogin();
+    handleTasksChange();
     setTasks;
-  }, []);
+  }, [completedFilter]);
+
+  // useEffect(() => {
+  //   handleTasksChange();
+  // }, [completedFilter]);
 
   const openNewTaskModal = () => {
     setNewTaskModalOpen(true);
