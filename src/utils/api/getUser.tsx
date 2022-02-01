@@ -38,7 +38,16 @@ const getUser = async (): Promise<UserData | string> => {
       requestOptions
     );
 
-    const userAvatarRes = await getAvatar();
+    try {
+      const userAvatarRes = await getAvatar();
+      if (userAvatarRes.status === 200) {
+        const userId = window.sessionStorage.getItem("_id");
+
+        res.userAvatar = `http://localhost:3001/users/${userId}/avatar`;
+      }
+    } catch (e) {
+      console.log(e);
+    }
 
     if (userInfoRes.status === 200) {
       const userInfoJson = await userInfoRes.json();
@@ -46,15 +55,7 @@ const getUser = async (): Promise<UserData | string> => {
       res.userInfo = await userInfoJson;
     }
 
-    if (userAvatarRes.status === 200) {
-      const userId = window.sessionStorage.getItem("_id");
-
-      res.userAvatar = `http://localhost:3001/users/${userId}/avatar`;
-    }
-
     res.status = userInfoRes.status;
-
-    // res.userAvatar = userAvatarRes;
 
     result = res;
 
