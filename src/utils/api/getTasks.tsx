@@ -1,4 +1,14 @@
-const getTasks = async () => {
+export interface UrlParams {
+  completedParam?: string;
+  paginationParam?: string;
+  sortParam?: string;
+}
+
+const getTasks = async ({
+  completedParam,
+  paginationParam,
+  sortParam,
+}: UrlParams) => {
   console.log("getting tasks");
   var myHeaders = new Headers();
   myHeaders.append(
@@ -13,9 +23,33 @@ const getTasks = async () => {
     redirect: "follow",
   };
 
+  let optionalParamsArray: string[] = [];
+
+  if (completedParam || paginationParam || sortParam) {
+    if (completedParam) {
+      optionalParamsArray.push(completedParam);
+    }
+    if (paginationParam) {
+      optionalParamsArray.push(paginationParam);
+    }
+    if (sortParam) {
+      optionalParamsArray.push(sortParam);
+    }
+  }
+
+  let optionalParams: string = optionalParamsArray.toString();
+
+  console.log("OPTIONAL PARAMS");
+  console.log(optionalParamsArray);
+  console.log(optionalParams);
+
+  optionalParams = optionalParams.replace(/,/g, "&");
+
+  console.log(optionalParams);
+
   try {
     const res = await fetch(
-      "https://fynes-task-manager.herokuapp.com/tasks",
+      `https://fynes-task-manager.herokuapp.com/tasks?` + optionalParams,
       requestOptions
     );
     const json = await res.json();
@@ -24,7 +58,6 @@ const getTasks = async () => {
   } catch (e) {
     console.log(e);
   }
-
 };
 
 export default getTasks;
