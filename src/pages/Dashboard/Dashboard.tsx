@@ -43,7 +43,16 @@ const Dashboard = (props: DashboardInterface) => {
   );
   const [taskLimit, setTaskLimit] = useState<number>(0);
   const [skipCounter, setSkipCounter] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string | undefined>("");
+
+  const pageSkipCreator = () => {
+    if (pageNumber === 0) {
+      taskLimit && tasks.length > taskLimit
+        ? setPageNumber(Math.ceil(tasks.length / taskLimit))
+        : setPageNumber(0);
+    }
+  };
 
   const paramBuilder = () => {
     let params: UrlParams = {};
@@ -55,16 +64,19 @@ const Dashboard = (props: DashboardInterface) => {
       params.completedParam = "completed=false";
     }
 
-    console.log(params);
     let skip: string | undefined = undefined;
     if (skipCounter !== 0) {
       skip = `skip=${skipCounter}`;
     }
     params.paginationParam = `limit=${taskLimit}${
-      skip ? `skip=${skipCounter}` : ""
+      skip ? `&skip=${skipCounter}` : ""
     }`;
     //sortBy=createdAt:acs or createdAt:desc
-    params.sortParam = `sortBy=createdAt:${sortBy}`;
+    if (sortBy) {
+      params.sortParam = `sortBy=createdAt:${sortBy}`;
+    }
+
+    pageSkipCreator();
 
     return params;
   };
@@ -88,9 +100,17 @@ const Dashboard = (props: DashboardInterface) => {
   // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
   const handleClick = (e: any) => {
     e.preventDefault();
-    console.log(e.target.textContent);
+
+    if (e.target.className === "pageButton") {
+      setSkipCounter(e.target.textContent);
+    }
 
     switch (e.target.textContent) {
+      case /\d+/:
+        console.log("NUMBERS!!!");
+        console.log(e.target.textContent);
+        setSkipCounter(parseInt(e.target.textContent));
+        break;
       case "Show completed":
         setCompletedFilter(true);
         break;
@@ -98,7 +118,9 @@ const Dashboard = (props: DashboardInterface) => {
         setCompletedFilter(false);
         break;
       case "Show all":
+        setTaskLimit(0);
         setCompletedFilter(undefined);
+        setPageNumber(0);
         break;
     }
   };
@@ -139,6 +161,11 @@ const Dashboard = (props: DashboardInterface) => {
     handleTasksChange();
   }, [sortBy]);
 
+  useEffect(() => {
+    handleTasksChange();
+  }, [skipCounter]);
+
+  //modals
   const openNewTaskModal = () => {
     setNewTaskModalOpen(true);
   };
@@ -181,6 +208,17 @@ const Dashboard = (props: DashboardInterface) => {
     }
   };
 
+  let pagesArr: number[] = [];
+  const pageArrayCreator = () => {
+    if (pageNumber !== 0) {
+      for (let i = 0; i < pageNumber; i++) {
+        pagesArr.push(i + 1);
+      }
+    }
+  };
+
+  pageArrayCreator();
+
   return (
     <div>
       <h2>Dashboard</h2>
@@ -204,6 +242,7 @@ const Dashboard = (props: DashboardInterface) => {
         id=""
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
       >
+        <option value="0">No limit</option>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>
@@ -231,6 +270,20 @@ const Dashboard = (props: DashboardInterface) => {
             setCurrentTask={setCurrentTask}
           />
         ))}
+      </div>
+      <div id="pages">
+        {pageNumber != 0
+          ? pagesArr.map((page) => (
+              <span
+                className="pageButton"
+                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                  handleClick(e)
+                }
+              >
+                {page}
+              </span>
+            ))
+          : ""}
       </div>
       <Modal isOpen={isNewTaskModalOpen} ariaHideApp={false}>
         <NewTaskModal

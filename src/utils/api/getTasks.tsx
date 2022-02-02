@@ -39,13 +39,7 @@ const getTasks = async ({
 
   let optionalParams: string = optionalParamsArray.toString();
 
-  console.log("OPTIONAL PARAMS");
-  console.log(optionalParamsArray);
-  console.log(optionalParams);
-
   optionalParams = optionalParams.replace(/,/g, "&");
-
-  console.log(optionalParams);
 
   try {
     const res = await fetch(
