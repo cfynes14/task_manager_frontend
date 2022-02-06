@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { useEffect } from "react";
 
 import LoginBox from "../../components/LoginBox/LoginBox";
 import Dashboard from "../Dashboard/Dashboard";
@@ -7,10 +6,13 @@ import Dashboard from "../Dashboard/Dashboard";
 interface HomeProps {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
+  setIsLoading: (arg: boolean) => void;
 }
 
 const Home = (props: HomeProps) => {
-  const { isLoggedIn, setIsLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
+
+  useEffect(() => {});
 
   const token = window.sessionStorage.getItem("token");
   if (!isLoggedIn) {
@@ -18,14 +20,14 @@ const Home = (props: HomeProps) => {
     return (
       <div>
         <h1>Task Manager</h1>
-        <LoginBox setIsLoggedIn={setIsLoggedIn} />
+        <LoginBox setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
       </div>
     );
   } else {
     console.log("logged in");
     return (
       <div>
-        <Dashboard setIsLoggedIn={setIsLoggedIn} />
+        <Dashboard setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
       </div>
     );
   }

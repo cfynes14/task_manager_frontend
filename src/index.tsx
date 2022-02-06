@@ -1,14 +1,44 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { useState, ElementType, useEffect } from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import LoaderComponent from "./utils/loaderComponent/LoaderComponent";
+
+type WrapperProps = {
+  WrappedComponent: ElementType<any>;
+  // message: string;
+};
+
+const Loader = (props: WrapperProps) => {
+  const { WrappedComponent } = props;
+
+  const [isLoading, setLoadingState] = useState<boolean>(true);
+
+  const setIsLoading = (isComponentLoading: boolean) => {
+    console.log("setting Loading");
+    console.log(isComponentLoading);
+    setLoadingState(isComponentLoading);
+  };
+
+  console.log(isLoading);
+
+  return (
+    <>
+      {isLoading && <LoaderComponent />}
+      <WrappedComponent setIsLoading={setIsLoading} />
+    </>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Loader WrappedComponent={App} />
+    {/* <App /> */}
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

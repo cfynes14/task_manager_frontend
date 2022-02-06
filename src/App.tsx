@@ -11,8 +11,19 @@ import NewUserForm from "./components/NewUserForm/NewUserForm";
 import Home from "./pages/Home/Home";
 import Account from "./pages/Account/Account";
 
-const App = () => {
+// interface AppInterface {
+//   setLoading: (arg: boolean) => void;
+// }
+
+const App = (props: any) => {
+  const { setIsLoading } = props;
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   console.log("app using effect");
+  //   setIsLoading(true);
+  // });
 
   return (
     <div>
@@ -22,13 +33,21 @@ const App = () => {
           <Route
             path="/account_settings"
             element={
-              <Account isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+              <Account
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                setIsLoading={setIsLoading}
+              />
             }
           />
           <Route
             path="/"
             element={
-              <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+              <Home
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                setIsLoading={setIsLoading}
+              />
             }
           />
         </Routes>

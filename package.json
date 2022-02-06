@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.41",
-    "@types/react": "^17.0.38",
+    "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.10",
     "@types/react-modal": "^3.13.1",
     "gh": "^2.8.9",

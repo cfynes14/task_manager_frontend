@@ -27,10 +27,11 @@ import "./dashboard.scss";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
+  setIsLoading: (arg: boolean) => void;
 }
 
 const Dashboard = (props: DashboardInterface) => {
-  const { setIsLoggedIn } = props;
+  const { setIsLoggedIn, setIsLoading } = props;
 
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
@@ -86,12 +87,13 @@ const Dashboard = (props: DashboardInterface) => {
 
     const currentTasks = await getTasks(optionalParams);
     setTasks(currentTasks);
+    if (currentTasks) {
+      setIsLoading(false);
+    }
   };
 
   const handleTasksChange = async () => {
     let optionalParams: UrlParams = paramBuilder();
-
-    console.log(optionalParams);
 
     const currentTasks = await getTasks(optionalParams);
     setTasks(currentTasks);
@@ -126,13 +128,13 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("changing");
-    console.log(typeof e.target.value);
-    console.log(e.target.name);
+    // console.log("changing");
+    // console.log(typeof e.target.value);
+    // console.log(e.target.name);
     if (e.target.name === "limitSelect") {
       setTaskLimit(parseInt(e.target.value));
     } else {
-      console.log(e.target.value);
+      // console.log(e.target.value);
       switch (e.target.value) {
         case "newest":
           setSortBy("asc");

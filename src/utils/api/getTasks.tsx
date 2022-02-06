@@ -9,7 +9,6 @@ const getTasks = async ({
   paginationParam,
   sortParam,
 }: UrlParams) => {
-  console.log("getting tasks");
   var myHeaders = new Headers();
   myHeaders.append(
     "Authorization",
@@ -47,7 +46,6 @@ const getTasks = async ({
       requestOptions
     );
     const json = await res.json();
-    console.log(json);
     return json;
   } catch (e) {
     console.log(e);

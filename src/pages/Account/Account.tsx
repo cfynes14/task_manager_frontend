@@ -22,10 +22,11 @@ import { UserData } from "../../utils/api/getUser";
 interface AccountInterface {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
+  setIsLoading: (arg: boolean) => void;
 }
 
 const Account = (props: AccountInterface) => {
-  const { isLoggedIn, setIsLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
 
   let navigate = useNavigate();
   const [userPassword, setNewUserPassword] = useState<string>("");
@@ -44,6 +45,7 @@ const Account = (props: AccountInterface) => {
   const [userAvatarPath, setUserAvatarPath] = useState<string>("");
 
   const getUserDetails = async () => {
+    setIsLoading(true);
     const res: UserData = (await getUser()) as UserData;
     console.log(res);
 
@@ -54,6 +56,7 @@ const Account = (props: AccountInterface) => {
       setNewUserEmail(res.userInfo.email);
       setUserAvatarPath(res.userAvatar);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
