@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import createNewUser from "../../utils/api/createNewUser";
 
@@ -11,7 +11,16 @@ export interface UserInterface {
   password: String;
 }
 
-const NewUserForm = () => {
+interface NewUserFormInterface {
+  setIsLoading: (arg: boolean) => void;
+  setIsLoggedIn: (arg: boolean) => void;
+}
+
+const NewUserForm = (props: NewUserFormInterface) => {
+  const navigate = useNavigate();
+
+  const { setIsLoading, setIsLoggedIn } = props;
+
   const [newUserName, setNewUserName] = useState<string>("");
   const [newUserAge, setNewUserAge] = useState<number>(0);
   const [newUserEmail, setNewUserEmail] = useState<string>("");
@@ -25,7 +34,15 @@ const NewUserForm = () => {
       password: newUserPassword,
     };
 
-    createNewUser(userInfo);
+    const res = await createNewUser(userInfo);
+
+    if (res && res.status === 201) {
+      console.log("new user created");
+      window.sessionStorage.setItem("token", res?.token);
+      setIsLoggedIn(true);
+      setIsLoading(true);
+      navigate("/");
+    }
   };
   return (
     <div className="loginBox">

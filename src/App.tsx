@@ -30,7 +30,15 @@ const App = (props: any) => {
     <div>
       <Router>
         <Routes>
-          <Route path="/new_user" element={<NewUserForm />} />
+          <Route
+            path="/new_user"
+            element={
+              <NewUserForm
+                setIsLoading={setIsLoading}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            }
+          />
           <Route
             path="/account_settings"
             element={

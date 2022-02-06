@@ -14,7 +14,6 @@ const LoginBox = (props: LoginInterface) => {
   const { setIsLoggedIn, setIsLoading } = props;
 
   useEffect(() => {
-    console.log("loginbox using effect");
     setIsLoading(false);
   }, []);
 
@@ -28,7 +27,6 @@ const LoginBox = (props: LoginInterface) => {
       password,
     });
     if (response.status === 200) {
-      console.log("login box setting loading true");
       setIsLoggedIn(true);
     }
     console.log(response);
