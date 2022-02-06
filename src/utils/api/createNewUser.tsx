@@ -1,5 +1,21 @@
 import { UserInterface } from "../../components/NewUserForm/NewUserForm";
 
+interface UserResponseInterface {
+  age: number;
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
+interface UserResultInterface {
+  token: string;
+  data: UserResponseInterface;
+  status: number;
+}
+
 const createNewUser = async ({ name, age, email, password }: UserInterface) => {
   const userInfo: UserInterface = {
     name: name,
@@ -26,27 +42,28 @@ const createNewUser = async ({ name, age, email, password }: UserInterface) => {
   };
 
   try {
-    const res = await fetch(
+    let result: UserResultInterface = {} as UserResultInterface;
+
+    const response = await fetch(
       "https://fynes-task-manager.herokuapp.com/users",
       requestOptions
     );
-    const json = await res.json();
+
+    console.log(response);
+
+    const json = await response.json();
+
+    result.token = json.token;
+    result.data = json.user;
+    result.status = response.status;
 
     window.sessionStorage.setItem("_id", JSON.stringify(json.user._id));
     window.sessionStorage.setItem("token", JSON.stringify(json.token));
     console.log(json);
-    return json;
+    return result;
   } catch (e) {
     console.log(e);
   }
-
-  //   fetch("https://fynes-task-manager.herokuapp.com/users", requestOptions)
-  //     .then((response) => response.text())
-  //     .then((result) => {
-  //       console.log(result);
-  //       window.sessionStorage.setItem("_id", JSON.stringify(result._id));
-  //     })
-  //     .catch((error) => console.log("error", error));
 };
 
 export default createNewUser;
