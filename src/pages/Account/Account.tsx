@@ -45,18 +45,21 @@ const Account = (props: AccountInterface) => {
   const [userAvatarPath, setUserAvatarPath] = useState<string>("");
 
   const getUserDetails = async () => {
+    console.log("account page setting isloading true");
     setIsLoading(true);
     const res: UserData = (await getUser()) as UserData;
-    console.log(res);
+
+    if (res) {
+      console.log("account page setting is loading false");
+      setIsLoading(false);
+    }
 
     if (res.status === 200) {
-      console.log("got user");
       setNewUserName(res.userInfo.name);
       setNewUserAge(res.userInfo.age);
       setNewUserEmail(res.userInfo.email);
       setUserAvatarPath(res.userAvatar);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -75,6 +78,11 @@ const Account = (props: AccountInterface) => {
       setErrorMessage("Passwords must match!");
       return;
     }
+
+    console.log("account page setting isloading true");
+    setIsLoading(true);
+
+    console.log("HANDLING CLICKY");
 
     let userResDetails: UpdateUser = {};
 
@@ -211,7 +219,7 @@ const Account = (props: AccountInterface) => {
         <button className="boxElement loginButton" onClick={handleClick}>
           Update
         </button>
-        <Link to="/">
+        <Link to="/" onClick={handleClick}>
           <button className="boxElement loginButton">Cancel</button>
         </Link>
       </form>

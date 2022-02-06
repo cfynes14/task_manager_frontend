@@ -84,10 +84,11 @@ const Dashboard = (props: DashboardInterface) => {
 
   const handleLogin = async () => {
     let optionalParams: UrlParams = paramBuilder();
-
+    console.log("handling login");
     const currentTasks = await getTasks(optionalParams);
     setTasks(currentTasks);
     if (currentTasks) {
+      console.log("account page setting isloading false");
       setIsLoading(false);
     }
   };
@@ -144,6 +145,10 @@ const Dashboard = (props: DashboardInterface) => {
       }
     }
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
 
   useEffect(() => {
     handleLogin();
@@ -207,6 +212,8 @@ const Dashboard = (props: DashboardInterface) => {
     );
     if (res && res.status === 200) {
       setIsLoggedIn(false);
+      console.log("dashboard setting isloading true");
+      setIsLoading(true);
     }
   };
 

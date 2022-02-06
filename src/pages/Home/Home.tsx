@@ -12,7 +12,10 @@ interface HomeProps {
 const Home = (props: HomeProps) => {
   const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
 
-  useEffect(() => {});
+  useEffect(() => {
+    console.log("home using effect");
+    setIsLoading(false);
+  }, []);
 
   const token = window.sessionStorage.getItem("token");
   if (!isLoggedIn) {

@@ -15,15 +15,16 @@ type WrapperProps = {
 const Loader = (props: WrapperProps) => {
   const { WrappedComponent } = props;
 
+  // console.log(message);
+
   const [isLoading, setLoadingState] = useState<boolean>(true);
+  // const [componentMessage, setComponentMessage] = useState<string>("");
 
   const setIsLoading = (isComponentLoading: boolean) => {
     console.log("setting Loading");
     console.log(isComponentLoading);
     setLoadingState(isComponentLoading);
   };
-
-  console.log(isLoading);
 
   return (
     <>

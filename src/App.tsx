@@ -20,10 +20,11 @@ const App = (props: any) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   console.log("app using effect");
-  //   setIsLoading(true);
-  // });
+  useEffect(() => {
+    console.log("app using effect");
+    // setIsLoading(false);
+    setIsLoading(false);
+  }, []);
 
   return (
     <div>

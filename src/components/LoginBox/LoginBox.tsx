@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./loginBox.scss";
 
@@ -13,17 +13,22 @@ interface LoginInterface {
 const LoginBox = (props: LoginInterface) => {
   const { setIsLoggedIn, setIsLoading } = props;
 
+  useEffect(() => {
+    console.log("loginbox using effect");
+    setIsLoading(false);
+  }, []);
+
   const [email, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    setIsLoading(true);
     e.preventDefault();
     const response: any = await loginUser({
       email,
       password,
     });
     if (response.status === 200) {
+      console.log("login box setting loading true");
       setIsLoggedIn(true);
     }
     console.log(response);
