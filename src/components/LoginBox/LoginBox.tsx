@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./loginBox.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import loginUser from "../../utils/api/loginUser";
 
@@ -13,12 +15,14 @@ interface LoginInterface {
 const LoginBox = (props: LoginInterface) => {
   const { setIsLoggedIn, setIsLoading } = props;
 
+  const [email, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   useEffect(() => {
     setIsLoading(false);
   }, []);
 
-  const [email, setUserName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const errorMessage = (error: string) => toast(error);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,12 +32,15 @@ const LoginBox = (props: LoginInterface) => {
     });
     if (response.status === 200) {
       setIsLoggedIn(true);
+    } else {
+      errorMessage("unable to login");
     }
     console.log(response);
   };
 
   return (
     <div className="loginWrapper">
+      <ToastContainer />
       <h2 className="title">Login</h2>
       <p className="newSignup">
         New user? <Link to="/new_user">Sign up here</Link>

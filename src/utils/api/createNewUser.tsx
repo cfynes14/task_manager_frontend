@@ -51,6 +51,11 @@ const createNewUser = async ({ name, age, email, password }: UserInterface) => {
 
     console.log(response);
 
+    if (response.status !== 201) {
+      console.log("bad response");
+      return response;
+    }
+
     const json = await response.json();
 
     result.token = json.token;

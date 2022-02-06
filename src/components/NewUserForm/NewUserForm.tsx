@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import createNewUser from "../../utils/api/createNewUser";
 
@@ -34,18 +36,24 @@ const NewUserForm = (props: NewUserFormInterface) => {
       password: newUserPassword,
     };
 
+    const errorMessage = (message: string) => toast(message);
+
     const res = await createNewUser(userInfo);
 
     if (res && res.status === 201) {
       console.log("new user created");
-      window.sessionStorage.setItem("token", res?.token);
+      // window.sessionStorage.setItem("token", res?.token);
       setIsLoggedIn(true);
       setIsLoading(true);
       navigate("/");
+    } else {
+      console.log("unable to create user");
+      errorMessage("Unable to create user");
     }
   };
   return (
     <div className="loginBox">
+      <ToastContainer />
       <h2 className="title">Enter your details</h2>
 
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
