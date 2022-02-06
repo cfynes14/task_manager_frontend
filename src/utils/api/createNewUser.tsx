@@ -16,7 +16,12 @@ interface UserResultInterface {
   status: number;
 }
 
-const createNewUser = async ({ name, age, email, password }: UserInterface) => {
+const createNewUser = async ({
+  name,
+  age,
+  email,
+  password,
+}: UserInterface): Promise<any> => {
   const userInfo: UserInterface = {
     name: name,
     age: age,

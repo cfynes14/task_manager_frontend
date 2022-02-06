@@ -9,6 +9,10 @@ import DeleteAccountModal from "../../modals/DeleteAccountModal";
 import { useNavigate, Link } from "react-router-dom";
 
 import { UpdateUser } from "../../utils/api/updateUser";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //API functions
 import getUser, { UserDataInterface } from "../../utils/api/getUser";
 import updateUser from "../../utils/api/updateUser";
@@ -25,6 +29,8 @@ interface AccountInterface {
   setIsLoading: (arg: boolean) => void;
 }
 
+const errorMessage = (error: string) => toast(error);
+
 const Account = (props: AccountInterface) => {
   const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
 
@@ -38,7 +44,7 @@ const Account = (props: AccountInterface) => {
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  // const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
@@ -75,11 +81,10 @@ const Account = (props: AccountInterface) => {
 
   const handleClick = async () => {
     if (!checkPasswords(userPassword, userPasswordConfirm)) {
-      setErrorMessage("Passwords must match!");
+      errorMessage("Passwords must match!");
       return;
     }
 
-    console.log("account page setting isloading true");
     setIsLoading(true);
 
     console.log("HANDLING CLICKY");
@@ -104,9 +109,11 @@ const Account = (props: AccountInterface) => {
     try {
       const res = await updateUser(userResDetails);
       console.log(res);
-      if (res && res.status === 200) {
-        navigate("/");
+      if (res?.status !== 200) {
+        errorMessage("unable to update account details");
+        return;
       }
+      navigate("/");
     } catch (e) {
       console.log(e);
     }
@@ -155,6 +162,7 @@ const Account = (props: AccountInterface) => {
   }
   return (
     <div className="loginBox">
+      <ToastContainer />
       <h2 className="title">Edit your details</h2>
       <button onClick={handleDeleteAccount}>Delete account</button>
       <label className="boxElement">Upload avatar</label>

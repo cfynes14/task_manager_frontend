@@ -42,7 +42,9 @@ const NewUserForm = (props: NewUserFormInterface) => {
 
     if (res && res.status === 201) {
       console.log("new user created");
-      // window.sessionStorage.setItem("token", res?.token);
+      window.sessionStorage.setItem("token", res.token);
+      window.sessionStorage.setItem("_id", JSON.stringify(res.data._id));
+
       setIsLoggedIn(true);
       setIsLoading(true);
       navigate("/");
