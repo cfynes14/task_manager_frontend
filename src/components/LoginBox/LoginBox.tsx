@@ -49,7 +49,7 @@ const LoginBox = (props: LoginInterface) => {
         <label className="boxElement">Username:</label>
         <input
           className=" boxElement"
-          type="text boxElement"
+          type="email"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setUserName(e.target.value)
           }
