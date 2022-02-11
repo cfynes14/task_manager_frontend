@@ -5,6 +5,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import GlobalStyles from "./styles/GlobalStyles";
+
 import LoaderComponent from "./utils/loaderComponent/LoaderComponent";
 
 type WrapperProps = {
@@ -36,6 +38,7 @@ const Loader = (props: WrapperProps) => {
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyles />
     <Loader WrappedComponent={App} />
     {/* <App /> */}
   </React.StrictMode>,
