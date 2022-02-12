@@ -34,6 +34,7 @@ const LoginBox = (props: LoginInterface) => {
     });
     if (response.status === 200) {
       setIsLoggedIn(true);
+      setIsLoading(true);
     } else {
       errorMessage("unable to login");
     }
@@ -44,37 +45,39 @@ const LoginBox = (props: LoginInterface) => {
     <div className="loginWrapper">
       <ToastContainer />
       <LoginForm>
-        <h2 className="title">Login</h2>
-        <p className="newSignup">
-          New user? <Link to="/new_user">Sign up here</Link>
-        </p>
-        <form className="loginForm" onSubmit={handleSubmit}>
-          <label className="boxElement">Username:</label>
-          <input
-            className=" boxElement"
-            type="email"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUserName(e.target.value)
-            }
-          ></input>
-          <label className="boxElement">Password:</label>
-          <input
-            className="boxElement"
-            type="password"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
-          />
-          <button className="boxElement loginButton" type="submit">
-            Login
-          </button>
-          <button
-            className="boxElement loginButton"
-            onClick={(e) => e.preventDefault}
-          >
-            Cancel
-          </button>
-        </form>
+        <div>
+          <h2 className="title">Login</h2>
+          <p className="newSignup">
+            New user? <Link to="/new_user">Sign up here</Link>
+          </p>
+          <form className="loginForm" onSubmit={handleSubmit}>
+            <label className="boxElement">Username:</label>
+            <input
+              className=" boxElement"
+              type="email"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserName(e.target.value)
+              }
+            ></input>
+            <label className="boxElement">Password:</label>
+            <input
+              className="boxElement"
+              type="password"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
+            />
+            <button className="boxElement loginButton" type="submit">
+              Login
+            </button>
+            <button
+              className="boxElement loginButton"
+              onClick={(e) => e.preventDefault}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
       </LoginForm>
     </div>
   );
