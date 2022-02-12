@@ -38,8 +38,8 @@ const Loader = (props: WrapperProps) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyles />
     <Loader WrappedComponent={App} />
+    <GlobalStyles />
     {/* <App /> */}
   </React.StrictMode>,
   document.getElementById("root")

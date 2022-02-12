@@ -1,8 +1,11 @@
 import tw, { styled } from "twin.macro";
 
 const HomeStyles = styled.div`
+  main {
+    ${tw`h-96 bg-customCream`}
+  }
   h1 {
-    ${tw`bg-black text-center`}
+    ${tw`h-auto text-center bg-darkBrown text-xl text-customCream `}
   }
 `;
 

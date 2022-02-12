@@ -17,6 +17,8 @@ import LogoutModal from "../../modals/LogoutModal";
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
+import DashStyles from "./styles";
+
 import "./dashboard.scss";
 
 // const getAllTasks = async () => {
@@ -229,100 +231,115 @@ const Dashboard = (props: DashboardInterface) => {
   pageArrayCreator();
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <button onClick={openNewTaskModal}>New Task</button>
-      <Link to="/account_settings">
-        <button onClick={(e) => e.preventDefault}>Account</button>
-      </Link>
-      <button
-        onClick={() => {
-          openLogoutModal();
-        }}
-      >
-        Logout
-      </button>
-      <button onClick={(e) => handleClick(e)}>Show all</button>
-      <button onClick={(e) => handleClick(e)}>Show completed</button>
-      <button onClick={(e) => handleClick(e)}>Show incomplete</button>
-      <p>Limit page to:</p>
-      <select
-        name="limitSelect"
-        id=""
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
-      >
-        <option value="0">No limit</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </select>
-      <p>Sort by</p>
-      <select
-        name="filterSelect"
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
-      >
-        {/* <option value="completedFirst">Completed first</option>
+    <DashStyles>
+      <div>
+        <div className="dashContainer">
+          <h2>Dashboard</h2>
+          <button onClick={openNewTaskModal}>New Task</button>
+          <Link to="/account_settings">
+            <button onClick={(e) => e.preventDefault}>Account</button>
+          </Link>
+          <button
+            className="dashButton"
+            onClick={() => {
+              openLogoutModal();
+            }}
+          >
+            Logout
+          </button>
+          <button className="dashButton" onClick={(e) => handleClick(e)}>
+            Show all
+          </button>
+          <button className="dashButton" onClick={(e) => handleClick(e)}>
+            Show completed
+          </button>
+          <button className="dashButton" onClick={(e) => handleClick(e)}>
+            Show incomplete
+          </button>
+          <p>Limit page to:</p>
+          <select
+            name="limitSelect"
+            id=""
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleChange(e)
+            }
+          >
+            <option value="0">No limit</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </select>
+          <p>Sort by</p>
+          <select
+            name="filterSelect"
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              handleChange(e)
+            }
+          >
+            {/* <option value="completedFirst">Completed first</option>
         <option value="incompleteFirst">Incomplete first</option> */}
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option>A-Z</option>
-      </select>
-      <div className="wrapper">
-        {tasks.map((task: any) => (
-          <Task
-            key={task._id}
-            id={task._id}
-            description={task.description}
-            completed={task.completed}
-            openDeleteModal={openDeleteModal}
-            openEditModal={openEditModal}
-            setCurrentTask={setCurrentTask}
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option>A-Z</option>
+          </select>
+        </div>
+        <div className="wrapper">
+          {tasks.map((task: any) => (
+            <Task
+              key={task._id}
+              id={task._id}
+              description={task.description}
+              completed={task.completed}
+              openDeleteModal={openDeleteModal}
+              openEditModal={openEditModal}
+              setCurrentTask={setCurrentTask}
+            />
+          ))}
+        </div>
+        <div id="pages">
+          {pageNumber != 0
+            ? pagesArr.map((page) => (
+                <span
+                  className="pageButton"
+                  onClick={(
+                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                  ) => handleClick(e)}
+                >
+                  {page}
+                </span>
+              ))
+            : ""}
+        </div>
+        <Modal isOpen={isNewTaskModalOpen} ariaHideApp={false}>
+          <NewTaskModal
+            closeNewTaskModal={closeNewTaskModal}
+            handleTasksChange={handleTasksChange}
           />
-        ))}
+        </Modal>
+        <Modal isOpen={isEditModalOpen} ariaHideApp={false}>
+          <EditTaskModal
+            closeEditModal={closeEditModal}
+            handleTasksChange={handleTasksChange}
+            currentTask={currentTask}
+          />
+        </Modal>
+        <Modal isOpen={isDeleteModalOpen} ariaHideApp={false}>
+          <DeleteTaskModal
+            taskDescription={currentTask.description}
+            taskId={currentTask._id}
+            closeDeleteModal={closeDeleteModal}
+            handleTasksChange={handleTasksChange}
+          />
+        </Modal>
+        <Modal isOpen={isLogoutModalOpen} ariaHideApp={false}>
+          <LogoutModal
+            closeLogoutModal={closeLogoutModal}
+            logoutAll={handleLogout}
+            setIsLoggedIn={setIsLoggedIn}
+          />
+        </Modal>
       </div>
-      <div id="pages">
-        {pageNumber != 0
-          ? pagesArr.map((page) => (
-              <span
-                className="pageButton"
-                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                  handleClick(e)
-                }
-              >
-                {page}
-              </span>
-            ))
-          : ""}
-      </div>
-      <Modal isOpen={isNewTaskModalOpen} ariaHideApp={false}>
-        <NewTaskModal
-          closeNewTaskModal={closeNewTaskModal}
-          handleTasksChange={handleTasksChange}
-        />
-      </Modal>
-      <Modal isOpen={isEditModalOpen} ariaHideApp={false}>
-        <EditTaskModal
-          closeEditModal={closeEditModal}
-          handleTasksChange={handleTasksChange}
-          currentTask={currentTask}
-        />
-      </Modal>
-      <Modal isOpen={isDeleteModalOpen} ariaHideApp={false}>
-        <DeleteTaskModal
-          taskDescription={currentTask.description}
-          taskId={currentTask._id}
-          closeDeleteModal={closeDeleteModal}
-          handleTasksChange={handleTasksChange}
-        />
-      </Modal>
-      <Modal isOpen={isLogoutModalOpen} ariaHideApp={false}>
-        <LogoutModal
-          closeLogoutModal={closeLogoutModal}
-          logoutAll={handleLogout}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-      </Modal>
-    </div>
+    </DashStyles>
   );
 };
 

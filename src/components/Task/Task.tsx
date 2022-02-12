@@ -1,6 +1,8 @@
 import React from "react";
 import "./task.scss";
 
+import TaskStyles from "./styles";
+
 interface SetTaskInterface {
   completed: boolean | undefined;
   _id: string;
@@ -35,12 +37,18 @@ const Task = ({
   };
 
   return (
-    <div className="container">
-      <h3>{description}</h3>
-      <p>{completed ? "Complete" : "Incomplete"}</p>
-      <button onClick={handleEditClick}>Edit</button>
-      <button onClick={handleDeleteClick}>Delete</button>
-    </div>
+    <TaskStyles>
+      <div>
+        <h3>{description}</h3>
+        <p>{completed ? "Complete" : "Incomplete"}</p>
+        <button className="taskButton" onClick={handleEditClick}>
+          Edit
+        </button>
+        <button className="taskButton" onClick={handleDeleteClick}>
+          Delete
+        </button>
+      </div>
+    </TaskStyles>
   );
 };
 

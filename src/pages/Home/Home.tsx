@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import LoginBox from "../../components/LoginBox/LoginBox";
 import Dashboard from "../Dashboard/Dashboard";
 
+import HomeStyles from "./styles";
+
 interface HomeProps {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
@@ -21,10 +23,12 @@ const Home = (props: HomeProps) => {
   if (!isLoggedIn) {
     console.log("no token");
     return (
-      <div>
-        <h1>Task Manager</h1>
-        <LoginBox setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
-      </div>
+      <HomeStyles>
+        <main>
+          <h1>Task Manager</h1>
+          <LoginBox setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
+        </main>
+      </HomeStyles>
     );
   } else {
     console.log("logged in");
