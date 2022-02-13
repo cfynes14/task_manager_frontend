@@ -4,6 +4,9 @@ const DashStyles = styled.div`
   div.dashContainer {
     ${tw`bg-lightBlack pb-2`}
   }
+  div.wrapper {
+    ${tw`flex flex-wrap justify-between`}
+  }
   h2 {
     ${tw`text-customCream text-4xl text-center font-sans mb-5 pt-5`}
   }

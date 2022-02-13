@@ -2,8 +2,14 @@
 import tw, { styled } from "twin.macro";
 
 const NewUserStyles = styled.div`
-  div {
-    ${tw`w-0.5 mx-auto mt-40 w-80 border-solid bg-white rounded shadow`}
+  main {
+    ${tw`h-screen bg-customCream`}
+  }
+  h1 {
+    ${tw`text-center text-3xl text-customCream font-serif bg-darkBrown p-4`}
+  }
+  div.newUserForm {
+    ${tw`mx-auto mt-40 w-80 border-solid bg-white rounded shadow`}
   }
   h2 {
     ${tw`m-5 text-lightBlack pt-5 text-lg`}

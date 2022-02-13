@@ -1,5 +1,4 @@
 import React from "react";
-import "./task.scss";
 
 import TaskStyles from "./styles";
 
@@ -38,16 +37,14 @@ const Task = ({
 
   return (
     <TaskStyles>
-      <div>
-        <h3>{description}</h3>
-        <p>{completed ? "Complete" : "Incomplete"}</p>
-        <button className="taskButton" onClick={handleEditClick}>
-          Edit
-        </button>
-        <button className="taskButton" onClick={handleDeleteClick}>
-          Delete
-        </button>
-      </div>
+      <h3>{description}</h3>
+      <p>{completed ? "Complete" : "Incomplete"}</p>
+      <button className="taskButton" onClick={handleEditClick}>
+        Edit
+      </button>
+      <button className="taskButton" onClick={handleDeleteClick}>
+        Delete
+      </button>
     </TaskStyles>
   );
 };

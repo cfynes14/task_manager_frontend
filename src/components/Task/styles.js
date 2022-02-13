@@ -1,9 +1,7 @@
 import tw, { styled } from "twin.macro";
 
 const TaskStyles = styled.div`
-  div {
-    ${tw`container bg-white border shadow rounded m-5`}
-  }
+  ${tw`m-4 rounded border shadow`}
   h3 {
     ${tw`text-lightBlack bg-lightBrown p-2 font-sans`}
   }
