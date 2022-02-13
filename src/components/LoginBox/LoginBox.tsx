@@ -27,6 +27,7 @@ const LoginBox = (props: LoginInterface) => {
   const errorMessage = (error: string) => toast(error);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     const response: any = await loginUser({
       email,
@@ -34,7 +35,6 @@ const LoginBox = (props: LoginInterface) => {
     });
     if (response.status === 200) {
       setIsLoggedIn(true);
-      setIsLoading(true);
     } else {
       errorMessage("unable to login");
     }
