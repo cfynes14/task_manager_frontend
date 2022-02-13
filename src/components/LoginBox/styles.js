@@ -9,7 +9,7 @@ const LoginForm = styled.div`
     ${tw`m-5 text-lightBlack pt-5 text-lg`}
   }
   p {
-    ${tw`ml-5`}
+    ${tw`ml-5 hover:text-blue-500`}
   }
   form {
     ${tw`p-5`}
