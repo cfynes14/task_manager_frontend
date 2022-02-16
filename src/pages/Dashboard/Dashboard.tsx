@@ -232,7 +232,7 @@ const Dashboard = (props: DashboardInterface) => {
 
   return (
     <DashStyles>
-      <div>
+      <main>
         <div className="dashContainer">
           <h2>Dashboard</h2>
           <button onClick={openNewTaskModal}>New Task</button>
@@ -338,7 +338,7 @@ const Dashboard = (props: DashboardInterface) => {
             setIsLoggedIn={setIsLoggedIn}
           />
         </Modal>
-      </div>
+      </main>
     </DashStyles>
   );
 };

@@ -2,11 +2,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        customCream: "#f7f1f0",
-        lightBrown: "#c3a6a0",
-        darkBrown: "#a15c38",
-        lightBlack: "#262220",
-        ribbon: "#0047ff",
+        colour1: "#eae7dc",
+        colour2: "#d8c385",
+        colour3: "#8e8d8a",
+        colour4: "#e98074",
+        colour5: "#e85a4f",
       },
     },
   },

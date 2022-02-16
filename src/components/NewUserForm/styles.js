@@ -3,16 +3,16 @@ import tw, { styled } from "twin.macro";
 
 const NewUserStyles = styled.div`
   main {
-    ${tw`h-screen bg-customCream`}
+    ${tw`h-screen bg-colour1`}
   }
   h1 {
-    ${tw`text-center text-3xl text-customCream font-serif bg-darkBrown p-4`}
+    ${tw`text-center text-3xl text-colour1 font-serif bg-colour3 p-4`}
   }
   div.newUserForm {
     ${tw`mx-auto mt-40 w-80 border-solid bg-white rounded shadow`}
   }
   h2 {
-    ${tw`m-5 text-lightBlack pt-5 text-lg`}
+    ${tw`m-5 text-colour4 pt-5 text-lg`}
   }
   p {
     ${tw`ml-5`}

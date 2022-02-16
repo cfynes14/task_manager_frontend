@@ -163,11 +163,70 @@ const Account = (props: AccountInterface) => {
     );
   }
   return (
-    <AccountStyles>
-      <ToastContainer />
-      <h1>Account</h1>
-      <h2 className="title">Edit your details</h2>
-      <button onClick={handleDeleteAccount}>Delete account</button>
+    <div>
+      <AccountStyles>
+        <ToastContainer />
+        <h1>Account</h1>
+        <div className="accountContainer">
+          <h2 className="title">Edit your details</h2>
+          <button onClick={handleDeleteAccount}>Delete account</button>
+          <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
+            <label className="boxElement">Full Name:</label>
+            <input
+              id="userName"
+              className=" boxElement"
+              type="text"
+              value={userName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNewUserName(e.target.value)
+              }
+            ></input>
+            <label className="boxElement">Age:</label>
+            <input
+              id="userAge"
+              className=" boxElement"
+              type="number"
+              value={userAge ? userAge : ""}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNewUserAge(parseInt(e.target.value))
+              }
+            ></input>
+            <label className="boxElement">Email:</label>
+            <input
+              id="userEmail"
+              className=" boxElement"
+              type="email"
+              value={userEmail}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNewUserEmail(e.target.value)
+              }
+            ></input>
+            <label className="boxElement">Create new password:</label>
+            <input
+              className="boxElement"
+              type="password"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNewUserPassword(e.target.value)
+              }
+            />
+            <label className="boxElement">Confirm new password:</label>
+            <input
+              className="boxElement"
+              type="password"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserPasswordConfirm(e.target.value)
+              }
+            />
+            <button className="boxElement loginButton" onClick={handleClick}>
+              Update
+            </button>
+            <Link to="/" onClick={handleClick}>
+              <button className="boxElement loginButton">Cancel</button>
+            </Link>
+          </form>
+          <p>{errorMessage}</p>
+        </div>
+      </AccountStyles>
       <ImageStyles>
         <img className="avatar" src={userAvatarPath ? userAvatarPath : blank} />
         <label className="boxElement">Upload avatar</label>
@@ -182,68 +241,13 @@ const Account = (props: AccountInterface) => {
         <button onClick={uploadAvatar}>Upload</button>
         <button onClick={deleteImage}>Delete Avatar</button>
       </ImageStyles>
-      <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
-        <label className="boxElement">Full Name:</label>
-        <input
-          id="userName"
-          className=" boxElement"
-          type="text"
-          value={userName}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewUserName(e.target.value)
-          }
-        ></input>
-        <label className="boxElement">Age:</label>
-        <input
-          id="userAge"
-          className=" boxElement"
-          type="number"
-          value={userAge ? userAge : ""}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewUserAge(parseInt(e.target.value))
-          }
-        ></input>
-        <label className="boxElement">Email:</label>
-        <input
-          id="userEmail"
-          className=" boxElement"
-          type="email"
-          value={userEmail}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewUserEmail(e.target.value)
-          }
-        ></input>
-        <label className="boxElement">Create new password:</label>
-        <input
-          className="boxElement"
-          type="password"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewUserPassword(e.target.value)
-          }
-        />
-        <label className="boxElement">Confirm new password:</label>
-        <input
-          className="boxElement"
-          type="password"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUserPasswordConfirm(e.target.value)
-          }
-        />
-        <button className="boxElement loginButton" onClick={handleClick}>
-          Update
-        </button>
-        <Link to="/" onClick={handleClick}>
-          <button className="boxElement loginButton">Cancel</button>
-        </Link>
-      </form>
-      <p>{errorMessage}</p>
       <Modal isOpen={isDeleteAccountModalOpen}>
         <DeleteAccountModal
           closeDeleteAccountModal={closeDeleteAccountModal}
           setIsLoggedIn={setIsLoggedIn}
         />
       </Modal>
-    </AccountStyles>
+    </div>
   );
 };
 

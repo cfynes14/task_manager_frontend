@@ -6,7 +6,7 @@ const LoginForm = styled.div`
     ${tw`w-0.5 mx-auto mt-40 w-80 border-solid bg-white rounded shadow`}
   }
   h2 {
-    ${tw`m-5 text-lightBlack pt-5 text-lg`}
+    ${tw`m-5 text-colour4 pt-5 text-lg`}
   }
   p {
     ${tw`ml-5 hover:text-blue-500`}
