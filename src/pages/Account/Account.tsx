@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import "./account.scss";
+// import "./account.scss";
+
+import { AccountStyles, ImageStyles } from "./styles";
 
 import Modal from "react-modal";
 
@@ -161,22 +163,25 @@ const Account = (props: AccountInterface) => {
     );
   }
   return (
-    <div className="loginBox">
+    <AccountStyles>
       <ToastContainer />
+      <h1>Account</h1>
       <h2 className="title">Edit your details</h2>
       <button onClick={handleDeleteAccount}>Delete account</button>
-      <label className="boxElement">Upload avatar</label>
-      <input
-        id="avatar"
-        name="avatar"
-        className="boxElement"
-        type="file"
-        accept=""
-        onChange={handleAvatarInputChange}
-      />
-      <button onClick={uploadAvatar}>Upload</button>
-      <button onClick={deleteImage}>Delete Avatar</button>
-      <img className="avatar" src={userAvatarPath ? userAvatarPath : blank} />
+      <ImageStyles>
+        <img className="avatar" src={userAvatarPath ? userAvatarPath : blank} />
+        <label className="boxElement">Upload avatar</label>
+        <input
+          id="avatar"
+          name="avatar"
+          className="boxElement"
+          type="file"
+          accept=""
+          onChange={handleAvatarInputChange}
+        />
+        <button onClick={uploadAvatar}>Upload</button>
+        <button onClick={deleteImage}>Delete Avatar</button>
+      </ImageStyles>
       <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
         <label className="boxElement">Full Name:</label>
         <input
@@ -238,7 +243,7 @@ const Account = (props: AccountInterface) => {
           setIsLoggedIn={setIsLoggedIn}
         />
       </Modal>
-    </div>
+    </AccountStyles>
   );
 };
 
