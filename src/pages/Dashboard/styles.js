@@ -1,5 +1,13 @@
 import tw, { styled } from "twin.macro";
 
+// const DashStyles = (props) => {
+//   return (
+//     <main tw="h-screen bg-colour1">
+//       <div className="dashContainer" tw="h-screen"></div>
+//     </main>
+//   );
+// };
+
 const DashStyles = styled.div`
   main {
     ${tw`h-screen bg-colour1`}

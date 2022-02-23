@@ -5,7 +5,9 @@ import { ModifierFlags } from "typescript";
 import { Link } from "react-router-dom";
 // import { useStateWithCallback } from "use-state-with-callback";
 
+import DashNav from "../../components/DashNav/DashNav";
 import Task from "../../components/Task/Task";
+
 import { TaskParams } from "../../components/Task/Task";
 import { UrlParams } from "../../utils/api/getTasks";
 
@@ -235,7 +237,8 @@ const Dashboard = (props: DashboardInterface) => {
       <main>
         <div className="dashContainer">
           <h2>Dashboard</h2>
-          <button onClick={openNewTaskModal}>New Task</button>
+          <DashNav openNewTaskModal={openNewTaskModal} />
+          {/* <button onClick={openNewTaskModal}>New Task</button>
           <Link to="/account_settings">
             <button onClick={(e) => e.preventDefault}>Account</button>
           </Link>
@@ -255,7 +258,7 @@ const Dashboard = (props: DashboardInterface) => {
           </button>
           <button className="dashButton" onClick={(e) => handleClick(e)}>
             Show incomplete
-          </button>
+          </button> */}
           <p>Limit page to:</p>
           <select
             name="limitSelect"

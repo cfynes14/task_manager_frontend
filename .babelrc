@@ -1,6 +1,9 @@
 {
   "plugins": [
+    "babel-plugin-transform-inline-environment-variables",
+    "babel-plugin-twin",
     "babel-plugin-macros",
+    "babel-plugin-styled-components",
     [
       "@emotion/babel-plugin-jsx-pragmatic",
       {
