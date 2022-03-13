@@ -105,7 +105,9 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
-  const handleClick = (e: any) => {
+  const dashboardHandleClick = (e: any) => {
+    console.log("handling click");
+    console.log(e);
     e.preventDefault();
 
     if (e.target.className === "pageButton") {
@@ -118,13 +120,13 @@ const Dashboard = (props: DashboardInterface) => {
         console.log(e.target.textContent);
         setSkipCounter(parseInt(e.target.textContent));
         break;
-      case "Show completed":
+      case "Show Completed":
         setCompletedFilter(true);
         break;
-      case "Show incomplete":
+      case "Show Incomplete":
         setCompletedFilter(false);
         break;
-      case "Show all":
+      case "Show All":
         setTaskLimit(0);
         setCompletedFilter(undefined);
         setPageNumber(0);
@@ -237,7 +239,10 @@ const Dashboard = (props: DashboardInterface) => {
       <main>
         <div className="dashContainer">
           <h2>Dashboard</h2>
-          <DashNav openNewTaskModal={openNewTaskModal} />
+          <DashNav
+            openNewTaskModal={openNewTaskModal}
+            dashboardHandleClick={dashboardHandleClick}
+          />
           {/* <button onClick={openNewTaskModal}>New Task</button>
           <Link to="/account_settings">
             <button onClick={(e) => e.preventDefault}>Account</button>
@@ -306,7 +311,7 @@ const Dashboard = (props: DashboardInterface) => {
                   className="pageButton"
                   onClick={(
                     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-                  ) => handleClick(e)}
+                  ) => dashboardHandleClick(e)}
                 >
                   {page}
                 </span>
