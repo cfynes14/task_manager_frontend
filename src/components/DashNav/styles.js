@@ -21,10 +21,6 @@ export const NavContainer = (props) => {
   const { logoutText, logo } = props;
 
   const handleClick = () => {
-    console.log("handling click");
-
-    console.log(isMobileMenuHidden);
-
     isMobileMenuHidden ? setMobileMenuHidden(false) : setMobileMenuHidden(true);
   };
 
@@ -110,6 +106,8 @@ export const NavContainer = (props) => {
       </div>
       {/* mobile menu */}
       {isMobileMenuHidden ? (
+        ""
+      ) : (
         <div className="mobile-menu" tw="md:hidden">
           <h3
             tw="block py-2 px-4 text-sm hover:bg-gray-200"
@@ -130,8 +128,6 @@ export const NavContainer = (props) => {
             Show Incomplete
           </h3>
         </div>
-      ) : (
-        ""
       )}
     </nav>
   );
