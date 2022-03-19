@@ -1,6 +1,8 @@
 import deleteAccount from "../utils/api/deleteAccount";
 import { useNavigate, Link } from "react-router-dom";
 
+import ModalStyles from "./ModalStyles";
+
 interface DeleteAccountInterface {
   closeDeleteAccountModal: () => void;
   setIsLoggedIn: (arg: boolean) => void;
@@ -20,14 +22,14 @@ const DeleteAccountModal = (props: DeleteAccountInterface) => {
   };
 
   return (
-    <div>
+    <ModalStyles>
       <h1>
         Are you sure you want to delete your account and all associated data?
         You cannot undo this!
       </h1>
       <button onClick={handleDeleteAccount}>Yes</button>
       <button onClick={closeDeleteAccountModal}>No</button>
-    </div>
+    </ModalStyles>
   );
 };
 

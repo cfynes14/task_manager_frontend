@@ -1,5 +1,7 @@
 import deleteTask from "../utils/api/deleteTask";
 
+import ModalStyles from "./ModalStyles";
+
 interface DeleteModalInterface {
   taskDescription: string;
   taskId: string;
@@ -26,12 +28,12 @@ const DeleteTaskModal = (props: DeleteModalInterface) => {
   };
 
   return (
-    <div>
+    <ModalStyles>
       <h1>Delete task</h1>
       <p>Are you sure you want to delete {taskDescription} ?</p>
       <button onClick={handleDelete}>Confirm</button>
       <button onClick={closeDeleteModal}>Cancel</button>
-    </div>
+    </ModalStyles>
   );
 };
 

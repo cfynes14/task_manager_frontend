@@ -1,3 +1,5 @@
+import ModalStyles from "./ModalStyles";
+
 interface LogoutModalInterface {
   logoutAll: () => void;
   closeLogoutModal: () => void;
@@ -13,11 +15,11 @@ const LogoutModal = (props: LogoutModalInterface) => {
   };
 
   return (
-    <div>
+    <ModalStyles>
       <h1>Are you sure you want to logout?</h1>
       <button onClick={logoutAll}>Yes</button>
       <button onClick={modalHandleLogout}>No</button>
-    </div>
+    </ModalStyles>
   );
 };
 

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import getTasks from "../utils/api/getTasks";
 import createTask from "../../src/utils/api/createTask";
 
+import ModalStyles from "./ModalStyles";
+
 import { TaskParams } from "../components/Task/Task";
 
 interface NewTaskModalProps {
@@ -40,7 +42,7 @@ const NewTaskModal = ({
   };
 
   return (
-    <div>
+    <ModalStyles>
       <h1>Create New Task</h1>
       <form onSubmit={(e) => e.preventDefault()}>
         <label>Description</label>
@@ -76,7 +78,7 @@ const NewTaskModal = ({
         Create
       </button>
       <button onClick={closeNewTaskModal}>Close</button>
-    </div>
+    </ModalStyles>
   );
 };
 

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 import editTask from "../utils/api/editTask";
 
+import ModalStyles from "./ModalStyles";
+
 interface CurrentTask {
   completed: boolean;
   description: string;
@@ -54,7 +56,7 @@ const EditTaskModal = (props: EditModalInterface) => {
   };
 
   return (
-    <div>
+    <ModalStyles>
       <h1>Edit Task</h1>
       <form onSubmit={(e) => e.preventDefault()}>
         <label>Description</label>
@@ -91,7 +93,7 @@ const EditTaskModal = (props: EditModalInterface) => {
         Update
       </button>
       <button onClick={closeEditModal}>Close</button>
-    </div>
+    </ModalStyles>
   );
 };
 
