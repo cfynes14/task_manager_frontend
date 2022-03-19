@@ -23,12 +23,6 @@ import DashStyles from "./styles";
 
 import "./dashboard.scss";
 
-// const getAllTasks = async () => {
-//   console.log("getting all tasks");
-//   const res = await getTasks();
-//   return res;
-// };
-
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
   setIsLoading: (arg: boolean) => void;
@@ -242,6 +236,8 @@ const Dashboard = (props: DashboardInterface) => {
           <DashNav
             openNewTaskModal={openNewTaskModal}
             dashboardHandleClick={dashboardHandleClick}
+            setLogoutModalOpen={setLogoutModalOpen}
+            handleChange={handleChange}
           />
           {/* <button onClick={openNewTaskModal}>New Task</button>
           <Link to="/account_settings">

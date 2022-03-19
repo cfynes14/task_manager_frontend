@@ -3,18 +3,25 @@ import React from "react";
 
 import tw from "twin.macro";
 
-import LogoContainer from "./LogoContainer";
-import PrimaryNav from "./PrimaryNav";
-import SecondaryNav from "./SecondaryNav";
-import MobileNav from "./MobileNav";
+import LogoContainer from "./components/LogoContainer";
+import PrimaryNav from "./components/PrimaryNav";
+import SecondaryNav from "./components/SecondaryNav";
+import MobileNav from "./components/MobileNav";
 
 interface DashNavProps {
   openNewTaskModal: () => void;
   dashboardHandleClick: (e: any) => void;
+  setLogoutModalOpen: (arg: boolean) => void;
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const DashNav = (props: DashNavProps) => {
-  const { openNewTaskModal, dashboardHandleClick } = props;
+  const {
+    openNewTaskModal,
+    dashboardHandleClick,
+    setLogoutModalOpen,
+    handleChange,
+  } = props;
 
   return (
     <>
@@ -23,9 +30,15 @@ const DashNav = (props: DashNavProps) => {
           <div tw="flex justify-between">
             <div tw="flex space-x-4">
               <LogoContainer logo={"Task Manager"} />
-              <PrimaryNav dashboardHandleClick={dashboardHandleClick} />
+              <PrimaryNav
+                handleChange={handleChange}
+                dashboardHandleClick={dashboardHandleClick}
+              />
             </div>
-            <SecondaryNav logoutText={"Logout"} />
+            <SecondaryNav
+              logoutText={"Logout"}
+              setLogoutModalOpen={setLogoutModalOpen}
+            />
             <MobileNav dashboardHandleClick={dashboardHandleClick} />
           </div>
         </div>
