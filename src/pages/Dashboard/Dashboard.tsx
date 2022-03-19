@@ -239,32 +239,6 @@ const Dashboard = (props: DashboardInterface) => {
             openLogoutModal={openLogoutModal}
             handleChange={handleChange}
           />
-          <p>Limit page to:</p>
-          <select
-            name="limitSelect"
-            id=""
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleChange(e)
-            }
-          >
-            <option value="0">No limit</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-          </select>
-          <p>Sort by</p>
-          <select
-            name="filterSelect"
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              handleChange(e)
-            }
-          >
-            {/* <option value="completedFirst">Completed first</option>
-        <option value="incompleteFirst">Incomplete first</option> */}
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-            <option>A-Z</option>
-          </select>
         </div>
         <div className="wrapper">
           {tasks.map((task: any) => (
