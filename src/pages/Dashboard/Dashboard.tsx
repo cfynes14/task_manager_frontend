@@ -231,7 +231,7 @@ const Dashboard = (props: DashboardInterface) => {
     <DashStyles>
       <main>
         <div className="dashContainer">
-          <h2>Dashboard</h2>
+          {/* <h2>Dashboard</h2> */}
           <DashNav
             dashboardHandleClick={dashboardHandleClick}
             openNewTaskModal={openNewTaskModal}

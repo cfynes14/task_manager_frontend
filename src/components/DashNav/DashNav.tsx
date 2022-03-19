@@ -27,7 +27,7 @@ const DashNav = (props: DashNavProps) => {
   return (
     <>
       <nav tw="bg-gray-100">
-        <div tw="max-w-5xl mx-auto">
+        <div tw="max-w-5xl mx-auto ml-0">
           <div tw="flex justify-between">
             <div tw="flex space-x-4">
               <LogoContainer logo={"Task Manager"} />

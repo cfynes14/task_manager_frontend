@@ -9,7 +9,7 @@ const LogoContainer = (props: LogoContainer) => {
   const { logo } = props;
 
   return (
-    <div>
+    <div tw="mr-10">
       <Link to="/">
         <div tw="flex items-center py-5 px-3 font-bold hover:text-gray-900">
           <svg
