@@ -129,9 +129,8 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // console.log("changing");
-    // console.log(typeof e.target.value);
-    // console.log(e.target.name);
+    console.log("HANDLING CHANGE");
+
     if (e.target.name === "limitSelect") {
       setTaskLimit(parseInt(e.target.value));
     } else {
@@ -234,32 +233,12 @@ const Dashboard = (props: DashboardInterface) => {
         <div className="dashContainer">
           <h2>Dashboard</h2>
           <DashNav
-            openNewTaskModal={openNewTaskModal}
             dashboardHandleClick={dashboardHandleClick}
-            setLogoutModalOpen={setLogoutModalOpen}
+            openNewTaskModal={openNewTaskModal}
+            openEditModal={openEditModal}
+            openLogoutModal={openLogoutModal}
             handleChange={handleChange}
           />
-          {/* <button onClick={openNewTaskModal}>New Task</button>
-          <Link to="/account_settings">
-            <button onClick={(e) => e.preventDefault}>Account</button>
-          </Link>
-          <button
-            className="dashButton"
-            onClick={() => {
-              openLogoutModal();
-            }}
-          >
-            Logout
-          </button>
-          <button className="dashButton" onClick={(e) => handleClick(e)}>
-            Show all
-          </button>
-          <button className="dashButton" onClick={(e) => handleClick(e)}>
-            Show completed
-          </button>
-          <button className="dashButton" onClick={(e) => handleClick(e)}>
-            Show incomplete
-          </button> */}
           <p>Limit page to:</p>
           <select
             name="limitSelect"

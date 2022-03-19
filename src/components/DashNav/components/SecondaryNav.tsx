@@ -2,14 +2,14 @@ import tw from "twin.macro";
 
 interface SecondaryNavInterface {
   logoutText: string;
-  setLogoutModalOpen: any;
+  openLogoutModal: () => void;
 }
 
 const SecondaryNav = (props: SecondaryNavInterface) => {
-  const { logoutText, setLogoutModalOpen } = props;
+  const { logoutText, openLogoutModal } = props;
 
   const handleClick = () => {
-    setLogoutModalOpen(true);
+    openLogoutModal;
   };
 
   return (

@@ -5,7 +5,7 @@ interface SelectInterface {
 
 const Select = (props: SelectInterface) => {
   const { options, handleChange } = props;
-  console.log("OPTIONS", options);
+  // console.log("OPTIONS", options);
   return (
     <select
       onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}

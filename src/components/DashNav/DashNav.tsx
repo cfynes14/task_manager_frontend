@@ -10,8 +10,9 @@ import MobileNav from "./components/MobileNav";
 
 interface DashNavProps {
   openNewTaskModal: () => void;
+  openEditModal: () => void;
+  openLogoutModal: () => void;
   dashboardHandleClick: (e: any) => void;
-  setLogoutModalOpen: (arg: boolean) => void;
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -19,7 +20,7 @@ const DashNav = (props: DashNavProps) => {
   const {
     openNewTaskModal,
     dashboardHandleClick,
-    setLogoutModalOpen,
+    openLogoutModal,
     handleChange,
   } = props;
 
@@ -33,11 +34,12 @@ const DashNav = (props: DashNavProps) => {
               <PrimaryNav
                 handleChange={handleChange}
                 dashboardHandleClick={dashboardHandleClick}
+                openNewTaskModal={openNewTaskModal}
               />
             </div>
             <SecondaryNav
               logoutText={"Logout"}
-              setLogoutModalOpen={setLogoutModalOpen}
+              openLogoutModal={openLogoutModal}
             />
             <MobileNav dashboardHandleClick={dashboardHandleClick} />
           </div>
