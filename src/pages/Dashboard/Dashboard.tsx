@@ -19,7 +19,7 @@ import LogoutModal from "../../modals/LogoutModal";
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
-import DashStyles from "./styles";
+import DashStyles from "./utils/styles";
 
 import "./dashboard.scss";
 
@@ -146,30 +146,16 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   useEffect(() => {
+    console.log("USING EFFECT 1");
     setIsLoading(true);
   }, []);
 
   useEffect(() => {
+    console.log("USING EFFECT 2");
     handleLogin();
     handleTasksChange();
     setTasks;
-  }, [completedFilter]);
-
-  // useEffect(() => {
-  //   handleTasksChange();
-  // }, [completedFilter]);
-
-  useEffect(() => {
-    handleTasksChange();
-  }, [taskLimit]);
-
-  useEffect(() => {
-    handleTasksChange();
-  }, [sortBy]);
-
-  useEffect(() => {
-    handleTasksChange();
-  }, [skipCounter]);
+  }, [completedFilter, taskLimit, sortBy, skipCounter]);
 
   //modals
   const openNewTaskModal = () => {
