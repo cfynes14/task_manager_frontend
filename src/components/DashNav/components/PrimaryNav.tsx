@@ -46,11 +46,13 @@ const PrimaryNav = (props: PrimaryNav) => {
         key="primaryNavSkipSelect"
         options={pageSkipOptions}
         handleChange={handleChange}
+        selectName="limitSelect"
       />
       <Select
         key="primaryNavTypeSelect"
         options={sortByOptions}
         handleChange={handleChange}
+        selectName="typeSelect"
       />
     </div>
   );

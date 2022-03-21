@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, FormEventHandler } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
-import { ModifierFlags } from "typescript";
+import { createImportSpecifier, ModifierFlags } from "typescript";
 import { Link } from "react-router-dom";
 // import { useStateWithCallback } from "use-state-with-callback";
 
@@ -19,7 +19,7 @@ import LogoutModal from "../../modals/LogoutModal";
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
-import DashStyles from "./utils/styles";
+import DashStyles from "./styles";
 
 import "./dashboard.scss";
 
@@ -80,16 +80,16 @@ const Dashboard = (props: DashboardInterface) => {
     return params;
   };
 
-  const handleLogin = async () => {
-    let optionalParams: UrlParams = paramBuilder();
-    console.log("handling login");
-    const currentTasks = await getTasks(optionalParams);
-    setTasks(currentTasks);
-    if (currentTasks) {
-      console.log("account page setting isloading false");
-      setIsLoading(false);
-    }
-  };
+  // const handleLogin = async () => {
+  //   let optionalParams: UrlParams = paramBuilder();
+  //   console.log("handling login");
+  //   const currentTasks = await getTasks(optionalParams);
+  //   setTasks(currentTasks);
+  //   if (currentTasks) {
+  //     console.log("account page setting isloading false");
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleTasksChange = async () => {
     let optionalParams: UrlParams = paramBuilder();
@@ -130,31 +130,33 @@ const Dashboard = (props: DashboardInterface) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log("HANDLING CHANGE");
-
+    console.log(e.target);
     if (e.target.name === "limitSelect") {
       setTaskLimit(parseInt(e.target.value));
     } else {
       // console.log(e.target.value);
       switch (e.target.value) {
-        case "newest":
-          setSortBy("asc");
-          break;
-        case "oldest":
+        case "Newest":
           setSortBy("desc");
+          break;
+        case "Oldest":
+          setSortBy("asc");
       }
     }
   };
 
-  useEffect(() => {
-    console.log("USING EFFECT 1");
-    setIsLoading(true);
-  }, []);
+  // useEffect(() => {
+  //   console.log("USING EFFECT 1");
+  //   setIsLoading(true);
+  // }, []);
 
   useEffect(() => {
     console.log("USING EFFECT 2");
-    handleLogin();
+    setIsLoading(true);
+    // handleLogin();
     handleTasksChange();
-    setTasks;
+    // setTasks;
+    setIsLoading(false);
   }, [completedFilter, taskLimit, sortBy, skipCounter]);
 
   //modals
