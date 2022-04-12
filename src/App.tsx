@@ -21,8 +21,9 @@ const App = (props: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("app using effect");
-    // setIsLoading(false);
+    const userToken = window.sessionStorage.getItem("token");
+    console.log(userToken);
+    userToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
     setIsLoading(false);
   }, []);
 
