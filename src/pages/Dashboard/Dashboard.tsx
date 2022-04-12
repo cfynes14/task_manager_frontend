@@ -1,27 +1,31 @@
+//dependencies
 import React, { useEffect, useCallback, FormEventHandler } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
 import { createImportSpecifier, ModifierFlags } from "typescript";
 import { Link } from "react-router-dom";
-// import { useStateWithCallback } from "use-state-with-callback";
+import tw from "twin.macro";
 
+//pages
 import DashNav from "../../components/DashNav/DashNav";
 import Task from "../../components/Task/Task";
 
+//interfaces
 import { TaskParams } from "../../components/Task/Task";
 import { UrlParams } from "../../utils/api/getTasks";
 
+//components
 import NewTaskModal from "../../modals/NewTaskModal";
 import EditTaskModal from "../../modals/EditTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
 import LogoutModal from "../../modals/LogoutModal";
 
+//functions
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
+//styles
 import DashStyles from "./styles";
-
-import "./dashboard.scss";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
@@ -145,13 +149,7 @@ const Dashboard = (props: DashboardInterface) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("USING EFFECT 1");
-  //   setIsLoading(true);
-  // }, []);
-
   useEffect(() => {
-    console.log("USING EFFECT 2");
     setIsLoading(true);
     // handleLogin();
     handleTasksChange();
@@ -244,14 +242,15 @@ const Dashboard = (props: DashboardInterface) => {
         <div id="pages">
           {pageNumber != 0
             ? pagesArr.map((page) => (
-                <span
+                <p
                   className="pageButton"
+                  tw="inline py-5 px-3 text-gray-700 hover:text-gray-900 cursor-pointer"
                   onClick={(
-                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
                   ) => dashboardHandleClick(e)}
                 >
                   {page}
-                </span>
+                </p>
               ))
             : ""}
         </div>

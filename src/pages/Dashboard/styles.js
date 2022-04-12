@@ -25,9 +25,6 @@ const DashStyles = styled.div`
   button {
     ${tw`bg-colour3 hover:bg-colour2 text-colour1 font-bold mx-1 py-2 px-4 border border-colour4 rounded`}
   }
-  p {
-    ${tw`inline text-colour1 m-5`}
-  }
   select {
     ${tw`w-52 rounded`}
   }

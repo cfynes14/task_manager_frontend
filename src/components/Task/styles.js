@@ -8,6 +8,7 @@ const TaskStyles = styled.div`
   p {
     ${tw`block text-colour3`}
   }
+
   button.taskButton {
     ${tw`m-3`}
   }
