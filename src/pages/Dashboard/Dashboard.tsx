@@ -26,6 +26,7 @@ import getTasks from "../../utils/api/getTasks";
 
 //styles
 import DashStyles from "./styles";
+import "./dashboard.scss";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
@@ -190,7 +191,6 @@ const Dashboard = (props: DashboardInterface) => {
     );
     if (res && res.status === 200) {
       setIsLoggedIn(false);
-      console.log("dashboard setting isloading true");
       setIsLoading(true);
     }
   };
@@ -247,7 +247,11 @@ const Dashboard = (props: DashboardInterface) => {
               ))
             : ""}
         </div>
-        <Modal isOpen={isNewTaskModalOpen} ariaHideApp={false}>
+        <Modal
+          isOpen={isNewTaskModalOpen}
+          ariaHideApp={false}
+          className="modal"
+        >
           <NewTaskModal
             closeNewTaskModal={closeNewTaskModal}
             handleTasksChange={handleTasksChange}
