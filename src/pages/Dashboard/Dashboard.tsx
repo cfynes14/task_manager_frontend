@@ -104,20 +104,13 @@ const Dashboard = (props: DashboardInterface) => {
 
   // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
   const dashboardHandleClick = (e: any) => {
-    console.log("handling click");
-    console.log(e);
     e.preventDefault();
 
-    if (e.target.className === "pageButton") {
+    if (e.target.className.includes("pageButton")) {
       setSkipCounter(e.target.textContent);
     }
 
     switch (e.target.textContent) {
-      case /\d+/:
-        console.log("NUMBERS!!!");
-        console.log(e.target.textContent);
-        setSkipCounter(parseInt(e.target.textContent));
-        break;
       case "Show Completed":
         setCompletedFilter(true);
         break;
