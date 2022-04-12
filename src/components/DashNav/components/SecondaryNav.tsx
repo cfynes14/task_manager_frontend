@@ -9,7 +9,8 @@ const SecondaryNav = (props: SecondaryNavInterface) => {
   const { logoutText, openLogoutModal } = props;
 
   const handleClick = () => {
-    openLogoutModal;
+    console.log("handling logout click");
+    openLogoutModal();
   };
 
   return (

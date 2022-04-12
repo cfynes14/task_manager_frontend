@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 
 interface MobileNavInterface {
   dashboardHandleClick: (e: any) => void;
+  openLogoutModal: () => void;
 }
 
 const MobileNav = (props: MobileNavInterface) => {
-  const { dashboardHandleClick } = props;
+  const { dashboardHandleClick, openLogoutModal } = props;
 
   const [isMobileMenuHidden, setMobileMenuHidden] = useState(true);
 
@@ -53,6 +54,12 @@ const MobileNav = (props: MobileNavInterface) => {
             onClick={(e) => dashboardHandleClick(e)}
           >
             Show Incomplete
+          </h3>
+          <h3
+            tw="block py-2 px-4 text-sm hover:bg-gray-200"
+            onClick={(e) => openLogoutModal()}
+          >
+            Logout
           </h3>
         </div>
       )}

@@ -41,7 +41,10 @@ const DashNav = (props: DashNavProps) => {
               logoutText={"Logout"}
               openLogoutModal={openLogoutModal}
             />
-            <MobileNav dashboardHandleClick={dashboardHandleClick} />
+            <MobileNav
+              dashboardHandleClick={dashboardHandleClick}
+              openLogoutModal={openLogoutModal}
+            />
           </div>
         </div>
       </nav>
