@@ -257,14 +257,14 @@ const Dashboard = (props: DashboardInterface) => {
             handleTasksChange={handleTasksChange}
           />
         </Modal>
-        <Modal isOpen={isEditModalOpen} ariaHideApp={false}>
+        <Modal isOpen={isEditModalOpen} ariaHideApp={false} className="modal">
           <EditTaskModal
             closeEditModal={closeEditModal}
             handleTasksChange={handleTasksChange}
             currentTask={currentTask}
           />
         </Modal>
-        <Modal isOpen={isDeleteModalOpen} ariaHideApp={false}>
+        <Modal isOpen={isDeleteModalOpen} ariaHideApp={false} className="modal">
           <DeleteTaskModal
             taskDescription={currentTask.description}
             taskId={currentTask._id}
@@ -272,7 +272,7 @@ const Dashboard = (props: DashboardInterface) => {
             handleTasksChange={handleTasksChange}
           />
         </Modal>
-        <Modal isOpen={isLogoutModalOpen} ariaHideApp={false}>
+        <Modal isOpen={isLogoutModalOpen} ariaHideApp={false} className="modal">
           <LogoutModal
             closeLogoutModal={closeLogoutModal}
             logoutAll={handleLogout}
