@@ -50,7 +50,7 @@ const Account = (props: AccountInterface) => {
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
-  const [userAvatarPath, setUserAvatarPath] = useState<string>("");
+  const [userAvatarPath, setUserAvatarPath] = useState<string | null>("");
 
   const getUserDetails = async () => {
     console.log("account page setting isloading true");
@@ -66,7 +66,13 @@ const Account = (props: AccountInterface) => {
       setNewUserName(res.userInfo.name);
       setNewUserAge(res.userInfo.age);
       setNewUserEmail(res.userInfo.email);
-      setUserAvatarPath(res.userAvatar);
+      console.log("USERAVATAR", res.userAvatar);
+      // setUserAvatarPath(res.userAvatar);
+      const url = process.env.REACT_APP_API_URL;
+      const userId = window.sessionStorage.getItem("_id");
+      res.userAvatar
+        ? setUserAvatarPath(`${url}/users/${userId}/avatar`)
+        : setUserAvatarPath(null);
     }
   };
 
@@ -88,8 +94,6 @@ const Account = (props: AccountInterface) => {
     }
 
     setIsLoading(true);
-
-    console.log("HANDLING CLICKY");
 
     let userResDetails: UpdateUser = {};
 
@@ -168,6 +172,23 @@ const Account = (props: AccountInterface) => {
         <ToastContainer />
         <h1>Account</h1>
         <div className="accountContainer">
+          <ImageStyles>
+            <img
+              className="avatar"
+              src={userAvatarPath ? userAvatarPath : blank}
+            />
+            <label className="boxElement">Upload avatar</label>
+            <input
+              id="avatar"
+              name="avatar"
+              className="boxElement"
+              type="file"
+              accept=""
+              onChange={handleAvatarInputChange}
+            />
+            <button onClick={uploadAvatar}>Upload</button>
+            <button onClick={deleteImage}>Delete Avatar</button>
+          </ImageStyles>
           <h2 className="title">Edit your details</h2>
           <button onClick={handleDeleteAccount}>Delete account</button>
           <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
@@ -227,20 +248,6 @@ const Account = (props: AccountInterface) => {
           <p>{errorMessage}</p>
         </div>
       </AccountStyles>
-      <ImageStyles>
-        <img className="avatar" src={userAvatarPath ? userAvatarPath : blank} />
-        <label className="boxElement">Upload avatar</label>
-        <input
-          id="avatar"
-          name="avatar"
-          className="boxElement"
-          type="file"
-          accept=""
-          onChange={handleAvatarInputChange}
-        />
-        <button onClick={uploadAvatar}>Upload</button>
-        <button onClick={deleteImage}>Delete Avatar</button>
-      </ImageStyles>
       <Modal isOpen={isDeleteAccountModalOpen}>
         <DeleteAccountModal
           closeDeleteAccountModal={closeDeleteAccountModal}
