@@ -39,12 +39,14 @@ const Task = ({
     <TaskStyles>
       <h3>{description}</h3>
       <p>{completed ? "Complete" : "Incomplete"}</p>
-      <button className="taskButton" onClick={handleEditClick}>
-        Edit
-      </button>
-      <button className="taskButton" onClick={handleDeleteClick}>
-        Delete
-      </button>
+      <div className="button-container">
+        <button className="taskButton" onClick={handleEditClick}>
+          Edit
+        </button>
+        <button className="taskButton" onClick={handleDeleteClick}>
+          Delete
+        </button>
+      </div>
     </TaskStyles>
   );
 };

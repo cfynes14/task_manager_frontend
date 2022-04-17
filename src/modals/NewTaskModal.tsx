@@ -47,6 +47,7 @@ const NewTaskModal = ({
       <form onSubmit={(e) => e.preventDefault()}>
         <label>Description</label>
         <input
+          className="text-input"
           type="text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDescription(e.target.value)
@@ -56,6 +57,7 @@ const NewTaskModal = ({
           <label>Complete?</label>
           <label>
             <input
+              className="radio-input"
               type="radio"
               value="Yes"
               checked={completed === true}
@@ -65,6 +67,7 @@ const NewTaskModal = ({
           </label>
           <label>
             <input
+              className="radio-input"
               type="radio"
               value="No"
               checked={completed === false}

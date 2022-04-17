@@ -1,7 +1,9 @@
 .modal {
-  width: 70vw;
+  width: 30vw;
   max-width: 600px;
+  border: black solid 1px;
   border-radius: 5px;
+  box-shadow: 7px 5px 15px 5px rgba(0, 0, 0, 0.31);
   margin: 10% auto;
   padding: 3%;
   display: flex;

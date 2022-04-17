@@ -61,6 +61,7 @@ const EditTaskModal = (props: EditModalInterface) => {
       <form onSubmit={(e) => e.preventDefault()}>
         <label>Description</label>
         <input
+          className="text-input"
           type="text"
           value={description}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -71,6 +72,7 @@ const EditTaskModal = (props: EditModalInterface) => {
           <label>Complete?</label>
           <label>
             <input
+              className="radio-input"
               type="radio"
               value="Yes"
               checked={completed === true}
@@ -80,6 +82,7 @@ const EditTaskModal = (props: EditModalInterface) => {
           </label>
           <label>
             <input
+              className="radio-input"
               type="radio"
               value="No"
               checked={completed === false}

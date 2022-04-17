@@ -15,7 +15,7 @@ const SecondaryNav = (props: SecondaryNavInterface) => {
 
   return (
     <div
-      tw="hidden md:flex py-7 ml-20 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
+      tw="hidden md:flex py-7 ml-20 px-2 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300 cursor-pointer"
       onClick={handleClick}
     >
       {logoutText}

@@ -2,19 +2,25 @@ import tw, { styled } from "twin.macro";
 
 const ModalStyles = styled.div`
   h1 {
-    ${tw`text-red-600 font-sans text-xl`}
+    ${tw`m-3 text-red-600 font-sans text-xl`}
   }
   form {
-    ${tw`m-5 p-2 border-8 rounded`}
+    ${tw`p-2 rounded`}
   }
   label {
-    ${tw``}
+    ${tw`m-2`}
   }
-  input {
-    ${tw`m-3 border-2 rounded`}
+  .text-input {
+    ${tw`w-5/6 m-3 border-2 rounded`}
+  }
+  .radio-input {
+    ${tw`m-3`}
+  }
+  section {
+    ${tw`w-full flex items-stretch`}
   }
   button {
-    ${tw`bg-yellow-200 m-3 p-3 rounded hover:bg-yellow-500`}
+    ${tw`bg-yellow-200 w-5/6 m-3 py-3 rounded hover:bg-yellow-500`}
   }
 `;
 

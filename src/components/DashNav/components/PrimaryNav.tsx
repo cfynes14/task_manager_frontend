@@ -19,7 +19,7 @@ const PrimaryNav = (props: PrimaryNav) => {
         tw="py-5 px-3 text-gray-700 hover:text-gray-900 cursor-pointer"
         onClick={openNewTaskModal}
       >
-        New Task
+        New
       </h3>
       <Link to="/account_settings" tw="py-5 px-3">
         <h3>Account</h3>
@@ -28,19 +28,19 @@ const PrimaryNav = (props: PrimaryNav) => {
         tw="py-5 px-3 text-gray-700 hover:text-gray-900 cursor-pointer"
         onClick={(e) => dashboardHandleClick(e)}
       >
-        Show All
+        All
       </h3>
       <h3
         tw="py-5 px-3 text-gray-700 hover:text-gray-900 cursor-pointer"
         onClick={(e) => dashboardHandleClick(e)}
       >
-        Show Completed
+        Completed
       </h3>
       <h3
         tw="py-5 px-3 text-gray-700 hover:text-gray-900 cursor-pointer"
         onClick={(e) => dashboardHandleClick(e)}
       >
-        Show Incomplete
+        Incomplete
       </h3>
       <Select
         key="primaryNavSkipSelect"
