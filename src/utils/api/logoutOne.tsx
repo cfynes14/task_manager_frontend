@@ -12,10 +12,9 @@ const logoutAll = async (token: string | null) => {
     redirect: "follow",
   };
 
-  const res = await fetch(
-    "https://fynes-task-manager.herokuapp.com/users/logout",
-    requestOptions
-  )
+  const url = process.env.REACT_APP_API_URL;
+
+  const res = await fetch(`${url}/users/logout`, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log(error));

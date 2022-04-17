@@ -13,13 +13,9 @@ const getAvatar = async (): Promise<Response> => {
     redirect: "follow",
   };
 
-  const res = await fetch(
-    `http://localhost:3001/users/${id}/avatar`,
-    requestOptions
-  );
+  const url = process.env.REACT_APP_API_URL;
 
-  // console.log("USER AVATAR");
-  // console.log(json);
+  const res = await fetch(`${url}/users/${id}/avatar`, requestOptions);
 
   return res;
 };

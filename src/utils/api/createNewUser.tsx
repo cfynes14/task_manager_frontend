@@ -49,10 +49,9 @@ const createNewUser = async ({
   try {
     let result: UserResultInterface = {} as UserResultInterface;
 
-    const response = await fetch(
-      "https://fynes-task-manager.herokuapp.com/users",
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    const response = await fetch(`${url}/users`, requestOptions);
 
     console.log(response);
 

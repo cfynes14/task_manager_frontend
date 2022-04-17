@@ -18,7 +18,8 @@ const deleteAvatar = () => {
   const id = window.sessionStorage.getItem("_id");
 
   try {
-    return fetch(`http://localhost:3001/users/${id}/avatar`, requestOptions);
+    const url = process.env.REACT_APP_API_URL;
+    return fetch(`${url}/users/${id}/avatar`, requestOptions);
   } catch (e) {}
 };
 

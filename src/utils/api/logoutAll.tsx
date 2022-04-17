@@ -11,10 +11,9 @@ const logoutAll = async (token: string | null) => {
   };
 
   try {
-    const res = await fetch(
-      "https://fynes-task-manager.herokuapp.com/users/logoutAll",
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    const res = await fetch(`${url}/users/logoutAll`, requestOptions);
 
     window.sessionStorage.clear();
 

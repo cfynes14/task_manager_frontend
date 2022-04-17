@@ -27,10 +27,9 @@ const createTask = async (taskParams: NewTaskParams) => {
     redirect: "follow",
   };
 
-  const res = await fetch(
-    "https://fynes-task-manager.herokuapp.com/tasks",
-    requestOptions
-  );
+  const url = process.env.REACT_APP_API_URL;
+
+  const res = await fetch(`${url}/tasks`, requestOptions);
 
   return res;
 };

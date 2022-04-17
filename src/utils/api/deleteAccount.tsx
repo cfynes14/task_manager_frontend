@@ -12,10 +12,9 @@ const deleteAccount = () => {
   };
 
   try {
-    return fetch(
-      "https://fynes-task-manager.herokuapp.com/users/me",
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    return fetch(`${url}/users/me`, requestOptions);
   } catch (e) {
     console.log(e);
   }

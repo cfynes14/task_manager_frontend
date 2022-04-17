@@ -20,10 +20,9 @@ const loginUser = async (credentials: LoginParams) => {
     redirect: "follow",
   };
 
-  const response = await fetch(
-    "https://fynes-task-manager.herokuapp.com/users/login",
-    requestOptions
-  );
+  const url = process.env.REACT_APP_API_URL;
+
+  const response = await fetch(`${url}/users/login`, requestOptions);
 
   if (response.status === 200) {
     const json = await response.json();

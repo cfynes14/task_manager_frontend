@@ -33,10 +33,9 @@ const getUser = async (): Promise<UserData | string> => {
 
   try {
     let res: UserData = {} as UserData;
-    const userInfoRes = await fetch(
-      "https://fynes-task-manager.herokuapp.com/users/me",
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    const userInfoRes = await fetch(`${url}/users/me`, requestOptions);
 
     try {
       const userAvatarRes = await getAvatar();

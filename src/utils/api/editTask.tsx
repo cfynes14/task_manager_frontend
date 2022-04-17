@@ -27,10 +27,9 @@ const editTask = (taskBody: EditTaskBody) => {
   };
 
   try {
-    return fetch(
-      `https://fynes-task-manager.herokuapp.com/tasks/${_id}`,
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    return fetch(`${url}/tasks/${_id}`, requestOptions);
   } catch (e) {
     console.log(e);
   }

@@ -25,10 +25,9 @@ const updateUser = async (userDetails: UpdateUser) => {
   };
 
   try {
-    const res = await fetch(
-      "https://fynes-task-manager.herokuapp.com/users/me",
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    const res = await fetch(`${url}/users/me`, requestOptions);
     return res;
   } catch (e) {
     console.log(e);

@@ -9,10 +9,9 @@ const deleteTask = (taskId: string, token: string | null) => {
   };
 
   try {
-    return fetch(
-      `https://fynes-task-manager.herokuapp.com/tasks/${taskId}`,
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    return fetch(`${url}/tasks/${taskId}`, requestOptions);
   } catch (e) {
     console.log(e);
   }

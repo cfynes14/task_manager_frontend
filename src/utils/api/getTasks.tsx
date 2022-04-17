@@ -41,10 +41,9 @@ const getTasks = async ({
   optionalParams = optionalParams.replace(/,/g, "&");
 
   try {
-    const res = await fetch(
-      `https://fynes-task-manager.herokuapp.com/tasks?` + optionalParams,
-      requestOptions
-    );
+    const url = process.env.REACT_APP_API_URL;
+
+    const res = await fetch(`${url}/tasks?` + optionalParams, requestOptions);
     const json = await res.json();
     return json;
   } catch (e) {

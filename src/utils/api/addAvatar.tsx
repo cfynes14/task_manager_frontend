@@ -20,7 +20,9 @@ const addAvatar = async (file: string) => {
   };
 
   try {
-    return await fetch("http://localhost:3001/users/me/avatar", requestOptions);
+    const url = process.env.REACT_APP_API_URL;
+
+    return await fetch(`${url}/users/me/avatar`, requestOptions);
   } catch (e) {
     console.log(e);
   }
@@ -28,4 +30,4 @@ const addAvatar = async (file: string) => {
 
 export default addAvatar;
 
-//"https://fynes-task-manager.herokuapp.com/users/me/avatar"
+//"process.env.URL/users/me/avatar"
