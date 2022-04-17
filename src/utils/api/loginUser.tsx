@@ -4,16 +4,15 @@ interface LoginParams {
 }
 
 const loginUser = async (credentials: LoginParams) => {
-  console.log("handling login");
-  var myHeaders = new Headers();
+  const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
+  const raw = JSON.stringify({
     email: credentials.email,
     password: credentials.password,
   });
 
-  var requestOptions: any = {
+  const requestOptions: any = {
     method: "POST",
     headers: myHeaders,
     body: raw,
@@ -28,9 +27,6 @@ const loginUser = async (credentials: LoginParams) => {
     const json = await response.json();
     window.sessionStorage.setItem("token", json.token);
     window.sessionStorage.setItem("_id", json.user._id);
-    console.log("logged in");
-  } else {
-    console.log("no login");
   }
 
   return response;
