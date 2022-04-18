@@ -29,13 +29,13 @@ import { UserData } from "../../utils/api/getUser";
 interface AccountInterface {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
-  setIsLoading: (arg: boolean) => void;
+  // setIsLoading: (arg: boolean) => void;
 }
 
 const errorMessage = (error: string) => toast(error);
 
 const Account = (props: AccountInterface) => {
-  const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
   let navigate = useNavigate();
   const [userPassword, setNewUserPassword] = useState<string>("");
@@ -57,12 +57,12 @@ const Account = (props: AccountInterface) => {
 
   const getUserDetails = async () => {
     console.log("account page setting isloading true");
-    setIsLoading(true);
+    // setIsLoading(true);
     const res: UserData = (await getUser()) as UserData;
 
     if (res) {
       console.log("account page setting is loading false");
-      setIsLoading(false);
+      // setIsLoading(false);
     }
 
     if (res.status === 200) {
@@ -96,7 +96,7 @@ const Account = (props: AccountInterface) => {
       return;
     }
 
-    setIsLoading(true);
+    // setIsLoading(true);
 
     let userResDetails: UpdateUser = {};
 

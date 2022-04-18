@@ -14,7 +14,7 @@ type WrapperProps = {
   // message: string;
 };
 
-const Loader = (props: WrapperProps) => {
+export const Loader = (props: WrapperProps) => {
   const { WrappedComponent } = props;
 
   // console.log(message);
@@ -38,9 +38,8 @@ const Loader = (props: WrapperProps) => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Loader WrappedComponent={App} />
     <GlobalStyles />
-    {/* <App /> */}
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

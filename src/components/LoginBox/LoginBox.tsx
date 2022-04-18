@@ -11,23 +11,23 @@ import loginUser from "../../utils/api/loginUser";
 
 interface LoginInterface {
   setIsLoggedIn: (arg: boolean) => void;
-  setIsLoading: (arg: boolean) => void;
+  // setIsLoading: (arg: boolean) => void;
 }
 
 const LoginBox = (props: LoginInterface) => {
-  const { setIsLoggedIn, setIsLoading } = props;
+  const { setIsLoggedIn } = props;
 
   const [email, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    setIsLoading(false);
+    // setIsLoading(false);
   }, []);
 
   const errorMessage = (error: string) => toast(error);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     e.preventDefault();
     const response: any = await loginUser({
       email,

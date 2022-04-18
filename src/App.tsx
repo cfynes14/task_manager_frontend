@@ -24,7 +24,7 @@ const App = (props: any) => {
     const userToken = window.sessionStorage.getItem("token");
     console.log(userToken);
     userToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
-    setIsLoading(false);
+    // setIsLoading(false);
   }, []);
 
   return (
@@ -35,7 +35,7 @@ const App = (props: any) => {
             path="/new_user"
             element={
               <NewUserForm
-                setIsLoading={setIsLoading}
+                // setIsLoading={setIsLoading}
                 setIsLoggedIn={setIsLoggedIn}
               />
             }
@@ -46,7 +46,7 @@ const App = (props: any) => {
               <Account
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
-                setIsLoading={setIsLoading}
+                // setIsLoading={setIsLoading}
               />
             }
           />
@@ -56,7 +56,7 @@ const App = (props: any) => {
               <Home
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
-                setIsLoading={setIsLoading}
+                // setIsLoading={setIsLoading}
               />
             }
           />

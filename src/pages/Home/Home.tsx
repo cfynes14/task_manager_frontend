@@ -8,15 +8,15 @@ import HomeStyles from "./styles";
 interface HomeProps {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
-  setIsLoading: (arg: boolean) => void;
+  // setIsLoading: (arg: boolean) => void;
 }
 
 const Home = (props: HomeProps) => {
-  const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
   useEffect(() => {
     console.log("home using effect");
-    setIsLoading(false);
+    // setIsLoading(false);
   }, []);
 
   const token = window.sessionStorage.getItem("token");
@@ -26,7 +26,7 @@ const Home = (props: HomeProps) => {
       <HomeStyles>
         <main>
           <h1>Task Manager</h1>
-          <LoginBox setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
+          <LoginBox setIsLoggedIn={setIsLoggedIn} />
         </main>
       </HomeStyles>
     );
@@ -34,7 +34,7 @@ const Home = (props: HomeProps) => {
     console.log("logged in");
     return (
       <div>
-        <Dashboard setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
+        <Dashboard setIsLoggedIn={setIsLoggedIn} />
       </div>
     );
   }

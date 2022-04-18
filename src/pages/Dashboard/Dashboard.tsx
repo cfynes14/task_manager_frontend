@@ -30,11 +30,11 @@ import "./dashboard.scss";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
-  setIsLoading: (arg: boolean) => void;
+  // setIsLoading: (arg: boolean) => void;
 }
 
 const Dashboard = (props: DashboardInterface) => {
-  const { setIsLoggedIn, setIsLoading } = props;
+  const { setIsLoggedIn } = props;
 
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
@@ -144,11 +144,11 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     // handleLogin();
     handleTasksChange();
     // setTasks;
-    setIsLoading(false);
+    // setIsLoading(false);
   }, [completedFilter, taskLimit, sortBy, skipCounter]);
 
   //modals
@@ -191,7 +191,7 @@ const Dashboard = (props: DashboardInterface) => {
     );
     if (res && res.status === 200) {
       setIsLoggedIn(false);
-      setIsLoading(true);
+      // setIsLoading(true);
     }
   };
 
