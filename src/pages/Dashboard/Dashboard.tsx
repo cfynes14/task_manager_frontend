@@ -13,6 +13,7 @@ import Task from "../../components/Task/Task";
 //interfaces
 import { TaskParams } from "../../components/Task/Task";
 import { UrlParams } from "../../utils/api/getTasks";
+import { TaskInterface } from "../../utils/interfaces/TaskInterface";
 
 //components
 import NewTaskModal from "../../modals/NewTaskModal";
@@ -23,10 +24,13 @@ import LogoutModal from "../../modals/LogoutModal";
 //functions
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
+import deleteTask from "../../utils/api/deleteTask";
+import createTask from "../../utils/api/createTask";
 
 //styles
 import DashStyles from "./styles";
 import "./dashboard.scss";
+import { ToastContainer, toast } from "react-toastify";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
@@ -40,8 +44,11 @@ const Dashboard = (props: DashboardInterface) => {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<any>([]);
+  const [tasks, setTasks] = useState<TaskInterface[]>([]);
   const [currentTask, setCurrentTask] = useState<any>("");
+  const [newTaskDescription, setNewTaskDescription] = useState<string>("");
+  const [newTaskCompleted, setNewTaskCompleted] = useState<boolean>(false);
+
   const [completedFilter, setCompletedFilter] = useState<boolean | undefined>(
     undefined
   );
@@ -149,6 +156,7 @@ const Dashboard = (props: DashboardInterface) => {
     handleTasksChange();
     // setTasks;
     setIsLoading(false);
+    console.log(tasks);
   }, [completedFilter, taskLimit, sortBy, skipCounter]);
 
   //modals
@@ -195,6 +203,38 @@ const Dashboard = (props: DashboardInterface) => {
     }
   };
 
+  let newTaskArr: TaskInterface[] = [];
+  const handleNewTask = async () => {
+    const currentTaskArr: TaskInterface[] = tasks;
+  };
+
+  const handleEditTask = async () => {};
+
+  const handleDeleteTask = async () => {
+    const currentTaskArr: TaskInterface[] = tasks;
+
+    currentTask._id;
+
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i]._id === currentTask._id) {
+        newTaskArr = currentTaskArr.filter((task) => {
+          return task._id != currentTask._id;
+        });
+      }
+    }
+
+    setTasks(newTaskArr);
+
+    const res = await deleteTask(currentTask._id);
+
+    console.log(res);
+
+    if (res?.status !== 200) {
+      toast("Could not delete task, please try again later");
+      setTasks(currentTaskArr);
+    }
+  };
+
   let pagesArr: number[] = [];
   const pageArrayCreator = () => {
     if (pageNumber !== 0) {
@@ -208,6 +248,7 @@ const Dashboard = (props: DashboardInterface) => {
 
   return (
     <DashStyles>
+      <ToastContainer />
       <main>
         <div className="dashContainer">
           {/* <h2>Dashboard</h2> */}
@@ -254,7 +295,9 @@ const Dashboard = (props: DashboardInterface) => {
         >
           <NewTaskModal
             closeNewTaskModal={closeNewTaskModal}
-            handleTasksChange={handleTasksChange}
+            handleNewTask={handleNewTask}
+            setNewTaskDescription={setNewTaskDescription}
+            setNewTaskCompleted={setNewTaskCompleted}
           />
         </Modal>
         <Modal isOpen={isEditModalOpen} ariaHideApp={false} className="modal">
@@ -269,7 +312,7 @@ const Dashboard = (props: DashboardInterface) => {
             taskDescription={currentTask.description}
             taskId={currentTask._id}
             closeDeleteModal={closeDeleteModal}
-            handleTasksChange={handleTasksChange}
+            handleDeleteTask={handleDeleteTask}
           />
         </Modal>
         <Modal isOpen={isLogoutModalOpen} ariaHideApp={false} className="modal">

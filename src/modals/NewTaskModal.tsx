@@ -8,37 +8,42 @@ import ModalStyles from "./ModalStyles";
 import { TaskParams } from "../components/Task/Task";
 
 interface NewTaskModalProps {
-  closeNewTaskModal: any;
-  handleTasksChange: any;
+  closeNewTaskModal: () => void;
+  handleNewTask: () => void;
+  setNewTaskDescription: (arg: string) => void;
+  setNewTaskCompleted: (arg: boolean) => void;
 }
 
 //React.MouseEventHandler<HTMLButtonElement>
 
 const NewTaskModal = ({
   closeNewTaskModal,
-  handleTasksChange,
+  handleNewTask,
+  setNewTaskDescription,
+  setNewTaskCompleted,
 }: NewTaskModalProps) => {
   const [description, setDescription] = useState<string>("");
   const [completed, setComplete] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "Yes") {
-      setComplete(true);
-    } else {
-      setComplete(false);
-    }
+    e.target.value === "Yes"
+      ? setNewTaskCompleted(true)
+      : setNewTaskCompleted(false);
   };
 
   const handleClick = async () => {
-    const taskParams = {
-      description,
-      completed,
-    };
-    const res = await createTask(taskParams);
-    if (res.status === 201) {
-      handleTasksChange();
-      closeNewTaskModal();
-    }
+    handleNewTask();
+    closeNewTaskModal();
+
+    // const taskParams = {
+    //   description,
+    //   completed,
+    // };
+    // const res = await createTask(taskParams);
+    // if (res.status === 201) {
+    //   handleTasksChange();
+    //   closeNewTaskModal();
+    // }
   };
 
   return (
@@ -50,7 +55,7 @@ const NewTaskModal = ({
           className="text-input"
           type="text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDescription(e.target.value)
+            setNewTaskDescription(e.target.value)
           }
         />
         <div className="radio">
