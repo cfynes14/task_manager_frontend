@@ -7,6 +7,7 @@ import { AccountStyles, ImageStyles } from "./styles";
 import Modal from "react-modal";
 
 import DeleteAccountModal from "../../modals/DeleteAccountModal";
+import DeleteAvatarModal from "../../modals/DeleteAvatarModal";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -48,6 +49,8 @@ const Account = (props: AccountInterface) => {
 
   // const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
+    useState<boolean>(false);
+  const [isDeleteAvatarModalOpen, setDeleteAvatarModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
   const [userAvatarPath, setUserAvatarPath] = useState<string | null>("");
@@ -125,6 +128,26 @@ const Account = (props: AccountInterface) => {
     }
   };
 
+  const openDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(true);
+  };
+
+  const closeDeleteAccountModal = () => {
+    setDeleteAccountModalOpen(false);
+  };
+
+  const openDeleteAvatarModal = () => {
+    setDeleteAvatarModalOpen(true);
+  };
+
+  const closeDeleteAvatarModal = () => {
+    setDeleteAvatarModalOpen(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    openDeleteAccountModal();
+  };
+
   const handleAvatarInputChange = (e: any) => {
     const avatarFile = e.target.files[0];
 
@@ -141,22 +164,17 @@ const Account = (props: AccountInterface) => {
     console.log(res);
   };
 
-  const deleteImage = async () => {
-    console.log("deleting avatar");
+  const handleDeleteAvatar = async () => {
+    const originalAvatarPath = userAvatarPath;
+    setUserAvatarPath(null);
+    closeDeleteAvatarModal();
+
     const res = await deleteAvatar();
-    console.log(res);
-  };
 
-  const openDeleteAccountModal = () => {
-    setDeleteAccountModalOpen(true);
-  };
-
-  const closeDeleteAccountModal = () => {
-    setDeleteAccountModalOpen(false);
-  };
-
-  const handleDeleteAccount = async () => {
-    openDeleteAccountModal();
+    if (res && res.status !== 200) {
+      setUserAvatarPath(originalAvatarPath);
+      //TOAST MESSAGE ERROR
+    }
   };
 
   if (!isLoggedIn) {
@@ -187,10 +205,9 @@ const Account = (props: AccountInterface) => {
               onChange={handleAvatarInputChange}
             />
             <button onClick={uploadAvatar}>Upload</button>
-            <button onClick={deleteImage}>Delete Avatar</button>
+            <button onClick={openDeleteAvatarModal}>Delete Avatar</button>
           </ImageStyles>
           <h2 className="title">Edit your details</h2>
-          <button onClick={handleDeleteAccount}>Delete account</button>
           <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
             <label className="boxElement">Full Name:</label>
             <input
@@ -238,20 +255,31 @@ const Account = (props: AccountInterface) => {
                 setUserPasswordConfirm(e.target.value)
               }
             />
-            <button className="boxElement loginButton" onClick={handleClick}>
-              Update
-            </button>
-            <Link to="/" onClick={handleClick}>
-              <button className="boxElement loginButton">Cancel</button>
-            </Link>
+            <div className="button-container">
+              <button className="boxElement loginButton" onClick={handleClick}>
+                Update
+              </button>
+              <Link to="/" onClick={handleClick}>
+                <button className="boxElement loginButton">Cancel</button>
+              </Link>
+              <button className="delete-button" onClick={handleDeleteAccount}>
+                Delete account
+              </button>
+            </div>
           </form>
           <p>{errorMessage}</p>
         </div>
       </AccountStyles>
-      <Modal isOpen={isDeleteAccountModalOpen}>
+      <Modal isOpen={isDeleteAccountModalOpen} className="modal">
         <DeleteAccountModal
           closeDeleteAccountModal={closeDeleteAccountModal}
           setIsLoggedIn={setIsLoggedIn}
+        />
+      </Modal>
+      <Modal isOpen={isDeleteAvatarModalOpen} className="modal">
+        <DeleteAvatarModal
+          closeDeleteAvatarModal={closeDeleteAvatarModal}
+          handleDeleteAvatar={handleDeleteAvatar}
         />
       </Modal>
     </div>
