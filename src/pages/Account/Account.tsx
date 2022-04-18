@@ -204,8 +204,10 @@ const Account = (props: AccountInterface) => {
               accept=""
               onChange={handleAvatarInputChange}
             />
-            <button onClick={uploadAvatar}>Upload</button>
-            <button onClick={openDeleteAvatarModal}>Delete Avatar</button>
+            <div className="button-container">
+              <button onClick={uploadAvatar}>Upload</button>
+              <button onClick={openDeleteAvatarModal}>Delete Avatar</button>
+            </div>
           </ImageStyles>
           <h2 className="title">Edit your details</h2>
           <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
