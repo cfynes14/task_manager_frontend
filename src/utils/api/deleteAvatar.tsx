@@ -1,7 +1,6 @@
 import { request } from "http";
 
 const deleteAvatar = () => {
-  console.log("DELETEING AVATAR METHOD");
   let myHeaders = new Headers();
   myHeaders.append(
     "Authorization",

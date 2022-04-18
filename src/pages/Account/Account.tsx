@@ -32,7 +32,7 @@ interface AccountInterface {
   setIsLoading: (arg: boolean) => void;
 }
 
-const errorMessage = (error: string) => toast(error);
+const toastMessage = (error: string) => toast(error);
 
 const Account = (props: AccountInterface) => {
   const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
@@ -92,7 +92,7 @@ const Account = (props: AccountInterface) => {
 
   const handleClick = async () => {
     if (!checkPasswords(userPassword, userPasswordConfirm)) {
-      errorMessage("Passwords must match!");
+      toastMessage("Passwords must match!");
       return;
     }
 
@@ -119,7 +119,7 @@ const Account = (props: AccountInterface) => {
       const res = await updateUser(userResDetails);
       console.log(res);
       if (res?.status !== 200) {
-        errorMessage("unable to update account details");
+        toastMessage("unable to update account details");
         return;
       }
       navigate("/");
@@ -159,8 +159,10 @@ const Account = (props: AccountInterface) => {
   };
 
   const uploadAvatar = async () => {
-    console.log("uploading avatar");
     const res = await addAvatar(userAvatarFile);
+    if (res?.status === 200) {
+      toastMessage("Avatar uploaded");
+    }
     console.log(res);
   };
 
@@ -173,7 +175,7 @@ const Account = (props: AccountInterface) => {
 
     if (res && res.status !== 200) {
       setUserAvatarPath(originalAvatarPath);
-      //TOAST MESSAGE ERROR
+      toastMessage("Unable to delete avatar - try again later");
     }
   };
 
@@ -269,7 +271,7 @@ const Account = (props: AccountInterface) => {
               </button>
             </div>
           </form>
-          <p>{errorMessage}</p>
+          {/* <p>{errorMessage}</p> */}
         </div>
       </AccountStyles>
       <Modal isOpen={isDeleteAccountModalOpen} className="modal">
