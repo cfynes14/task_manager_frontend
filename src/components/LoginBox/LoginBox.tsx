@@ -29,6 +29,10 @@ const LoginBox = (props: LoginInterface) => {
   const handleSubmit = async (e: React.FormEvent) => {
     setIsLoading(true);
     e.preventDefault();
+    if(email === "" || password === ""){
+      setIsLoading(false)
+      return errorMessage("Please enter an email and a password")
+    }
     const response: any = await loginUser({
       email,
       password,
@@ -36,7 +40,8 @@ const LoginBox = (props: LoginInterface) => {
     if (response.status === 200) {
       setIsLoggedIn(true);
     } else {
-      errorMessage("unable to login");
+      errorMessage("Either no account linked with email or incorrect password");
+      setIsLoading(false)
     }
     console.log(response);
   };
