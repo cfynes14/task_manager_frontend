@@ -9,7 +9,7 @@ const NewUserStyles = styled.div`
     ${tw`text-center text-3xl text-colour1 font-serif bg-colour3 p-4`}
   }
   div.newUserForm {
-    ${tw`mx-auto mt-40 w-80 border-solid bg-white rounded shadow`}
+    ${tw`mx-auto mt-10 w-4/12 border-solid bg-white rounded shadow`}
   }
   h2 {
     ${tw`m-5 text-colour4 pt-5 text-lg`}
@@ -18,13 +18,13 @@ const NewUserStyles = styled.div`
     ${tw`ml-5`}
   }
   form {
-    ${tw`p-5`}
+    ${tw`px-5 pb-5`}
   }
   label {
-    ${tw`block`}
+    ${tw`block mb-2`}
   }
   input {
-    ${tw`block border-gray-300 mb-4 ml-1 w-60 border-solid border rounded py-2 px-4`}
+    ${tw`block border-gray-300 mb-4 ml-1 w-11/12 border-solid border rounded py-2 px-4`}
   }
   button {
     ${tw`bg-green-500 hover:bg-green-700 text-white font-bold mx-1 py-2 px-4 border border-blue-700 rounded`}

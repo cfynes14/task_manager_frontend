@@ -63,18 +63,16 @@ const NewUserForm = (props: NewUserFormInterface) => {
           <ToastContainer />
           <h2 className="title">Enter your details</h2>
 
-          <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <label className="boxElement">Full Name:</label>
             <input
-              className=" boxElement"
               type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewUserName(e.target.value)
               }
             ></input>
-            <label className="boxElement">Age:</label>
+            <label>Age:</label>
             <input
-              className=" boxElement"
               type="number"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewUserAge(parseInt(e.target.value))
@@ -82,26 +80,23 @@ const NewUserForm = (props: NewUserFormInterface) => {
             ></input>
             <label className="boxElement">Email:</label>
             <input
-              className=" boxElement"
               type="email"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewUserEmail(e.target.value)
               }
             ></input>
-            <label className="boxElement">Password:</label>
+            <label>Password:</label>
             <input
-              className="boxElement"
               type="password"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewUserPassword(e.target.value)
               }
             />
-            <button className="boxElement loginButton" onClick={handleClick}>
+            <button onClick={handleClick}>
               Create
             </button>
             <Link to="/">
               <button
-                className="boxElement loginButton"
                 onClick={(e) => e.preventDefault}
               >
                 Cancel
