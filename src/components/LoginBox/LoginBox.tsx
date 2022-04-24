@@ -58,13 +58,12 @@ const LoginBox = (props: LoginInterface) => {
           <form className="loginForm" onSubmit={handleSubmit}>
             <label className="boxElement">Username:</label>
             <input
-              className=" boxElement"
               type="email"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserName(e.target.value)
               }
             ></input>
-            <label className="boxElement">Password:</label>
+            <label>Password:</label>
             <input
               className="boxElement"
               type="password"
@@ -72,11 +71,10 @@ const LoginBox = (props: LoginInterface) => {
                 setPassword(e.target.value)
               }
             />
-            <button className="boxElement loginButton" type="submit">
+            <button type="submit">
               Login
             </button>
             <button
-              className="boxElement loginButton"
               onClick={(e) => e.preventDefault}
             >
               Cancel

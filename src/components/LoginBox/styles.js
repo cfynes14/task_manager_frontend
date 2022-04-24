@@ -3,7 +3,7 @@ import tw, { styled } from "twin.macro";
 
 const LoginForm = styled.div`
   div {
-    ${tw`w-0.5 mx-auto mt-40 w-80 border-solid bg-white rounded shadow`}
+    ${tw`w-0.5 mx-auto w-80 border-solid bg-white rounded shadow`}
   }
   h2 {
     ${tw`m-5 text-colour4 pt-5 text-lg`}
@@ -11,7 +11,7 @@ const LoginForm = styled.div`
   p {
     ${tw`ml-5 hover:text-blue-500`}
   }
-  form {
+  .loginForm {
     ${tw`p-5`}
   }
   label {
