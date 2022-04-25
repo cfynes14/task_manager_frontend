@@ -31,9 +31,9 @@ export const AccountStyles = styled.main`
 `;
 
 export const ImageStyles = styled.div`
-  ${tw`max-h-full max-w-lg p-4 float-right border border-gray-900`}
+  ${tw`max-h-full max-w-lg p-4 float-right border-4 border-gray-400 rounded`}
   img {
-    ${tw`m-auto rounded-3xl`}
+    ${tw`m-auto rounded-3xl h-60 w-60`}
   }
   label {
     ${tw`block`}

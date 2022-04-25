@@ -84,17 +84,6 @@ const Dashboard = (props: DashboardInterface) => {
     return params;
   };
 
-  // const handleLogin = async () => {
-  //   let optionalParams: UrlParams = paramBuilder();
-  //   console.log("handling login");
-  //   const currentTasks = await getTasks(optionalParams);
-  //   setTasks(currentTasks);
-  //   if (currentTasks) {
-  //     console.log("account page setting isloading false");
-  //     setIsLoading(false);
-  //   }
-  // };
-
   const handleTasksChange = async () => {
     let optionalParams: UrlParams = paramBuilder();
 
