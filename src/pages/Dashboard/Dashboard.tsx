@@ -75,9 +75,8 @@ const Dashboard = (props: DashboardInterface) => {
     params.paginationParam = `limit=${taskLimit}${
       skip ? `&skip=${skipCounter}` : ""
     }`;
-    //sortBy=createdAt:acs or createdAt:desc
     if (sortBy) {
-      params.sortParam = `sortBy=createdAt:${sortBy}`;
+      params.sortParam = `sortBy=${sortBy}`;
     }
 
     pageSkipCreator();
@@ -112,13 +111,13 @@ const Dashboard = (props: DashboardInterface) => {
     }
 
     switch (e.target.textContent) {
-      case "Show Completed":
+      case "Completed":
         setCompletedFilter(true);
         break;
-      case "Show Incomplete":
+      case "Incomplete":
         setCompletedFilter(false);
         break;
-      case "Show All":
+      case "All":
         setTaskLimit(0);
         setCompletedFilter(undefined);
         setPageNumber(0);
@@ -135,10 +134,16 @@ const Dashboard = (props: DashboardInterface) => {
       // console.log(e.target.value);
       switch (e.target.value) {
         case "Newest":
-          setSortBy("desc");
+          setSortBy("createdAt:desc");
           break;
         case "Oldest":
-          setSortBy("asc");
+          setSortBy("createdAt:asc");
+          break;
+        case "A-Z":
+          setSortBy("description:asc");
+          break;
+        case "Z-A":
+          setSortBy("description:desc");
       }
     }
   };
