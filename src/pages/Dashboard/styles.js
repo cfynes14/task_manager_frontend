@@ -10,7 +10,7 @@ import tw, { styled } from "twin.macro";
 
 const DashStyles = styled.div`
   main {
-    ${tw`h-auto bg-colour1`}
+    ${tw`h-screen overflow-auto bg-colour1`}
   }
 
   div.dashContainer {
