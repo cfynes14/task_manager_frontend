@@ -46,7 +46,7 @@ const App = (props: any) => {
               <Account
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
-                // setIsLoading={setIsLoading}
+                setIsLoading={setIsLoading}
               />
             }
           />
@@ -56,7 +56,7 @@ const App = (props: any) => {
               <Home
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
-                // setIsLoading={setIsLoading}
+                setIsLoading={setIsLoading}
               />
             }
           />

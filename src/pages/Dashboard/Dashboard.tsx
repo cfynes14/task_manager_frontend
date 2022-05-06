@@ -19,6 +19,7 @@ import NewTaskModal from "../../modals/NewTaskModal";
 import EditTaskModal from "../../modals/EditTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
 import LogoutModal from "../../modals/LogoutModal";
+import { Loader } from "../../utils/loader/Loader";
 
 //functions
 import logoutAll from "../../utils/api/logoutAll";
@@ -36,6 +37,8 @@ interface DashboardInterface {
 const Dashboard = (props: DashboardInterface) => {
   const { setIsLoggedIn } = props;
 
+  console.log("DASHBOARD PROPS", props);
+
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
@@ -49,6 +52,7 @@ const Dashboard = (props: DashboardInterface) => {
   const [skipCounter, setSkipCounter] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string | undefined>("");
+  const [isComponentLoading, setIsComponentLoading] = useState<boolean>(true);
 
   const pageSkipCreator = () => {
     if (pageNumber === 0) {
@@ -85,21 +89,18 @@ const Dashboard = (props: DashboardInterface) => {
     return params;
   };
 
-  // const handleLogin = async () => {
-  //   let optionalParams: UrlParams = paramBuilder();
-  //   console.log("handling login");
-  //   const currentTasks = await getTasks(optionalParams);
-  //   setTasks(currentTasks);
-  //   if (currentTasks) {
-  //     console.log("account page setting isloading false");
-  //     setIsLoading(false);
-  //   }
-  // };
-
   const handleTasksChange = async () => {
     let optionalParams: UrlParams = paramBuilder();
 
     const currentTasks = await getTasks(optionalParams);
+
+    console.log("currentTasks", currentTasks);
+
+    if (currentTasks) {
+      console.log("GOT THE CURRENT TASKS");
+      setIsComponentLoading(false);
+    }
+
     setTasks(currentTasks);
   };
 
@@ -206,19 +207,9 @@ const Dashboard = (props: DashboardInterface) => {
 
   pageArrayCreator();
 
-  return (
-    <DashStyles>
-      <main>
-        <div className="dashContainer">
-          {/* <h2>Dashboard</h2> */}
-          <DashNav
-            dashboardHandleClick={dashboardHandleClick}
-            openNewTaskModal={openNewTaskModal}
-            openEditModal={openEditModal}
-            openLogoutModal={openLogoutModal}
-            handleChange={handleChange}
-          />
-        </div>
+  const Tasks = () => {
+    return (
+      <>
         <div className="wrapper">
           {tasks.map((task: any) => (
             <Task
@@ -247,6 +238,24 @@ const Dashboard = (props: DashboardInterface) => {
               ))
             : ""}
         </div>
+      </>
+    );
+  };
+
+  return (
+    <DashStyles>
+      <main>
+        <DashNav
+          dashboardHandleClick={dashboardHandleClick}
+          openNewTaskModal={openNewTaskModal}
+          openEditModal={openEditModal}
+          openLogoutModal={openLogoutModal}
+          handleChange={handleChange}
+        />
+        <Loader
+          WrappedComponent={Tasks}
+          isComponentLoading={isComponentLoading}
+        />
         <Modal
           isOpen={isNewTaskModalOpen}
           ariaHideApp={false}

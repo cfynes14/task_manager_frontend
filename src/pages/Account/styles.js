@@ -1,6 +1,6 @@
 import tw, { styled } from "twin.macro";
 
-export const AccountStyles = styled.main`
+export const AccountStyles = styled.div`
   ${tw`bg-colour1 h-screen`}
   div.accountContainer {
     ${tw`m-10`}

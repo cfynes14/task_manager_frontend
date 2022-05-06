@@ -8,11 +8,12 @@ import HomeStyles from "./styles";
 interface HomeProps {
   isLoggedIn: boolean;
   setIsLoggedIn: (arg: boolean) => void;
-  // setIsLoading: (arg: boolean) => void;
+  setIsLoading: (arg: boolean) => void;
 }
 
 const Home = (props: HomeProps) => {
-  const { isLoggedIn, setIsLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
+  console.log("HOME PROPS", props);
 
   useEffect(() => {
     console.log("home using effect");
