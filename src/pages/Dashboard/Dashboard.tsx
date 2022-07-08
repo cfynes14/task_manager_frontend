@@ -2,8 +2,6 @@
 import React, { useEffect, useCallback, FormEventHandler } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
-import { createImportSpecifier, ModifierFlags } from "typescript";
-import { Link } from "react-router-dom";
 import tw from "twin.macro";
 
 //pages
@@ -11,7 +9,6 @@ import DashNav from "../../components/DashNav/DashNav";
 import Task from "../../components/Task/Task";
 
 //interfaces
-import { TaskParams } from "../../components/Task/Task";
 import { UrlParams } from "../../utils/api/getTasks";
 
 //components
@@ -36,8 +33,6 @@ interface DashboardInterface {
 
 const Dashboard = (props: DashboardInterface) => {
   const { setIsLoggedIn } = props;
-
-  console.log("DASHBOARD PROPS", props);
 
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
@@ -94,32 +89,35 @@ const Dashboard = (props: DashboardInterface) => {
 
     const currentTasks = await getTasks(optionalParams);
 
-    console.log("currentTasks", currentTasks);
-
     if (currentTasks) {
-      console.log("GOT THE CURRENT TASKS");
       setIsComponentLoading(false);
     }
 
     setTasks(currentTasks);
   };
 
-  // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
-  const dashboardHandleClick = (e: any) => {
+  const dashboardHandleClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (e.target.className.includes("pageButton")) {
-      setSkipCounter(e.target.textContent);
+    const target = e.target as HTMLHeadingElement;
+
+    if (
+      target.textContent &&
+      target.className &&
+      target.className.includes("pageButton")
+    ) {
+      const skip: number = parseInt(target.textContent);
+      setSkipCounter(skip);
     }
 
-    switch (e.target.textContent) {
-      case "Show Completed":
+    switch (target.textContent) {
+      case "Completed":
         setCompletedFilter(true);
         break;
-      case "Show Incomplete":
+      case "Incomplete":
         setCompletedFilter(false);
         break;
-      case "Show All":
+      case "All":
         setTaskLimit(0);
         setCompletedFilter(undefined);
         setPageNumber(0);
@@ -128,12 +126,9 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("HANDLING CHANGE");
-    console.log(e.target);
     if (e.target.name === "limitSelect") {
       setTaskLimit(parseInt(e.target.value));
     } else {
-      // console.log(e.target.value);
       switch (e.target.value) {
         case "Newest":
           setSortBy("desc");
@@ -145,11 +140,7 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   useEffect(() => {
-    // setIsLoading(true);
-    // handleLogin();
     handleTasksChange();
-    // setTasks;
-    // setIsLoading(false);
   }, [completedFilter, taskLimit, sortBy, skipCounter]);
 
   //modals
