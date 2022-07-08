@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useCallback } from "react";
 // import "./account.scss";
 
 import { AccountStyles, ImageStyles } from "./styles";
@@ -36,6 +35,7 @@ interface AccountInterface {
   setIsLoading: (arg: boolean) => void;
 }
 
+//error message functionality
 const errorMessage = (error: string) => toast(error);
 
 const Account = (props: AccountInterface) => {
@@ -51,30 +51,22 @@ const Account = (props: AccountInterface) => {
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
 
-  // const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
   const [isDeleteAvatarModalOpen, setDeleteAvatarModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
   const [userAvatarPath, setUserAvatarPath] = useState<string | undefined>("");
-  // const [hasAvatarLoaded, setHasAvatarLoaded] = useState<boolean>(false);
 
   const [isComponentLoading, setIsComponentLoading] = useState<boolean>(true);
 
   const getUserDetails = async () => {
     const res: UserData = (await getUser()) as UserData;
 
-    // if (res) {
-    //   console.log("account page setting is loading false");
-    //   setIsLoading(false);
-    // }
-
     if (res.status === 200) {
       setNewUserName(res.userInfo.name);
       setNewUserAge(res.userInfo.age);
       setNewUserEmail(res.userInfo.email);
-      // setUserAvatarPath(res.userAvatar);
       const url = process.env.REACT_APP_API_URL;
       const userId = window.sessionStorage.getItem("_id");
       res.userAvatar
@@ -86,12 +78,10 @@ const Account = (props: AccountInterface) => {
 
   useEffect(() => {
     console.log("account using effect");
-    // if (imageRef.current) {
-    //   imageRef.current.addEventListener("load", onAvatarLoad);
-    //   console.log("loading avatar");
-    // }
+    const img = new Image();
+    // img.src = src as string;
+
     getUserDetails();
-    // setIsComponentLoading(false);
   }, []);
 
   const checkPasswords = (pw1: string, pw2: string) => {
@@ -126,7 +116,7 @@ const Account = (props: AccountInterface) => {
     try {
       const res = await updateUser(userResDetails);
       console.log(res);
-      if (res?.status !== 200) {
+      if (res && res.status !== 200) {
         errorMessage("unable to update account details");
         return;
       }
@@ -166,10 +156,10 @@ const Account = (props: AccountInterface) => {
     setUserAvatarFile(avatarFile);
   };
 
-  const onAvatarLoad = () => {
+  const onAvatarLoad = async () => {
     // setHasAvatarLoaded(true);
-    console.log("AVATAR LOADED");
     console.log(userAvatarPath);
+    const createNewImage = () => {};
     setIsComponentLoading(false);
   };
 
@@ -206,11 +196,7 @@ const Account = (props: AccountInterface) => {
         <div className="accountContainer">
           <ImageStyles>
             {userAvatarPath ? (
-              <img
-                className="avatar"
-                src={userAvatarPath}
-                onLoad={onAvatarLoad}
-              />
+              <img className="avatar" src={userAvatarPath} />
             ) : (
               <img className="avatar" src={blank} />
             )}
