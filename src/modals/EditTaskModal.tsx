@@ -57,45 +57,47 @@ const EditTaskModal = (props: EditModalInterface) => {
 
   return (
     <ModalStyles>
-      <h1>Edit Task</h1>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <label>Description</label>
-        <input
-          className="text-input"
-          type="text"
-          value={description}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleDescriptionChange(e.target.value)
-          }
-        />
-        <div className="radio">
-          <label>Complete?</label>
-          <label>
-            <input
-              className="radio-input"
-              type="radio"
-              value="Yes"
-              checked={completed === true}
-              onChange={handleChange}
-            />
-            Yes
-          </label>
-          <label>
-            <input
-              className="radio-input"
-              type="radio"
-              value="No"
-              checked={completed === false}
-              onChange={handleChange}
-            />
-            No
-          </label>
-        </div>
-      </form>
-      <button type="submit" onClick={handleClick}>
-        Update
-      </button>
-      <button onClick={closeEditModal}>Close</button>
+      <div className="modal-container">
+        <h1>Edit Task</h1>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <label>Description</label>
+          <input
+            className="text-input"
+            type="text"
+            value={description}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleDescriptionChange(e.target.value)
+            }
+          />
+          <div className="radio">
+            <label>Complete?</label>
+            <label>
+              <input
+                className="radio-input"
+                type="radio"
+                value="Yes"
+                checked={completed === true}
+                onChange={handleChange}
+              />
+              Yes
+            </label>
+            <label>
+              <input
+                className="radio-input"
+                type="radio"
+                value="No"
+                checked={completed === false}
+                onChange={handleChange}
+              />
+              No
+            </label>
+          </div>
+        </form>
+        <button type="submit" onClick={handleClick}>
+          Update
+        </button>
+        <button onClick={closeEditModal}>Close</button>
+      </div>
     </ModalStyles>
   );
 };

@@ -23,12 +23,14 @@ const DeleteAccountModal = (props: DeleteAccountInterface) => {
 
   return (
     <ModalStyles>
-      <h1>
-        Are you sure you want to delete your account and all associated data?
-        You cannot undo this!
-      </h1>
-      <button onClick={handleDeleteAccount}>Yes</button>
-      <button onClick={closeDeleteAccountModal}>No</button>
+      <div className="modal-container">
+        <h1>
+          Are you sure you want to delete your account and all associated data?
+          You cannot undo this!
+        </h1>
+        <button onClick={handleDeleteAccount}>Yes</button>
+        <button onClick={closeDeleteAccountModal}>No</button>
+      </div>
     </ModalStyles>
   );
 };
