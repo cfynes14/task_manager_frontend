@@ -68,7 +68,12 @@ const Account = (props: AccountInterface) => {
       setNewUserAge(res.userInfo.age);
       setNewUserEmail(res.userInfo.email);
       const url = process.env.REACT_APP_API_URL;
-      const userId = window.sessionStorage.getItem("_id");
+      let userId = window.sessionStorage.getItem("_id");
+
+      if (userId?.includes('"')) {
+        userId = userId.substr(1, userId.length - 2);
+      }
+
       res.userAvatar
         ? setUserAvatarPath(`${url}/users/${userId}/avatar`)
         : setUserAvatarPath(undefined);
@@ -149,7 +154,9 @@ const Account = (props: AccountInterface) => {
   const handleAvatarInputChange = (e: any) => {
     const avatarFile = e.target.files[0];
 
-    setUserAvatarPath(URL.createObjectURL(e.target.files[0]));
+    setUserAvatarPath(
+      URL.createObjectURL(e.target.files[0]).replaceAll('"', "")
+    );
 
     console.log(userAvatarPath);
 
@@ -166,7 +173,11 @@ const Account = (props: AccountInterface) => {
   const uploadAvatar = async () => {
     console.log("uploading avatar");
     const res = await addAvatar(userAvatarFile);
-    console.log(res);
+    if (res?.status === 200) {
+      toast("Your avatar has been uploaded");
+    } else {
+      toast("Unable to upload your avatar");
+    }
   };
 
   const handleDeleteAvatar = async () => {
@@ -178,7 +189,7 @@ const Account = (props: AccountInterface) => {
 
     if (res && res.status !== 200) {
       setUserAvatarPath(originalAvatarPath);
-      //TOAST MESSAGE ERROR
+      toast("Cannot delete avatar, try again later");
     }
   };
 
