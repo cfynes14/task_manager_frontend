@@ -6,6 +6,7 @@
   },
   "name": "task_manager_frontend",
   "version": "0.1.0",
+  "homepage": "https://cfynes14.github.io/task_manager_frontend",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
@@ -50,6 +51,8 @@
     "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "clean": "rm -rf ./node_modules"
   },
