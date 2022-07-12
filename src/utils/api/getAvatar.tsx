@@ -1,15 +1,13 @@
 const getAvatar = async (): Promise<Response> => {
-  // let myHeaders = new Headers();
-  // myHeaders.append(
-  //   "Authorization",
-  //   `Bearer ${window.sessionStorage.getItem("token")}`
-  // );
+  let id = window.sessionStorage.getItem("_id") as string;
 
-  const id = window.sessionStorage.getItem("_id");
+  if (id.includes('"')) {
+    // remove double quotes at the beginning/end of string
+    id = id.substr(1, id.length - 2);
+  }
 
   const requestOptions: any = {
     method: "GET",
-    // headers: myHeaders,
     redirect: "follow",
   };
 

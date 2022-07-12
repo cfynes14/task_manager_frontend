@@ -29,10 +29,14 @@ const DeleteTaskModal = (props: DeleteModalInterface) => {
 
   return (
     <ModalStyles>
-      <h1>Delete task</h1>
-      <p>Are you sure you want to delete {taskDescription} ?</p>
-      <button onClick={handleDelete}>Confirm</button>
-      <button onClick={closeDeleteModal}>Cancel</button>
+      <div className="modal-container">
+        <h1>Delete task</h1>
+        <p>
+          Are you sure you want to delete <i>"{taskDescription}"</i> ?
+        </p>
+        <button onClick={handleDelete}>Confirm</button>
+        <button onClick={closeDeleteModal}>Cancel</button>
+      </div>
     </ModalStyles>
   );
 };

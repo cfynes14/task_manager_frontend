@@ -16,14 +16,14 @@ export interface UserInterface {
 }
 
 interface NewUserFormInterface {
-  setIsLoading: (arg: boolean) => void;
+  // setIsLoading: (arg: boolean) => void;
   setIsLoggedIn: (arg: boolean) => void;
 }
 
 const NewUserForm = (props: NewUserFormInterface) => {
   const navigate = useNavigate();
 
-  const { setIsLoading, setIsLoggedIn } = props;
+  const { setIsLoggedIn } = props;
 
   const [newUserName, setNewUserName] = useState<string>("");
   const [newUserAge, setNewUserAge] = useState<number>(0);
@@ -31,7 +31,7 @@ const NewUserForm = (props: NewUserFormInterface) => {
   const [newUserPassword, setNewUserPassword] = useState<string>("");
 
   const handleClick = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const userInfo: UserInterface = {
       name: newUserName,
       age: newUserAge,
@@ -48,7 +48,7 @@ const NewUserForm = (props: NewUserFormInterface) => {
       window.sessionStorage.setItem("_id", JSON.stringify(res.data._id));
 
       setIsLoggedIn(true);
-      setIsLoading(true);
+      // setIsLoading(true);
       navigate("/");
     } else {
       console.log("unable to create user");

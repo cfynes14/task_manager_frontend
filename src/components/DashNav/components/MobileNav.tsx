@@ -47,13 +47,19 @@ const MobileNav = (props: MobileNavInterface) => {
             tw="block py-2 px-4 text-sm hover:bg-gray-200"
             onClick={(e) => dashboardHandleClick(e)}
           >
-            Show Completed
+            All
           </h3>
           <h3
             tw="block py-2 px-4 text-sm hover:bg-gray-200"
             onClick={(e) => dashboardHandleClick(e)}
           >
-            Show Incomplete
+            Completed
+          </h3>
+          <h3
+            tw="block py-2 px-4 text-sm hover:bg-gray-200"
+            onClick={(e) => dashboardHandleClick(e)}
+          >
+            Incomplete
           </h3>
           <h3
             tw="block py-2 px-4 text-sm hover:bg-gray-200"

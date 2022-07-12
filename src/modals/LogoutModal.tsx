@@ -16,11 +16,13 @@ const LogoutModal = (props: LogoutModalInterface) => {
 
   return (
     <ModalStyles>
-      <h1>Are you sure you want to logout?</h1>
-      <section>
-        <button onClick={logoutAll}>Yes</button>
-        <button onClick={closeLogoutModal}>No</button>
-      </section>
+      <div className="modal-container">
+        <h1>Are you sure you want to logout?</h1>
+        <section>
+          <button onClick={logoutAll}>Yes</button>
+          <button onClick={closeLogoutModal}>No</button>
+        </section>
+      </div>
     </ModalStyles>
   );
 };

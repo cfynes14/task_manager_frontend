@@ -12,10 +12,12 @@ const DeleteAvatarModal = (props: DeleteAvatarModalInterface) => {
 
   return (
     <ModalStyles>
-      <h1>Delete task</h1>
-      <p>Are you sure you want to delete your avatar?</p>
-      <button onClick={handleDeleteAvatar}>Confirm</button>
-      <button onClick={closeDeleteAvatarModal}>Cancel</button>
+      <div className="modal-conatainer">
+        <h1>Delete task</h1>
+        <p>Are you sure you want to delete your avatar?</p>
+        <button onClick={handleDeleteAvatar}>Confirm</button>
+        <button onClick={closeDeleteAvatarModal}>Cancel</button>
+      </div>
     </ModalStyles>
   );
 };

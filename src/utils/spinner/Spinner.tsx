@@ -1,6 +1,6 @@
 import "./styles/loader.css";
 
-const LoaderComponent = () => {
+const Spinner = () => {
   return (
     <div className="loaderContainer">
       <div className="sbl-circ-path"></div>
@@ -8,4 +8,4 @@ const LoaderComponent = () => {
   );
 };
 
-export default LoaderComponent;
+export default Spinner;

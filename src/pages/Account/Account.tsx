@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useCallback } from "react";
 // import "./account.scss";
 
 import { AccountStyles, ImageStyles } from "./styles";
 
 import Modal from "react-modal";
 
+//components
+import { Loader } from "../../utils/loader/Loader";
+
+// modals
 import DeleteAccountModal from "../../modals/DeleteAccountModal";
 import DeleteAvatarModal from "../../modals/DeleteAvatarModal";
 
@@ -32,10 +35,11 @@ interface AccountInterface {
   setIsLoading: (arg: boolean) => void;
 }
 
+//error message functionality
 const errorMessage = (error: string) => toast(error);
 
 const Account = (props: AccountInterface) => {
-  const { isLoggedIn, setIsLoggedIn, setIsLoading } = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
   let navigate = useNavigate();
   const [userPassword, setNewUserPassword] = useState<string>("");
@@ -47,40 +51,41 @@ const Account = (props: AccountInterface) => {
   const [userAge, setNewUserAge] = useState<number>(0);
   const [userEmail, setNewUserEmail] = useState<string>("");
 
-  // const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] =
     useState<boolean>(false);
   const [isDeleteAvatarModalOpen, setDeleteAvatarModalOpen] =
     useState<boolean>(false);
   const [userAvatarFile, setUserAvatarFile] = useState<string>("");
-  const [userAvatarPath, setUserAvatarPath] = useState<string | null>("");
+  const [userAvatarPath, setUserAvatarPath] = useState<string | undefined>("");
+
+  const [isComponentLoading, setIsComponentLoading] = useState<boolean>(true);
 
   const getUserDetails = async () => {
-    console.log("account page setting isloading true");
-    setIsLoading(true);
     const res: UserData = (await getUser()) as UserData;
-
-    if (res) {
-      console.log("account page setting is loading false");
-      setIsLoading(false);
-    }
 
     if (res.status === 200) {
       setNewUserName(res.userInfo.name);
       setNewUserAge(res.userInfo.age);
       setNewUserEmail(res.userInfo.email);
-      console.log("USERAVATAR", res.userAvatar);
-      // setUserAvatarPath(res.userAvatar);
       const url = process.env.REACT_APP_API_URL;
-      const userId = window.sessionStorage.getItem("_id");
+      let userId = window.sessionStorage.getItem("_id");
+
+      if (userId?.includes('"')) {
+        userId = userId.substr(1, userId.length - 2);
+      }
+
       res.userAvatar
         ? setUserAvatarPath(`${url}/users/${userId}/avatar`)
-        : setUserAvatarPath(null);
+        : setUserAvatarPath(undefined);
+      setIsComponentLoading(false);
     }
   };
 
   useEffect(() => {
     console.log("account using effect");
+    const img = new Image();
+    // img.src = src as string;
+
     getUserDetails();
   }, []);
 
@@ -95,8 +100,6 @@ const Account = (props: AccountInterface) => {
       errorMessage("Passwords must match!");
       return;
     }
-
-    setIsLoading(true);
 
     let userResDetails: UpdateUser = {};
 
@@ -118,7 +121,7 @@ const Account = (props: AccountInterface) => {
     try {
       const res = await updateUser(userResDetails);
       console.log(res);
-      if (res?.status !== 200) {
+      if (res && res.status !== 200) {
         errorMessage("unable to update account details");
         return;
       }
@@ -151,29 +154,42 @@ const Account = (props: AccountInterface) => {
   const handleAvatarInputChange = (e: any) => {
     const avatarFile = e.target.files[0];
 
-    setUserAvatarPath(URL.createObjectURL(e.target.files[0]));
+    setUserAvatarPath(
+      URL.createObjectURL(e.target.files[0]).replaceAll('"', "")
+    );
 
     console.log(userAvatarPath);
 
     setUserAvatarFile(avatarFile);
   };
 
+  const onAvatarLoad = async () => {
+    // setHasAvatarLoaded(true);
+    console.log(userAvatarPath);
+    const createNewImage = () => {};
+    setIsComponentLoading(false);
+  };
+
   const uploadAvatar = async () => {
     console.log("uploading avatar");
     const res = await addAvatar(userAvatarFile);
-    console.log(res);
+    if (res?.status === 200) {
+      toast("Your avatar has been uploaded");
+    } else {
+      toast("Unable to upload your avatar");
+    }
   };
 
   const handleDeleteAvatar = async () => {
     const originalAvatarPath = userAvatarPath;
-    setUserAvatarPath(null);
+    setUserAvatarPath(undefined);
     closeDeleteAvatarModal();
 
     const res = await deleteAvatar();
 
     if (res && res.status !== 200) {
       setUserAvatarPath(originalAvatarPath);
-      //TOAST MESSAGE ERROR
+      toast("Cannot delete avatar, try again later");
     }
   };
 
@@ -184,17 +200,18 @@ const Account = (props: AccountInterface) => {
       </h1>
     );
   }
-  return (
-    <div>
-      <AccountStyles>
-        <ToastContainer />
-        <h1>Account</h1>
+
+  const AccountPage = () => {
+    return (
+      <>
         <div className="accountContainer">
           <ImageStyles>
-            <img
-              className="avatar"
-              src={userAvatarPath ? userAvatarPath : blank}
-            />
+            {userAvatarPath ? (
+              <img className="avatar" src={userAvatarPath} />
+            ) : (
+              <img className="avatar" src={blank} />
+            )}
+
             <label className="boxElement">Upload avatar</label>
             <input
               id="avatar"
@@ -271,7 +288,23 @@ const Account = (props: AccountInterface) => {
           </form>
           <p>{errorMessage}</p>
         </div>
-      </AccountStyles>
+      </>
+    );
+  };
+
+  return (
+    <div>
+      <main>
+        <AccountStyles>
+          <h1>Account</h1>
+          <ToastContainer />
+          <Loader
+            WrappedComponent={AccountPage}
+            isComponentLoading={isComponentLoading}
+          />
+        </AccountStyles>
+      </main>
+
       <Modal isOpen={isDeleteAccountModalOpen} className="modal">
         <DeleteAccountModal
           closeDeleteAccountModal={closeDeleteAccountModal}

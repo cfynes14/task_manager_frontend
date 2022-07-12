@@ -1,40 +1,35 @@
-//dependencies
+// dependencies
 import React, { useEffect, useCallback, FormEventHandler } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
-import { createImportSpecifier, ModifierFlags } from "typescript";
-import { Link } from "react-router-dom";
-import tw from "twin.macro";
 
-//pages
+// pages
 import DashNav from "../../components/DashNav/DashNav";
 import Task from "../../components/Task/Task";
 
-//interfaces
-import { TaskParams } from "../../components/Task/Task";
+// interfaces
 import { UrlParams } from "../../utils/api/getTasks";
 
-//components
+// components
 import NewTaskModal from "../../modals/NewTaskModal";
 import EditTaskModal from "../../modals/EditTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
 import LogoutModal from "../../modals/LogoutModal";
+import { Loader } from "../../utils/loader/Loader";
 
-//functions
+// functions
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
-//styles
+// styles
 import DashStyles from "./styles";
-import "./dashboard.scss";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
-  setIsLoading: (arg: boolean) => void;
 }
 
 const Dashboard = (props: DashboardInterface) => {
-  const { setIsLoggedIn, setIsLoading } = props;
+  const { setIsLoggedIn } = props;
 
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
@@ -49,6 +44,7 @@ const Dashboard = (props: DashboardInterface) => {
   const [skipCounter, setSkipCounter] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string | undefined>("");
+  const [isComponentLoading, setIsComponentLoading] = useState<boolean>(true);
 
   const pageSkipCreator = () => {
     if (pageNumber === 0) {
@@ -88,18 +84,29 @@ const Dashboard = (props: DashboardInterface) => {
     let optionalParams: UrlParams = paramBuilder();
 
     const currentTasks = await getTasks(optionalParams);
+
+    if (currentTasks) {
+      setIsComponentLoading(false);
+    }
+
     setTasks(currentTasks);
   };
 
-  // React.MouseEvent<HTMLButtonElement, MouseEvent> - replaced with 'any' because TS can't find textContent on e.target
-  const dashboardHandleClick = (e: any) => {
+  const dashboardHandleClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (e.target.className.includes("pageButton")) {
-      setSkipCounter(e.target.textContent);
+    const target = e.target as HTMLHeadingElement;
+
+    if (
+      target.textContent &&
+      target.className &&
+      target.className.includes("pageButton")
+    ) {
+      const skip: number = parseInt(target.textContent);
+      setSkipCounter(skip);
     }
 
-    switch (e.target.textContent) {
+    switch (target.textContent) {
       case "Completed":
         setCompletedFilter(true);
         break;
@@ -115,12 +122,9 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("HANDLING CHANGE");
-    console.log(e.target);
     if (e.target.name === "limitSelect") {
       setTaskLimit(parseInt(e.target.value));
     } else {
-      // console.log(e.target.value);
       switch (e.target.value) {
         case "Newest":
           setSortBy("createdAt:desc");
@@ -138,11 +142,7 @@ const Dashboard = (props: DashboardInterface) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    // handleLogin();
     handleTasksChange();
-    // setTasks;
-    setIsLoading(false);
   }, [completedFilter, taskLimit, sortBy, skipCounter]);
 
   //modals
@@ -185,7 +185,6 @@ const Dashboard = (props: DashboardInterface) => {
     );
     if (res && res.status === 200) {
       setIsLoggedIn(false);
-      setIsLoading(true);
     }
   };
 
@@ -200,19 +199,9 @@ const Dashboard = (props: DashboardInterface) => {
 
   pageArrayCreator();
 
-  return (
-    <DashStyles>
-      <main>
-        <div className="dashContainer">
-          {/* <h2>Dashboard</h2> */}
-          <DashNav
-            dashboardHandleClick={dashboardHandleClick}
-            openNewTaskModal={openNewTaskModal}
-            openEditModal={openEditModal}
-            openLogoutModal={openLogoutModal}
-            handleChange={handleChange}
-          />
-        </div>
+  const Tasks = () => {
+    return (
+      <>
         <div className="wrapper">
           {tasks.map((task: any) => (
             <Task
@@ -241,6 +230,24 @@ const Dashboard = (props: DashboardInterface) => {
               ))
             : ""}
         </div>
+      </>
+    );
+  };
+
+  return (
+    <DashStyles>
+      <main>
+        <DashNav
+          dashboardHandleClick={dashboardHandleClick}
+          openNewTaskModal={openNewTaskModal}
+          openEditModal={openEditModal}
+          openLogoutModal={openLogoutModal}
+          handleChange={handleChange}
+        />
+        <Loader
+          WrappedComponent={Tasks}
+          isComponentLoading={isComponentLoading}
+        />
         <Modal
           isOpen={isNewTaskModalOpen}
           ariaHideApp={false}
