@@ -17,7 +17,7 @@ const DashStyles = styled.div`
     ${tw`pb-2`}
   }
   div.wrapper {
-    ${tw`flex flex-wrap justify-between`}
+    ${tw`ml-16 md:ml-0 flex flex-wrap justify-between`}
   }
   h2 {
     ${tw`text-colour5 text-4xl text-center font-sans mb-5 pt-5`}
