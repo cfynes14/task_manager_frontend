@@ -66,8 +66,6 @@ const createNewUser = async ({
     result.data = json.user;
     result.status = response.status;
 
-    window.sessionStorage.setItem("_id", JSON.stringify(json.user._id));
-    window.sessionStorage.setItem("token", JSON.stringify(json.token));
     console.log(json);
     return result;
   } catch (e) {
