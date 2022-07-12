@@ -1,34 +1,31 @@
-//dependencies
+// dependencies
 import React, { useEffect, useCallback, FormEventHandler } from "react";
 import { useState } from "react";
 import Modal from "react-modal";
-import tw from "twin.macro";
 
-//pages
+// pages
 import DashNav from "../../components/DashNav/DashNav";
 import Task from "../../components/Task/Task";
 
-//interfaces
+// interfaces
 import { UrlParams } from "../../utils/api/getTasks";
 
-//components
+// components
 import NewTaskModal from "../../modals/NewTaskModal";
 import EditTaskModal from "../../modals/EditTaskModal";
 import DeleteTaskModal from "../../modals/DeleteTaskModal";
 import LogoutModal from "../../modals/LogoutModal";
 import { Loader } from "../../utils/loader/Loader";
 
-//functions
+// functions
 import logoutAll from "../../utils/api/logoutAll";
 import getTasks from "../../utils/api/getTasks";
 
-//styles
+// styles
 import DashStyles from "./styles";
-import "./dashboard.scss";
 
 interface DashboardInterface {
   setIsLoggedIn: (arg: boolean) => void;
-  // setIsLoading: (arg: boolean) => void;
 }
 
 const Dashboard = (props: DashboardInterface) => {
@@ -183,7 +180,6 @@ const Dashboard = (props: DashboardInterface) => {
     );
     if (res && res.status === 200) {
       setIsLoggedIn(false);
-      // setIsLoading(true);
     }
   };
 
